@@ -1,0 +1,54 @@
+body {
+    margin: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.userDiv {
+    width: fit-content;
+    height: fit-content;
+}
+
+.notificationBtn {
+    border: white 1px solid!important;
+}
+
+.card img {
+    max-width: max-content;
+}
+
+.card a {
+    text-decoration: none;
+    color: black;
+}
+
+.card p {
+    font-size: small;
+}
+
+.menu ul {
+    list-style: none;
+}
+
+.menu a {
+    text-decoration: none;
+    color:white;
+}
+
+.menu a:hover {
+    padding: 2px;
+    font-size: large;
+}
+
+.menu a.active {
+    font-size: larger;
+    color: yellow;
+}
+
+.menu li {
+    padding-top:10px;
+}
+
+.logout {
+    text-decoration: none;
+    color: white;
+}
