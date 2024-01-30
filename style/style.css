@@ -12,6 +12,14 @@ body {
     border: white 1px solid!important;
 }
 
+.commentDiv {
+    max-height: 150px;
+}
+
+.commList {
+    list-style: none;
+}
+
 .card img {
     max-width: max-content;
 }

@@ -12,13 +12,21 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
 
         if($action == "like") {
             $db->userLikePost(3, $postId);
+            echo $db->getLikeNumber($postId);
         } else if($action == "unlike") {
             $db->userUnlikePost(3, $postId);
+            echo $db->getLikeNumber($postId);
+        } else if($action == "comment" && isset($data['commentText'])) {
+            $db->addComment($postId, 3, $data['commentText']);
+            $response = [
+                "username" => $db->getUserName(3),
+                "numComment" => count($db->getComments($postId))
+            ];
+            echo json_encode($response);
         }
 
-        $newLikeNumber = $db->getLikeNumber($postId);
-
-        echo $newLikeNumber;
+        
+        
     }
 }
 
