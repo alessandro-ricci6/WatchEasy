@@ -46,7 +46,7 @@ foreach ($templateParams['post'] as $post):
               <div class="form-floating">
                 <input type="hidden" name="postId" value="<?php echo $post['postId'] ?>">
                 <textarea class="form-control" placeholder="Leave a comment here" id="commentTextArea<?php echo $post['postId'];?>" name="comment" required></textarea>
-                <label for="floatingTextarea2">Comments</label>
+                <label for="commentTextArea<?php echo $post['postId'];?>">Comments</label>
               </div>
             </div>
             <div class="col-md-1">

@@ -18,7 +18,7 @@
                 <button class="menuBtn me-auto mb-2 mb-lg-0 btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
                     <i class="fa-solid fa-bars"></i>
                 </button>
-                
+                <h1 class="mx-3"><a class="text-decoration-none text-light" href="index.php">WatchEasy</a></h1>
                 <button type="button" class="notificationBtn btn btn-dark me-2 position-relative" data-bs-toggle="modal" data-bs-target="#notificationModal">
                   <i class="fa-solid fa-envelope"></i>
                   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
