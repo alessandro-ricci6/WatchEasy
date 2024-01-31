@@ -66,13 +66,11 @@
     </aside>
     <?php endif; ?>
 
-    <main class="float-md-start col-md-8">
-        <?php
-        if(isset($templateParams['nome'])){
-            require($templateParams['nome']);
-        }
-        ?>
-    </main>
+      <?php
+      if(isset($templateParams['nome'])){
+          require($templateParams['nome']);
+      }
+      ?>
 
     <!-- Modal opened when press Notification button -->
     <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

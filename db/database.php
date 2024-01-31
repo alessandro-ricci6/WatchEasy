@@ -19,6 +19,15 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getPostById($postId) {
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE postId = ?");
+        $stmt->bind_param('i', $postId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getUserName($userId) {
         $stmt = $this->db->prepare("SELECT username FROM user WHERE userId = ?");
         $stmt->bind_param('s', $userId);

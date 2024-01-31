@@ -1,3 +1,4 @@
+<main class="float-md-start col-md-8">
 <div class="d-flex flex-column justify-content-center mx-3">
 <?php
 foreach ($templateParams['post'] as $post): 
@@ -60,3 +61,4 @@ foreach ($templateParams['post'] as $post):
     </div>
 <?php endforeach; ?>
 </div>
+</main>
