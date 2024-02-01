@@ -14,7 +14,7 @@
                 if($notification['postId'] != null){
                   echo "<a href='post-detail.php?postId=" . $notification['postId'] ."'> tuo post</a>";
                 }
-                ?></li>
+                ?><button class="readNotification btn float-end" data-notification-id="<?php echo $notification['notificationId']?>"><span class="fa-solid fa-check"></span></button></li>
                 
             <?php endforeach; ?>
             </ul>
