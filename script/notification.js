@@ -2,7 +2,7 @@ function readAll() {
     $("#readAllNotificationBtn").on("click", function() {
         const notificationList = document.getElementById("notificationList");
         let notifications = notificationList.getElementsByTagName("li");
-        console.log("Read")
+        let notificationCounter = document.getElementById("notificationCounter")
         fetch("./notification.php", {
             method: "POST",
             headers: {
@@ -23,6 +23,10 @@ function readAll() {
             } else {
                 throw new Error("Network response was not ok");
             }
+        })
+        .then (data => {
+            const datas = JSON.parse(data);
+            notificationCounter.innerHTML = datas['notificationCounter'];
         })
     })
 }

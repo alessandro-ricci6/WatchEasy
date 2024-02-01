@@ -9,6 +9,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(isset($data['action'])) {
         if($data['action'] == "readAll") {
             $db->readAllNotification(3);
+            echo json_encode(array('notificationCounter' => mysqli_num_rows($db->getActiveNotification(3))));
         }
     }
 }
