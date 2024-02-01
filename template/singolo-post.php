@@ -19,16 +19,16 @@
                 ><span class="fa-solid fa-circle-user"></span><?php echo $userName ?></a>
             </h6>
             <p class="card-text"><?php echo $post['paragraph']?></p>
-            <button class="btn likeBtn" data-post-id="<?php echo $post['postId'] ?>"><span class="likeNumber"><?php echo $db->getLikeNumber($post['postId']); ?> </span><span class="<?php $db->getLikedPost(3, $post['postId']) ?>"></span></button>
+            <button class="btn likeBtn" data-post-id="<?php echo $post['postId'] ?>"><span class="likeNumber"><?php echo $db->getLikeNumber($post['postId']); ?> </span><span class="likeIcon <?php $db->getLikedPost(3, $post['postId']) ?>"></span></button>
             <button
               class="btn"
-              id="commentBtn1"
+              id="commentBtn<?php echo $post['postId'];?>"
             >
             <?php $comments = $db->getComments($post['postId']);
             echo count($comments); ?><span class="fa-regular fa-comment"></span>
             </button>
             <div>
-                <div class="commentDiv overflow-auto">
+                <div class="singleCommentDiv">
                     <ul class="commList" id="commentList<?php echo $post['postId'];?>">
                     <?php foreach ($comments as $comment):
                     $commUserName = $db->getUserName($comment['userID'])?>
@@ -40,7 +40,7 @@
                 <div class="col-md-10">
                   <div class="form-floating">
                     <input type="hidden" name="postId" value="<?php echo $post['postId'] ?>">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="commentTextArea1" name="comment" required></textarea>
+                    <textarea class="form-control" placeholder="Leave a comment here" id="commentTextArea<?php echo $post['postId'];?>" name="comment" required></textarea>
                     <label for="commentTextArea<?php echo $post['postId'];?>">Comments</label>
                   </div>
                 </div>
@@ -53,4 +53,5 @@
             </div>
           </div>
         </div>
+      <script src="script/post.js"></script>
 </main>

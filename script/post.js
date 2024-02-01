@@ -1,10 +1,9 @@
 function likeUnlike() {
     $(".likeBtn").on("click", function() {
         let postId = $(this).attr("data-post-id");
-        let icon = $(this).find("i");
+        let icon = this.querySelector(".likeIcon");
         let likeNumber = this.querySelector(".likeNumber");
-        if (icon.attr("class") == "fa-regular fa-heart") {
-            icon.removeClass("fa-regular fa-heart").addClass("fa-solid fa-heart");
+        if (icon.classList.contains("fa-regular")) {          
 
             fetch('./post.php', {
                 method: 'POST',
@@ -25,10 +24,11 @@ function likeUnlike() {
             })
             .then(data => {
                 likeNumber.innerHTML = data + ' ';
+                icon.classList.remove("fa-regular");
+                icon.classList.add("fa-solid"); 
             })
 
         } else {
-            icon.removeClass("fa-solid fa-heart").addClass("fa-regular fa-heart");
             fetch('./post.php', {
                 method: 'POST',
                 headers: {
@@ -48,6 +48,8 @@ function likeUnlike() {
             })
             .then(data => {
                 likeNumber.innerHTML = data + ' ';
+                icon.classList.remove("fa-solid");
+                icon.classList.add("fa-regular");
             })
         }
     });
@@ -77,7 +79,6 @@ function addComment() {
         })
         .then (data => {
             jsonData = JSON.parse(data)
-            console.log(jsonData.username)
             let comment = document.createElement("li");
             let link = document.createElement("a");
             link.href = "profile.php?username=" + jsonData.username;

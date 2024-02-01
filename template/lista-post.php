@@ -23,7 +23,7 @@ foreach ($templateParams['post'] as $post):
         </h6>
         <p class="card-text"><?php echo $post['paragraph']; ?>
         </p>
-        <button class="btn likeBtn" data-post-id="<?php echo $post['postId'] ?>"><span class="likeNumber"><?php echo $db->getLikeNumber($post['postId']); ?> </span><i class="<?php $db->getLikedPost(3, $post['postId']) ?>"></i></button>
+        <button class="btn likeBtn" data-post-id="<?php echo $post['postId'] ?>"><span class="likeNumber"><?php echo $db->getLikeNumber($post['postId']); ?> </span><span class="likeIcon <?php $db->getLikedPost(3, $post['postId']) ?>"></span></button>
         <button
           class="btn"
           id="commentBtn<?php echo $post['postId']?>"
@@ -61,4 +61,6 @@ foreach ($templateParams['post'] as $post):
     </div>
 <?php endforeach; ?>
 </div>
+    <script src="script/post.js"></script>
+    <script src="script/home.js"></script>
 </main>

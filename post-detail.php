@@ -12,6 +12,6 @@ if(isset($_GET['postId'])){
 
 $templateParams['post'] = $db->getPostById($postId);
 
-require_once 'template/base.php';
+require 'template/base.php';
 
 ?>
