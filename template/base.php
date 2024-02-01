@@ -75,9 +75,8 @@
 
     <!-- Modal opened when press Notification button -->
     <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      
+      <?php require 'notification-view.php'; ?>
     </div>
-
 
 </body>
 </html>

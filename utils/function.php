@@ -6,4 +6,18 @@ function isActive($pagename){
     }
 }
 
+function getNotificationType($notificationType) {
+    switch ($notificationType) {
+        case '1':
+            echo " ha iniziato a seguirti";
+            break;
+        case '2':
+            echo " ha messo mi piace al";
+            break;
+        case '3':
+            echo " ha commentato il";
+            break;
+    }
+}
+
 ?>
