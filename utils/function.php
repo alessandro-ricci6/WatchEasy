@@ -20,4 +20,12 @@ function getNotificationType($notificationType) {
     }
 }
 
+function notificationStyle($read) {
+    if ($read == 1) {
+        echo "list-group-item-secondary";
+    } else {
+        echo "";
+    }
+}
+
 ?>

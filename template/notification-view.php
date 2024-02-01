@@ -8,21 +8,15 @@
           <div class="modal-body">
             <ul class="list-group notificationList" id="notificationList">
             <?php foreach ($db->getNotificationByUserId(3) as $notification):
-                $fromUsername = $db->getUserName($notification['fromUserId']);
-                if ($notification['notificationRead'] == 1):?>
-                <li id="notification<?php echo $notification['notificationId'];?>" class="notification list-group-item border list-group-item-secondary"><a href="profile.php?username?<?php echo $fromUsername; ?>"><?php echo $fromUsername;?></a><?php getNotificationType($notification['notificationType']);
+                $fromUsername = $db->getUserName($notification['fromUserId']);?>
+
+                <li id="notification<?php echo $notification['notificationId'];?>" class="notification list-group-item border <?php notificationStyle($notification['notificationRead']) ?>"><a href="profile.php?username?<?php echo $fromUsername; ?>"><?php echo $fromUsername;?></a><?php getNotificationType($notification['notificationType']);
                 if($notification['postId'] != null){
                   echo "<a href='post-detail.php?postId=" . $notification['postId'] ."'> tuo post</a>";
                 }
                 ?></li>
-                <?php else:?>
-                <li id="notification<?php echo $notification['notificationId'];?>" class="notification list-group-item border"><a href="profile.php?username?<?php echo $fromUsername; ?>"><?php echo $fromUsername;?></a><?php getNotificationType($notification['notificationType']);
-                if($notification['postId'] != null){
-                  echo "<a href='post-detail.php?postId=" . $notification['postId'] ."'> tuo post</a>";
-                }
-                ?></li>
-            <?php endif;
-            endforeach; ?>
+                
+            <?php endforeach; ?>
             </ul>
         </div>
         <div class="modal-footer">
