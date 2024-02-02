@@ -10,6 +10,11 @@ foreach ($templateParams['post'] as $post):
       <img class="py-1" src="<?php echo 'upload/' . $post['img'] ?>" alt="">
       <?php endif; ?>
       <div class="card-body">
+      <a class="float-end btn popoverPost" tabindex="0" role="button" data-post-id="<?php echo $post['postId']?>"
+      data-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-html="true" 
+      data-bs-content="<div class='d-flex justify-content-center'>
+      <a class='btn <?php $db->deleteButtonDisable($post['postId']);?> text-danger deleteBtn'>Delete</a></div>">
+      <span class="fa-solid fa-ellipsis-vertical"></span></a>
         <h5 class="card-title"><a href="#"><?php echo $show['name'];
         if ($post['seasonId'] != null && $post['episodeId'] != null){
           echo " S: " . $post['seasonId'] . "/E: " . $post['episodeId'];

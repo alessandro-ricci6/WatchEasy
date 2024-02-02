@@ -147,6 +147,35 @@ class DatabaseHelper {
         $stmt->bind_param("iiiiss", $userId, $showId, $seasonId, $episodeId, $img, $comment);
         $stmt->execute();
     }
+
+    public function deleteButtonDisable($postId) {
+        $post = $this->getPostById($postId)[0];
+        if ($post['userId'] == 2){
+            echo "";
+        } else {
+            echo "disabled";
+        }
+    }
+
+    private function deleteLikesOfPost($postId){
+        $stmt = $this->db->prepare("DELETE FROM likes WHERE postId = ?");
+        $stmt->bind_param('i', $postId);
+        $stmt->execute();
+    }
+
+    private function deleteCommentsOfPost($postId) {
+        $stmt = $this->db->prepare("DELETE FROM comments WHERE postId = ?");
+        $stmt->bind_param('i', $postId);
+        $stmt->execute();  
+    }
+
+    public function deletePost($postId) {
+        $this->deleteLikesOfPost($postId);
+        $this->deleteCommentsOfPost($postId);
+        $stmt = $this->db->prepare("DELETE FROM post WHERE postId = ?");
+        $stmt->bind_param('i', $postId);
+        $stmt->execute();
+    }
 }
 
 ?>

@@ -92,5 +92,35 @@ function addComment() {
     });
 }
 
+function deletePost() {
+    $(".popoverPost").on("shown.bs.popover", function() {
+        const postId = $(this).attr("data-post-id");
+        $(".deleteBtn").on("click", function() {
+            console.log(postId);
+            fetch( "./post.php", {
+                method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                action: 'delete',
+                postId: postId
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text(); // Parse the JSON from the response.
+                } else {
+                    throw new Error("Network response was not ok");
+                }
+            })
+        })
+    })
+}
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+  });
+$(document).ready(deletePost)
 $(document).ready(addComment);
 $(document).ready(likeUnlike);

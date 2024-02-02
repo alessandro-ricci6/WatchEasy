@@ -2,6 +2,8 @@
 
 require_once 'bootstrap.php';
 
+ini_set('display_errors', 1);
+
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $jsonData = file_get_contents('php://input');
     $_POST = json_decode($jsonData, true);
@@ -23,6 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
                 "numComment" => count($db->getComments($postId))
             ];
             echo json_encode($response);
+        } else if ($action == "delete"){
+            $db->deletePost($postId);
         }
 
         
