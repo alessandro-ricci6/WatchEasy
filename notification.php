@@ -4,15 +4,15 @@ require_once 'bootstrap.php';
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $jsonData = file_get_contents('php://input');
-    $data = json_decode($jsonData, true);
+    $_POST = json_decode($jsonData, true);
 
-    if(isset($data['action'])) {
-        if($data['action'] == "readAll") {
+    if(isset($_POST['action'])) {
+        if($_POST['action'] == "readAll") {
             $db->readAllNotification(3);
             echo json_encode(array('notificationCounter' => mysqli_num_rows($db->getActiveNotification(3))));
         }
-        elseif ($data['action'] == 'readOne' && isset($data['notificationId'])) {
-            $db->readNotification($data['notificationId']);
+        elseif ($_POST['action'] == 'readOne' && isset($_POST['notificationId'])) {
+            $db->readNotification($_POST['notificationId']);
             echo json_encode(array('notificationCounter' => mysqli_num_rows($db->getActiveNotification(3))));
         }
     }

@@ -10,7 +10,7 @@ class DatabaseHelper {
         }        
     }
 
-    public function getPost($userId){
+    public function getPostOfFollowing($userId){
         $stmt = $this->db->prepare("SELECT * FROM post JOIN user ON post.userId = user.userId JOIN follow ON post.userId = follow.toUserId WHERE follow.fromUserId = ? ORDER BY pubTime DESC");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
@@ -140,6 +140,12 @@ class DatabaseHelper {
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function createPost($userId, $showId, $seasonId, $episodeId, $img, $comment) {
+        $stmt = $this->db->prepare("INSERT INTO post (userId, showId, seasonId, episodeId, img, paragraph) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("iiiiss", $userId, $showId, $seasonId, $episodeId, $img, $comment);
+        $stmt->execute();
     }
 }
 

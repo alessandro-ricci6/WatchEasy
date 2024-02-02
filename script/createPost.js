@@ -47,5 +47,26 @@ function changeEpisode() {
         })
     })
 }
+
+function createPost() {
+    $("#createPostForm").on("submit", function(event) {
+        event.preventDefault();
+        const formData = new FormData($(this)[0])
+        $.ajax({
+            url: "create-post.php",
+            method: "POST",
+            action: "createPost",
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function(data) {
+                document.getElementById("createPostForm").reset();
+            }
+        })
+        
+    })
+}
+
 $(document).ready(changeEpisode);
 $(document).ready(changeSeason);
+$(document).ready(createPost);
