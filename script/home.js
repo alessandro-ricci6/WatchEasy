@@ -15,7 +15,7 @@ function searchUser() {
     let query = $(this).val();
     if(query != '') {
       $.ajax({
-        url: "template/searchUser.php",
+        url: "searchUser.php",
         method: "POST",
         data: {query: query},
         success: function(data) {

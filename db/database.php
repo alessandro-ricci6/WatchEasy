@@ -132,6 +132,15 @@ class DatabaseHelper {
             echo 'fa-solid fa-heart';
         }
     }
+
+    public function getShowByUser($userId) {
+        $stmt = $this->db->prepare("SELECT * FROM showSaving WHERE userId = ?");
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 
 ?>

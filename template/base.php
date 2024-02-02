@@ -74,8 +74,12 @@
       }
       ?>
 
+    <div class="modal" id="addPostModal" tabindex="-1" aria-labelledby="newPostModalLabel" aria-hidden="true">
+      <?php echo require 'createPost.php' ?>
+    </div>
+
     <!-- Modal opened when press Notification button -->
-    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
       <?php require 'notification-view.php'; ?>
     </div>
 

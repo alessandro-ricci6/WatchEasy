@@ -1,6 +1,6 @@
 <?php
 
-require_once '../bootstrap.php';
+require_once 'bootstrap.php';
 
 if(isset($_POST["query"])) {
     $output = "";

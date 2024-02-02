@@ -29,6 +29,37 @@ class ApiHelper {
         return $data;
     }
 
+    public function getNumberOfSeason($showId) {
+        $apiEndpoint = $this->mainLink . 'shows/' . $showId . '/seasons';
+        $response = file_get_contents($apiEndpoint);
+        if($response === false) {
+            return 'Errore nella richiesta API';
+        }
+
+        $data = json_decode($response, true);
+        if($data === null) {
+            return 'Errore nella decodifica del JSON';
+        }
+
+        return $data;
+    }
+
+    public function getNumberOfEpisodes($seasonId) {
+        $apiEndpoint = $this->mainLink . 'seasons/' .$seasonId . '/episodes';
+        $response = file_get_contents($apiEndpoint);
+        if($response === false) {
+            return 'Errore nella richiesta API';
+        }
+
+        $data = json_decode($response, true);
+        if($data === null) {
+            return 'Errore nella decodifica del JSON';
+        }
+
+        return $data;
+    }
+
 }
+
 
 ?>
