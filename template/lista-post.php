@@ -1,10 +1,10 @@
 <main class="float-md-start col-md-8">
-<div class="d-flex flex-column justify-content-center mx-3">
+<div class="d-flex flex-column justify-content-center mx-3" id="postContainer">
 <?php
 foreach ($templateParams['post'] as $post): 
     $show = $api->getTvShowById($post['showId']);
     $userName = $db->getUserName($post['userId'])?>
-    <div class="card my-3">
+    <div class="card my-3" id="cardPost<?php echo $post['postId'] ?>">
       <?php if ($post['img'] != null):
         ?>
       <img class="py-1" src="<?php echo 'upload/' . $post['img'] ?>" alt="">
@@ -15,7 +15,7 @@ foreach ($templateParams['post'] as $post):
       data-bs-content="<div class='d-flex justify-content-center'>
       <a class='btn <?php $db->deleteButtonDisable($post['postId']);?> text-danger deleteBtn'>Delete</a></div>">
       <span class="fa-solid fa-ellipsis-vertical"></span></a>
-        <h5 class="card-title"><a href="#"><?php echo $show['name'];
+        <h5 class="card-title"><a href="show.php?showId=<?php echo $post['showId'] ?>"><?php echo $show['name'];
         if ($post['seasonId'] != null && $post['episodeId'] != null){
           echo " S: " . $post['seasonId'] . "/E: " . $post['episodeId'];
         } elseif($post['seasonId'] != null && $post['episodeId'] == null) {
@@ -23,7 +23,7 @@ foreach ($templateParams['post'] as $post):
         }
         ?></a></h5>
         <h6 class="card-subtitle mb-2 text-body-secondary">
-          <a href="#"
+          <a href="profile.php?username=<?php echo $userName ?>"
             ><i class="fa-solid fa-circle-user"></i> <?php echo $userName?></a>
         </h6>
         <p class="card-text"><?php echo $post['paragraph']; ?>

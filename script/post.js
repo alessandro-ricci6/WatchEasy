@@ -96,7 +96,6 @@ function deletePost() {
     $(".popoverPost").on("shown.bs.popover", function() {
         const postId = $(this).attr("data-post-id");
         $(".deleteBtn").on("click", function() {
-            console.log(postId);
             fetch( "./post.php", {
                 method: 'POST',
             headers: {
@@ -109,6 +108,8 @@ function deletePost() {
             })
             .then(response => {
                 if (response.ok) {
+                    const post = document.getElementById("cardPost" + postId);
+                    document.getElementById("postContainer").removeChild(post);
                     return response.text(); // Parse the JSON from the response.
                 } else {
                     throw new Error("Network response was not ok");

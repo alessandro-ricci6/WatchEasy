@@ -25,7 +25,7 @@
                     </select></label>
                 </div>
                 <label for="comment">Comment:</label>
-                <textarea class="rounded" name="comment" id="comment" cols="30" rows="6" required></textarea>
+                <textarea class="rounded" name="comment" id="comment" cols="30" rows="6" maxlength="255" required></textarea>
                 </div>
             <input type="submit" value="Post" class="btn btn-primary my-1" id="createPostBtn">
             </form>

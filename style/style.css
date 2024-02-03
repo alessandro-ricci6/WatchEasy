@@ -11,6 +11,15 @@ header h1 {
     height: fit-content;
 }
 
+.userSearchResult {
+    color: black;
+    font-size: large;
+}
+
+.userSearchResult:hover {
+    font-size: larger;
+}
+
 .notificationBtn {
     border: white 1px solid!important;
 }

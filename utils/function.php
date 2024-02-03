@@ -39,10 +39,6 @@ function uploadImage($image) {
         echo "Dimensioni immagine troppo grande (MAX 500Kb).";
     }
 
-    if (!$ext == 'png' || !$ext == 'jpeg' || !$ext == 'jpg'){
-        echo "Formato non corretto (Formati accettati: jpg, png, jpeg).";
-    }
-
     while (file_exists(POSTIMGDIR . $name . $index . $ext)){
         $index += 1;
     }
@@ -51,7 +47,7 @@ function uploadImage($image) {
 
     if(move_uploaded_file($image['tmp_name'], $destination)) {
         echo 'Caricamento immagine eseguito';
-        return $name . $index . $ext;
+        return $name . $index . '.' . $ext;
     } else {
         echo "Errore durante il caricamento dell'immagine";
     }
