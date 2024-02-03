@@ -43,7 +43,7 @@ function uploadImage($image) {
         $index += 1;
     }
 
-    $destination = POSTIMGDIR . $name . $index . $ext;
+    $destination = POSTIMGDIR . $name . $index . "." . $ext;
 
     if(move_uploaded_file($image['tmp_name'], $destination)) {
         echo 'Caricamento immagine eseguito';
@@ -51,6 +51,10 @@ function uploadImage($image) {
     } else {
         echo "Errore durante il caricamento dell'immagine";
     }
+}
+
+function deleteImage($img){
+    unlink($img);
 }
 
 ?>

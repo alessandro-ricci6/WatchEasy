@@ -7,7 +7,7 @@ foreach ($templateParams['post'] as $post):
     <div class="card my-3" id="cardPost<?php echo $post['postId'] ?>">
       <?php if ($post['img'] != null):
         ?>
-      <img class="py-1" src="<?php echo 'upload/' . $post['img'] ?>" alt="">
+        <img class="py-1 mx-auto col-10" src="<?php echo POSTIMGDIR . $post['postImg']; ?>" alt="">
       <?php endif; ?>
       <div class="card-body">
       <a class="float-end btn popoverPost" tabindex="0" role="button" data-post-id="<?php echo $post['postId']?>"

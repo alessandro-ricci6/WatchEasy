@@ -27,6 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
             echo json_encode($response);
         } else if ($action == "delete"){
             $db->deletePost($postId);
+            $img = $db->getPostById($postId)['img'];
+            deleteImage($img);
         }
 
         

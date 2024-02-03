@@ -4,7 +4,7 @@
     $userName = $db->getUserName($post['userId']) ?>
     <div class="card my-3 mx-3 col-md-8">
         <?php if ($post['img'] != null):?>
-        <img class="py-1" src="<?php echo 'upload/' . $post['img'] ?>" alt="">
+        <img class="py-1" src="<?php echo 'upload/' . $post['postImg'] ?>" alt="">
         <?php endif; ?>
         <div class="card-body">
             <h5 class="card-title"><a href="#"><?php echo $show['name'];

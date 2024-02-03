@@ -25,7 +25,7 @@ class DatabaseHelper {
         $stmt->execute();
         $result = $stmt->get_result();
 
-        return $result->fetch_all(MYSQLI_ASSOC);
+        return $result->fetch_all(MYSQLI_ASSOC)[0];
     }
 
     public function getUserName($userId) {
@@ -150,7 +150,7 @@ class DatabaseHelper {
 
     public function deleteButtonDisable($postId) {
         $post = $this->getPostById($postId)[0];
-        if ($post['userId'] == 2){
+        if ($post['userId'] == 3){
             echo "";
         } else {
             echo "disabled";

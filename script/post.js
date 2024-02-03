@@ -17,13 +17,15 @@ function likeUnlike() {
             })
             .then(response => {
                 if (response.ok) {
-                    likeNumber.innerHTML = data + ' ';
-                    icon.classList.remove("fa-regular");
-                    icon.classList.add("fa-solid");
                     return response.text(); // Parse the JSON from the response.
                 } else {
                     throw new Error("Network response was not ok");
                 }
+            })
+            .then(data => {
+                likeNumber.innerHTML = data + ' ';
+                icon.classList.remove("fa-regular");
+                icon.classList.add("fa-solid");
             })
         } else {
             fetch('./post.php', {
@@ -38,13 +40,15 @@ function likeUnlike() {
             })
             .then(response => {
                 if (response.ok) {
-                    likeNumber.innerHTML = data + ' ';
-                    icon.classList.remove("fa-solid");
-                    icon.classList.add("fa-regular");
                     return response.text(); // Parse the JSON from the response.
                 } else {
                     throw new Error("Network response was not ok");
                 }
+            })
+            .then(data => {
+                likeNumber.innerHTML = data + ' ';
+                icon.classList.remove("fa-solid");
+                icon.classList.add("fa-regular");
             })
         }
     });
