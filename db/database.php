@@ -169,7 +169,14 @@ class DatabaseHelper {
         $stmt->execute();  
     }
 
+    private function deleteNotificationOfPost($postId) {
+        $stmt = $this->db->prepare("DELETE FROM notification WHERE postId = ?");
+        $stmt->bind_param('i', $postId);
+        $stmt->execute();  
+    }
+
     public function deletePost($postId) {
+        $this->deleteNotificationOfPost($postId);
         $this->deleteLikesOfPost($postId);
         $this->deleteCommentsOfPost($postId);
         $stmt = $this->db->prepare("DELETE FROM post WHERE postId = ?");

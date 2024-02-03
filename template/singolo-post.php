@@ -1,12 +1,17 @@
 <main class="d-flex justify-content-center">
-    <?php $post = $templateParams['post'][0];
+    <?php $post = $templateParams['post'];
     $show = $api->getTvShowById($post['showId']);
     $userName = $db->getUserName($post['userId']) ?>
     <div class="card my-3 mx-3 col-md-8">
-        <?php if ($post['img'] != null):?>
-        <img class="py-1" src="<?php echo 'upload/' . $post['postImg'] ?>" alt="">
+        <?php if ($post['postImg'] != null):?>
+        <img class="py-1 mx-auto col-10" src="<?php echo POSTIMGDIR . $post['postImg'] ?>" alt="">
         <?php endif; ?>
         <div class="card-body">
+        <a class="float-end btn popoverPost" tabindex="0" role="button" data-post-id="<?php echo $post['postId']?>"
+        data-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-html="true" 
+        data-bs-content="<div class='d-flex justify-content-center'>
+        <a class='btn <?php $db->deleteButtonDisable($post['postId']);?> text-danger deleteBtn'>Delete</a></div>">
+        <span class="fa-solid fa-ellipsis-vertical"></span></a>
             <h5 class="card-title"><a href="#"><?php echo $show['name'];
             if ($post['seasonId'] != null && $post['episodeId'] != null){
               echo " S: " . $post['seasonId'] . "/E: " . $post['episodeId'];

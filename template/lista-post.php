@@ -5,7 +5,7 @@ foreach ($templateParams['post'] as $post):
     $show = $api->getTvShowById($post['showId']);
     $userName = $db->getUserName($post['userId'])?>
     <div class="card my-3" id="cardPost<?php echo $post['postId'] ?>">
-      <?php if ($post['img'] != null):
+      <?php if ($post['postImg'] != null):
         ?>
         <img class="py-1 mx-auto col-10" src="<?php echo POSTIMGDIR . $post['postImg']; ?>" alt="">
       <?php endif; ?>
