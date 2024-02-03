@@ -18,11 +18,11 @@
             <div class="container-fluid">
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <button class="menuBtn me-auto mb-2 mb-lg-0 btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
-                    <i class="fa-solid fa-bars"></i>
+                    <span class="fa-solid fa-bars"></span>
                 </button>
                 <h1 class="mx-3"><a class="text-decoration-none text-light" href="index.php">WatchEasy</a></h1>
-                <button type="button" class="notificationBtn btn btn-dark me-2 position-relative" data-bs-toggle="modal" data-bs-target="#notificationModal">
-                  <i class="fa-solid fa-envelope"></i>
+                <button type="button" class="btn btn-dark me-2 position-relative border border-1" data-bs-toggle="modal" data-bs-target="#notificationModal">
+                  <span class="fa-solid fa-envelope"></span>
                   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notificationCounter">
                     <?php echo mysqli_num_rows($db->getActiveNotification(3)); ?>
                     <span class="visually-hidden">unread messages</span>
@@ -37,20 +37,23 @@
     <!-- Menu -->
     <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
       <div class="offcanvas-header bg-dark">
-        <h5 class="offcanvas-title text-light" id="staticBackdropLabel">Menu</h5>
+        <h2 class="offcanvas-title text-light" id="staticBackdropLabel">Menu</h2>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body bg-dark">
         <div>
           <nav class="menu">
-            <ul>
-              <li><a <?php isActive("index.php"); ?> href="index.php">Home</a></li>
-              <li><a <?php isActive("profile.php"); ?> href="profile.php">Profilo</a></li>
-              <li><a <?php isActive("feed.php"); ?> href="feed.php">Feed</a></li>
+            <ul class="list-unstyled px-3">
+              <li class="pt-2"><a <?php isActive("index.php"); ?> href="index.php">Home</a></li>
+              <li class="pt-2"><a <?php isActive("profile.php"); ?> href="profile.php">Profilo</a></li>
+              <li class="pt-2"><a <?php isActive("feed.php"); ?> href="feed.php">Feed</a></li>
             </ul>
           </nav>
-          <a class="m-3 logout" href="#">Log Out</a>
+          
         </div>
+      </div>
+      <div class="bg-dark d-flex justify-content-center">
+        <a class="text-danger link-underline link-underline-opacity-0 bg-dark pb-2" href="#">Log Out</a>
       </div>
     </div>
 
@@ -74,12 +77,12 @@
       }
       ?>
 
-    <div class="modal" id="addPostModal" tabindex="-1" aria-labelledby="newPostModalLabel" aria-hidden="true">
+    <div class="modal" id="addPostModal" tabindex="-1" aria-hidden="true">
       <?php echo require 'createPost.php' ?>
     </div>
 
     <!-- Modal opened when press Notification button -->
-    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+    <div class="modal fade" id="notificationModal" tabindex="-1" aria-hidden="true">
       <?php require 'notification-view.php'; ?>
     </div>
 

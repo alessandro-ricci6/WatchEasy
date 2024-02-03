@@ -34,7 +34,7 @@
             </button>
             <div>
                 <div class="singleCommentDiv">
-                    <ul class="commList" id="commentList<?php echo $post['postId'];?>">
+                    <ul class="list-unstyled px-3" id="commentList<?php echo $post['postId'];?>">
                     <?php foreach ($comments as $comment):
                     $commUserName = $db->getUserName($comment['userID'])?>
                         <li><a href="profile.php?username=<?php echo $commUserName?>"><?php echo $commUserName . ":";?></a> <p><?php echo $comment['comm']; ?></p></li>

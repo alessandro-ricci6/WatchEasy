@@ -2,34 +2,13 @@ body {
     margin: 0;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-header h1 {
-    color: white;
-}
-
-.userDiv {
-    width: fit-content;
-    height: fit-content;
-}
-
-.userSearchResult {
-    color: black;
-    font-size: large;
-}
 
 .userSearchResult:hover {
-    font-size: larger;
-}
-
-.notificationBtn {
-    border: white 1px solid!important;
+    font-size: larger !important;
 }
 
 .commentDiv {
-    max-height: 150px;
-}
-
-.commList {
-    list-style: none;
+    max-height: 200px;
 }
 
 .card img {
@@ -45,10 +24,6 @@ header h1 {
     font-size: small;
 }
 
-.menu ul {
-    list-style: none;
-}
-
 .menu a {
     text-decoration: none;
     color:white;
@@ -62,13 +37,4 @@ header h1 {
 .menu a.active {
     font-size: larger;
     color: yellow;
-}
-
-.menu li {
-    padding-top:10px;
-}
-
-.logout {
-    text-decoration: none;
-    color: white;
 }

@@ -40,11 +40,11 @@ foreach ($templateParams['post'] as $post):
         </button>
         <div id="comments-collapse<?php echo $post['postId']; ?>" class="collapse">
           <div class="commentDiv overflow-auto" style="max-height:150px">
-            <ul class="commList" id="commentList<?php echo $post['postId'];?>">
-                <?php foreach ($comments as $comment):
+            <ul class="list-unstyled px-3" id="commentList<?php echo $post['postId'];?>">
+              <?php foreach ($comments as $comment):
                   $commUserName = $db->getUserName($comment['userID'])?>
               <li><a href="profile.php?username=<?php echo $commUserName?>"><?php echo $commUserName . ":";?></a> <p><?php echo $comment['comm']; ?></p></li>
-                <?php endforeach; ?>
+             <?php endforeach; ?>
             </ul>
           </div>
           <div class="row g-2">
