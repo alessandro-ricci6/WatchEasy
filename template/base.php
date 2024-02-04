@@ -77,6 +77,7 @@
       }
       ?>
 
+    <!-- Modal to create post-->
     <div class="modal" id="addPostModal" tabindex="-1" aria-hidden="true">
       <?php echo require 'createPost.php' ?>
     </div>

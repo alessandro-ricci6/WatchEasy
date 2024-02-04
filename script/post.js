@@ -95,8 +95,55 @@ function addComment() {
 
             let commentList = document.getElementById("commentList" + postId);
             commentList.appendChild(comment);
+            document.getElementById("commentTextArea" + postId).value = "";
             let commBtn = document.getElementById("commentBtn" + postId);
             commBtn.innerHTML = jsonData.numComment + " <i class='fa-regular fa-comment'></i>"
+        })
+    });
+}
+
+function addReply() {
+    $(".addReplyBtn").on("click", function() {
+        const postId = $(this).attr("data-post-id");
+        const commentId = $(this).attr("data-comment-id");
+        const creatorId = $(this).attr("data-creator-id");
+        let replyText = document.getElementById("replyTextArea" + commentId).value;
+        fetch('./post.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                action: 'reply',
+                postId: postId,
+                commentId: commentId,
+                creatorId: creatorId,
+                replyText: replyText
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.text(); // Parse the JSON from the response.
+            } else {
+                console.log(response)
+                throw new Error("Network response was not ok");
+            }
+        })
+        .then (data => {
+            jsonData = JSON.parse(data)
+            let reply = document.createElement("li");
+            let link = document.createElement("a");
+            link.href = "profile.php?username=" + jsonData.username;
+            link.innerText = jsonData.username + ": ";
+            let paragraph = document.createElement("p");
+            paragraph.innerHTML = replyText;
+
+            reply.appendChild(link);
+            reply.appendChild(paragraph);
+
+            let replyList = document.getElementById("replyList" + commentId);
+            document.getElementById("replyTextArea" + commentId).value = "";
+            replyList.appendChild(reply);
         })
     });
 }
@@ -131,6 +178,7 @@ function deletePost() {
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover();
   });
+$(document).ready(addReply);
 $(document).ready(deletePost)
 $(document).ready(addComment);
 $(document).ready(likeUnlike);

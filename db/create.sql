@@ -70,3 +70,12 @@ CREATE TABLE episodeSaved(
 	epsodeId INT NOT NULL,
 	FOREIGN KEY (userId) REFERENCES users(userId)
 );
+CREATE TABLE commentAnswer (
+	commentAnswerId INT NOT NULL AUTO_INCREMENT,
+    commentId INT NOT NULL,
+    userId INT NOT NULL,
+    paragraph VARCHAR(255) NOT NULL,
+    PRIMARY KEY (commentAnswerId),
+    FOREIGN KEY (commentId) REFERENCES comments(commentId),
+    FOREIGN KEY (userId) REFERENCES user(userId)
+)

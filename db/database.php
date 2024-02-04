@@ -1,5 +1,4 @@
 <?php
-
 class DatabaseHelper {
     private $db;
 
@@ -283,6 +282,21 @@ class DatabaseHelper {
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getCommentReply($commentId) {
+        $stmt = $this->db->prepare("SELECT * FROM commentReply WHERE commentId = ?");
+        $stmt->bind_param('i', $commentId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function addReply($commentId, $userId, $paragraph) {
+        $stmt = $this->db->prepare("INSERT INTO commentReply (commentId, userId, paragraph) VALUES (?, ?, ?)");
+        $stmt->bind_param('iis', $commentId, $userId, $paragraph);
+        $stmt->execute();
     }
 }
 

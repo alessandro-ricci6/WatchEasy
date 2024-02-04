@@ -2,7 +2,6 @@
 
 require_once 'bootstrap.php';
 
-ini_set('display_errors', 1);
 
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $jsonData = file_get_contents('php://input');
@@ -32,10 +31,14 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
             $db->deletePost($postId);
             $img = $db->getPostById($postId)['img'];
             deleteImage($img);
+        } else if($action == "reply" && isset($_POST['replyText'], $_POST['commentId'])){
+            $db->addReply($_POST['commentId'], 3, $_POST['replyText']);
+            $db->addNotification(3, $creatorId, 3, $postId);
+            $response = [
+                "username" => $db->getUserName(3)
+            ];
+            echo json_encode($response);
         }
-
-        
-        
     }
 }
 

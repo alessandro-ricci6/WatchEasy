@@ -56,5 +56,12 @@ function uploadImage($image) {
 function deleteImage($img){
     unlink($img);
 }
+function hideAnswerBtn($commentNumber) {
+    if($commentNumber <= 0) {
+        return "hidden";
+    } else {
+        return "";
+    }
+}
 
 ?>
