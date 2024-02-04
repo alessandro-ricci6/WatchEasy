@@ -24,7 +24,7 @@ foreach ($templateParams['post'] as $post):
         ?></a></h5>
         <h6 class="card-subtitle mb-2 text-body-secondary">
           <a href="profile.php?username=<?php echo $userName ?>"
-            ><i class="fa-solid fa-circle-user"></i> <?php echo $userName?></a>
+            ><span class="fa-solid fa-circle-user"></span> <?php echo $userName?></a>
         </h6>
         <p class="card-text"><?php echo $post['paragraph']; ?>
         </p>
@@ -36,14 +36,14 @@ foreach ($templateParams['post'] as $post):
           data-bs-target="#comments-collapse<?php echo $post['postId'] ?>"
         >
           <?php $comments = $db->getComments($post['postId']);
-          echo count($comments); ?> <i class="fa-regular fa-comment"></i>
+          echo count($comments); ?> <span class="fa-regular fa-comment"></span>
         </button>
         <div id="comments-collapse<?php echo $post['postId']; ?>" class="collapse">
           <div class="commentDiv overflow-auto" style="max-height:150px">
             <ul class="list-unstyled px-3" id="commentList<?php echo $post['postId'];?>">
               <?php foreach ($comments as $comment):
                   $commUserName = $db->getUserName($comment['userId'])?>
-              <li id="comment<?php echo $comment['commentId']?>"><a href="profile.php?username=<?php echo $commUserName?>"><?php echo $commUserName . ":";?></a> <p><?php echo $comment['comm']; ?></p></li>
+              <li id="comment<?php echo $comment['commentId']?>"><a href="profile.php?username=<?php echo $commUserName?>"><?php echo $commUserName . ":";?></a> <p><?php echo $comment['comm']; ?></p>
                   <a class="commentAnswerOpen px-2 py-1" data-bs-toggle="collapse" href="#commentAnswer<?php echo $comment['commentId']?>"
                   role="button" aria-expanded="false" aria-controls="commentAnswer<?php echo $comment['commentId']?>"
                   >Vedi risposte</a>
@@ -75,6 +75,7 @@ foreach ($templateParams['post'] as $post):
                       </div>
                     </div>
                   </div>
+                  </li>
                   <?php endforeach; ?>
             </ul>
           </div>

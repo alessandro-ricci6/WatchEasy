@@ -1,10 +1,10 @@
-<main class="d-flex justify-content-center">
+<main class="d-flex flex-column justify-content-center">
     <?php $post = $templateParams['post'];
     $show = $api->getTvShowById($post['showId']);
     $userName = $db->getUserName($post['userId']) ?>
-    <div class="card my-3 mx-3 col-md-8">
+    <div class="card my-3 mx-auto col-md-8">
         <?php if ($post['postImg'] != null):?>
-        <img class="py-1 mx-auto col-10" src="<?php echo POSTIMGDIR . $post['postImg'] ?>" alt="">
+        <img class="card-img-top" src="<?php echo POSTIMGDIR . $post['postImg'] ?>" alt="">
         <?php endif; ?>
         <div class="card-body">
         <a class="float-end btn popoverPost" tabindex="0" role="button" data-post-id="<?php echo $post['postId']?>"
@@ -37,11 +37,11 @@
                     <ul class="list-unstyled px-3" id="commentList<?php echo $post['postId'];?>">
                     <?php foreach ($comments as $comment):
                     $commUserName = $db->getUserName($comment['userId'])?>
-                  <li id="comment<?php echo $comment['commentId']?>"><a href="profile.php?username=<?php echo $commUserName?>"><?php echo $commUserName . ":";?></a> <p><?php echo $comment['comm']; ?></p></li>
-                  <a class="commentAnswerOpen px-2 py-1" data-bs-toggle="collapse" href="#commentAnswer<?php echo $comment['commentId']?>"
-                  role="button" aria-expanded="false" aria-controls="commentAnswer<?php echo $comment['commentId']?>"
+                  <li id="comment<?php echo $comment['commentId']?>"><a href="profile.php?username=<?php echo $commUserName?>"><?php echo $commUserName . ":";?></a> <p><?php echo $comment['comm']; ?></p>
+                  <a class="commentReplyOpen px-2 py-1" data-bs-toggle="collapse" href="#commentReplyDiv<?php echo $comment['commentId']?>"
+                  role="button" aria-expanded="false" aria-controls="commentReplyDiv<?php echo $comment['commentId']?>"
                   >Vedi risposte</a>
-                  <div class="collapse border-bottom" id="commentAnswer<?php echo $comment['commentId']?>">
+                  <div class="collapse border-bottom" id="commentReplyDiv<?php echo $comment['commentId']?>">
                     <div>  
                       <ul class="list-unstyled px-2" id="replyList<?php echo $comment['commentId']?>">
                         <?php $commentreply = $db->getCommentReply($comment['commentId']);
@@ -69,6 +69,7 @@
                       </div>
                     </div>
                   </div>
+                  </li>
                     <?php endforeach; ?>
                     </ul>
                 </div>
