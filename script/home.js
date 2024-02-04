@@ -6,8 +6,8 @@ function closePopup() {
   document.getElementById("searchPopup").hidden = true;
 }
 
-document.getElementById("searchUser").addEventListener("click", openPopup);
-document.getElementById("searchUser").addEventListener("blur", closePopup);
+//document.getElementById("searchUser").addEventListener("click", openPopup);
+//document.getElementById("searchUser").addEventListener("blur", closePopup);
 
 function searchUser() {
   $('#searchUser').on('keyup', function() {

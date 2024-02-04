@@ -19,6 +19,15 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getUserIdByName($username) {
+        $stmt = $this->db->prepare("SELECT userId FROM user WHERE username = ?");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC)[0]['userId'];
+    }
+
     public function getPostById($postId) {
         $stmt = $this->db->prepare("SELECT * FROM post WHERE postId = ?");
         $stmt->bind_param('i', $postId);
@@ -134,7 +143,7 @@ class DatabaseHelper {
     }
 
     public function getShowByUser($userId) {
-        $stmt = $this->db->prepare("SELECT * FROM showSaving WHERE userId = ?");
+        $stmt = $this->db->prepare("SELECT * FROM showSaved WHERE userId = ?");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -218,7 +227,7 @@ class DatabaseHelper {
 
     function getShowByUserId($userId){
 
-        $stmt = $this->db->prepare("SELECT * FROM showSaving WHERE userId = ?");
+        $stmt = $this->db->prepare("SELECT * FROM showSaved WHERE userId = ?");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
         $result = $stmt->get_result();

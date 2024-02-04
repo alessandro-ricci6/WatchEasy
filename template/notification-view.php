@@ -10,7 +10,7 @@
             <?php foreach ($db->getNotificationByUserId(3) as $notification):
                 $fromUsername = $db->getUserName($notification['fromUserId']);?>
 
-                <li id="notification<?php echo $notification['notificationId'];?>" class="notification list-group-item border <?php notificationStyle($notification['notificationRead']) ?>"><a href="profile.php?username?<?php echo $fromUsername; ?>"><?php echo $fromUsername;?></a><?php getNotificationType($notification['notificationType']);
+                <li id="notification<?php echo $notification['notificationId'];?>" class="notification list-group-item border <?php notificationStyle($notification['notificationRead']) ?>"><a href="profile.php?username=<?php echo $fromUsername; ?>"><?php echo $fromUsername;?></a><?php getNotificationType($notification['notificationType']);
                 if($notification['postId'] != null){
                   echo "<a href='post-detail.php?postId=" . $notification['postId'] ."'> tuo post</a>";
                 }

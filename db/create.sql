@@ -60,3 +60,8 @@ CREATE TABLE comments(
 	FOREIGN KEY (postId) REFERENCES post(postId),
 	FOREIGN KEY (userId) REFERENCES users(userId)
 );
+CREATE TABLE episodeSaved(
+	userId INT NOT NULL,
+	epsodeId INT NOT NULL,
+	FOREIGN KEY (userId) REFERENCES users(userId)
+);

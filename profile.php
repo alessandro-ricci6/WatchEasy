@@ -2,12 +2,11 @@
 
 require_once 'bootstrap.php';
 
-$userId = 0;
-ini_set("display_errors", 1);
-
-if(isset($_GET["userId"])){
-    $userId = $_GET["userId"];
+if(isset($_GET["username"])){
+    $username = $_GET["username"];
 }
+
+$userId = $db->getUserIdByName($username);
 
 $templateParams['titolo'] = 'WatchEasy - Profilo';
 $templateParams['nome'] = 'profile_page.php';

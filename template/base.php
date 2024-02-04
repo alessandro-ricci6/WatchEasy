@@ -45,7 +45,7 @@
           <nav class="menu">
             <ul class="list-unstyled px-3">
               <li class="pt-2"><a <?php isActive("index.php"); ?> href="index.php">Home</a></li>
-              <li class="pt-2"><a <?php isActive("profile.php"); ?> href="profile.php">Profilo</a></li>
+              <li class="pt-2"><a <?php isActive("profile.php"); ?> href="profile.php?username=user3">Profilo</a></li>
               <li class="pt-2"><a <?php isActive("feed.php"); ?> href="feed.php">Feed</a></li>
             </ul>
           </nav>
@@ -63,7 +63,7 @@
       <div class="text-center">
         <div class="userDiv border rounded">
           <label for="searchUser" class="px-2 py-1">Search user:<br><input type="text" name="searchUser" id="searchUser"></label>
-          <div id="searchPopup" hidden>
+          <div id="searchPopup">
           </div>
         </div>
         <button type="button" class="btn btn-dark my-4" data-bs-toggle="modal" data-bs-target="#addPostModal">Add review</button>
