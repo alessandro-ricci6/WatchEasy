@@ -2,6 +2,17 @@
 
 require_once 'bootstrap.php';
 
+if($_SERVER['REQUEST_METHOD'] == 'GET') {
+    if(isset($_GET['action'])) {
+        if($_GET['action'] == 'updateNotification'){
+            $notification = $db->getNotificationByUserId(3);
+            $data = array('notificationNumber' => mysqli_num_rows($db->getActiveNotification(3)),
+            'notification' => $notification);
+            echo json_encode($data);
+        }
+    }
+}
+
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $jsonData = file_get_contents('php://input');
     $_POST = json_decode($jsonData, true);

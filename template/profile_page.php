@@ -1,18 +1,8 @@
-
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <link type="text/css" rel="stylesheet" href="style/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title><?php echo $templateParams['titolo']; ?></title>
-</head>
-<body>
-    <header>
+    <div>
         <img src="download.jpg" alt="foto profilo" >  
         <p><?php echo $templateParams['nome']; ?></p>
         <button id="follow"> Follow </button>
-    </header>
+    </div>
     <nav>
       <table id="first">
             <tr>
@@ -21,9 +11,9 @@
             <th>Post</th>
             </tr>
             <tr>
-                <td> value, <?php echo $templateParams['follower']; ?></td>
-                <td>value, <?php echo $templateParams['followed']; ?></td>
-                <td>value, <?php echo $templateParams['numpost']; ?></td>
+                <td><?php echo $templateParams['follower']; ?></td>
+                <td><?php echo $templateParams['followed']; ?></td>
+                <td><?php echo $templateParams['numpost']; ?></td>
             </tr>
         </table>
         <table id="second">
@@ -32,7 +22,7 @@
             <th>Episodi Visti</th>
             </tr>
             <tr>
-                <td> <?php echo $templateParams['show']; ?></td>
+                <td> <?php echo count($templateParams['show']) ?></td>
                 <td> <?php echo $templateParams['totepisode'] ?></td>
             </tr>
         </table>
@@ -41,7 +31,9 @@
     <section>
         <h1>Serie Tv</h1>
         <div id="tab_img">
-           <?php require 'utils/setImage.php' ?>
+            <?php foreach($templateParams['show'] as $show):?>
+                <img src="<?php echo $api->getTvShowById($show['showId'])['image']['medium'] ?>" alt="">
+            <?php endforeach; ?>
         </div>
     </section>
     <article>
@@ -54,6 +46,3 @@
             <label for="post">Aggiungi Post</label>
         </form>
     </footer>
-    </main>    
-</body>
-</html>

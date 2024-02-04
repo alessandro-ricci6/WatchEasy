@@ -30,7 +30,7 @@ class DatabaseHelper {
 
     public function getUserName($userId) {
         $stmt = $this->db->prepare("SELECT username FROM user WHERE userId = ?");
-        $stmt->bind_param('s', $userId);
+        $stmt->bind_param('i', $userId);
         $stmt->execute();
         $result = $stmt->get_result();
         
@@ -63,7 +63,7 @@ class DatabaseHelper {
     }
 
     public function getNotificationByUserId($userId) {
-        $stmt = $this->db->prepare("SELECT * FROM notification WHERE toUserId = ?");
+        $stmt = $this->db->prepare("SELECT * FROM notification WHERE toUserId = ? ORDER BY notificationTime DESC");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -186,23 +186,21 @@ class DatabaseHelper {
 
     function getNumberOfPost($userId){
 
-        $stmt = $this->db->prepare("SELECT userId , count(*) as NumeroPost FROM posts WHERE userId = $userId");
+        $stmt = $this->db->prepare("SELECT userId , count(*) as NumeroPost FROM post WHERE userId = ?");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
-        $result = $stmt->get_result();
 
-        return $result->fetch_all(MYSQLI_ASSOC);
+        return mysqli_num_rows($stmt->get_result());
 
     }
 
     function getNumberOfFollower($userId){
 
-        $stmt = $this->db->prepare("SELECT b.userId, count(*) as NumeroFollower FROM a follower join b users on a.fromUserId = b.userId  WHERE b.userId = $userId");
+        $stmt = $this->db->prepare("SELECT * FROM follow WHERE toUserId = ?");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
-        $result = $stmt->get_result();
 
-        return $result->fetch_all(MYSQLI_ASSOC);
+        return mysqli_num_rows($stmt->get_result());
 
 
     }
@@ -210,18 +208,17 @@ class DatabaseHelper {
     function getNumberOfFollowed($userId){
 
         //$query = "SELECT count(*) as NumeroFollower FROM a follower join b users on a.fomUserId = b.userId WHERE a.fromUserId = $userId";
-        $stmt = $this->db->prepare("SELECT count(*) as NumeroFollower FROM a follower join b users on a.fomUserId = b.userId WHERE a.fromUserId = $userId");
+        $stmt = $this->db->prepare("SELECT * FROM follow WHERE fromUserId = ?");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
-        $result = $stmt->get_result();
 
-        return $result->fetch_all(MYSQLI_ASSOC);
+        return mysqli_num_rows($stmt->get_result());
 
     }
 
-    function getNumberOfViewedSeries($userId){
+    function getShowByUserId($userId){
 
-        $stmt = $this->db->prepare("SELECT userId, count(*) as TotShow FROM showsaved WHERE userId = $userId");
+        $stmt = $this->db->prepare("SELECT * FROM showSaving WHERE userId = ?");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -231,13 +228,12 @@ class DatabaseHelper {
     }
 
     //num episodi visti
-    function getViewedEpisode($userId){
-        $stmt = $this->db->prepare("SELECT count(*) as episodes FROM a episodesaved WHERE a.userId = $userId");
+    function getViewedEpisodeNumber($userId){
+        $stmt = $this->db->prepare("SELECT * FROM episodeSaved WHERE userId = ?");
           $stmt->bind_param('i', $userId);
           $stmt->execute();
-          $result = $stmt->get_result();
 
-          return $result->fetch_all(MYSQLI_ASSOC);
+          return mysqli_num_rows($stmt->get_result());
 
     }
 
@@ -257,6 +253,27 @@ class DatabaseHelper {
         $stmt->bind_param('ii', $userId, $visited);
         $stmt->execute();
 
+    }
+
+    public function addNotification($fromUserId, $toUserId, $type, $postId) {
+        $stmt = $this->db->prepare("INSERT INTO notification (fromUserId, toUserId, notificationType, postId)  VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('iiii', $fromUserId, $toUserId, $type, $postId);
+        $stmt->execute();
+    }
+
+    public function addFollowNotification($fromUserId, $toUserId) {
+        $stmt = $this->db->prepare("INSERT INTO notification (fromUserId, toUserId, notificationType)  VALUES (?, ?, 1)");
+        $stmt->bind_param('ii', $fromUserId, $toUserId);
+        $stmt->execute();
+    }
+
+    public function getPostByUserId($userId) {
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE userId = ? ORDER BY pubTime DESC");
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 }
 

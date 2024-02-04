@@ -75,10 +75,6 @@ div > img {
 
 }
 
-div[id] {
-    border: 1px solid black;
-    margin-bottom: 20px;
-}
 
  h6 p {
     color: black;

@@ -3,6 +3,7 @@ function likeUnlike() {
         let postId = $(this).attr("data-post-id");
         let icon = this.querySelector(".likeIcon");
         let likeNumber = this.querySelector(".likeNumber");
+        const creatorId = $(this).attr("data-creator-id");
         if (icon.classList.contains("fa-regular")) {          
 
             fetch('./post.php', {
@@ -12,6 +13,7 @@ function likeUnlike() {
                 },
                 body: JSON.stringify({
                     action: "like",
+                    creatorId: creatorId,
                     postId: postId
                 })
             })
@@ -35,6 +37,7 @@ function likeUnlike() {
                 },
                 body: JSON.stringify({
                     action: "unlike",
+                    creatorId: creatorId,
                     postId: postId
                 })
             })
@@ -57,6 +60,7 @@ function likeUnlike() {
 function addComment() {
     $(".addCommentBtn").on("click", function() {
         const postId = $(this).attr("data-post-id");
+        const creatorId = $(this).attr("data-creator-id");
         let commentText = document.getElementById("commentTextArea" + postId).value;
         fetch('./post.php', {
             method: 'POST',
@@ -66,6 +70,7 @@ function addComment() {
             body: JSON.stringify({
                 action: 'comment',
                 postId: postId,
+                creatorId: creatorId,
                 commentText: commentText
             })
         })

@@ -63,5 +63,29 @@ function readOneNotification () {
     })
 }
 
+function updateNotification() {
+    fetch("./notification.php", {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        action: "updateNotification",
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.text(); // Parse the JSON from the response.
+        } else {
+            throw new Error("Network response was not ok");
+        }
+    })
+    .then(data => {
+        //const jsonData = JSON.parse(data);
+        console.log(data.notificationNumber);
+    })
+
+    setTimeout(updateNotification, 5000);
+}
+
+//$(document).ready(updateNotification);
 $(document).ready(readOneNotification);
 $(document).ready(readAll);

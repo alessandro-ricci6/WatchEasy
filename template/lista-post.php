@@ -28,7 +28,7 @@ foreach ($templateParams['post'] as $post):
         </h6>
         <p class="card-text"><?php echo $post['paragraph']; ?>
         </p>
-        <button class="btn likeBtn" data-post-id="<?php echo $post['postId'] ?>"><span class="likeNumber"><?php echo $db->getLikeNumber($post['postId']); ?> </span><span class="likeIcon <?php $db->getLikedPost(3, $post['postId']) ?>"></span></button>
+        <button class="btn likeBtn" data-post-id="<?php echo $post['postId'] ?>" data-creator-id="<?php echo $post['userId']?>"><span class="likeNumber"><?php echo $db->getLikeNumber($post['postId']); ?> </span><span class="likeIcon <?php $db->getLikedPost(3, $post['postId']) ?>"></span></button>
         <button
           class="btn"
           id="commentBtn<?php echo $post['postId']?>"
@@ -57,7 +57,7 @@ foreach ($templateParams['post'] as $post):
             </div>
             <div class="col-md-1">
               <div class="form-floating">
-                <button class ="btn addCommentBtn" data-post-id="<?php echo $post['postId'] ?>">Add</button>
+                <button class ="btn addCommentBtn" data-post-id="<?php echo $post['postId'] ?>" data-creator-id="<?php echo $post['userId']?>">Add</button>
               </div>
             </div>
           </div>
