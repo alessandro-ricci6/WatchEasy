@@ -1,5 +1,5 @@
-<main class="float-md-start col-md-8">
-<div class="d-flex flex-column justify-content-center mx-3" id="postContainer">
+<main class="float-md-start col-md-7">
+<div class="d-flex flex-column justify-content-center mx-4 px-3" id="postContainer">
 <?php
 foreach ($templateParams['post'] as $post): 
     $show = $api->getTvShowById($post['showId']);
@@ -7,7 +7,7 @@ foreach ($templateParams['post'] as $post):
     <div class="card my-3" id="cardPost<?php echo $post['postId'] ?>">
       <?php if ($post['postImg'] != null):
         ?>
-        <img class="py-1 mx-auto col-10" src="<?php echo POSTIMGDIR . $post['postImg']; ?>" alt="">
+        <img class="card-img-top" src="<?php echo POSTIMGDIR . $post['postImg']; ?>" alt="">
       <?php endif; ?>
       <div class="card-body">
       <a class="float-end btn popoverPost" tabindex="0" role="button" data-post-id="<?php echo $post['postId']?>"
@@ -64,7 +64,7 @@ foreach ($templateParams['post'] as $post):
                       <div class="col-md-10">
                         <div class="form-floating">
                           <input type="hidden" name="commentId" value="<?php echo $comment['commentId'] ?>">
-                          <textarea class="form-control" placeholder="Leave a reply here" id="replyTextArea<?php echo $comment['commentId']?>" name="reply" required></textarea>
+                          <textarea class="form-control my-2" placeholder="Leave a reply here" id="replyTextArea<?php echo $comment['commentId']?>" name="reply" required></textarea>
                           <label for="replyTextArea<?php echo $comment['commentId'];?>">Reply</label>
                         </div>
                       </div>
