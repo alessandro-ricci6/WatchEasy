@@ -6,6 +6,11 @@ CREATE TABLE users (
 	email VARCHAR(50) NOT NULL,
 	PRIMARY KEY (userId)
 );
+CREATE TABLE log_attempts (
+  `user_id` INT(11) NOT NULL,
+  `time` VARCHAR(30) NOT NULL,
+  FOREIGN KEY (user_id) REFEREnCES users(userId)
+) ENGINE=InnoDB
 CREATE TABLE showSaved(
 	savedId INT NOT NULL AUTO_INCREMENT,
 	showId INT NOT NULL,
