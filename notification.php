@@ -9,6 +9,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
             $data = array('notificationNumber' => mysqli_num_rows($db->getActiveNotification(3)),
             'notification' => $notification);
             echo json_encode($data);
+        } else if ($_GET['action'] == 'getUsername' && isset($_GET['userId'])) {
+            $username = $db->getUserName($_GET['userId']);
+            $data = array('username' => $username);
+            echo json_encode($data);
         }
     }
 }

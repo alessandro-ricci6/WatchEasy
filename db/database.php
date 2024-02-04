@@ -72,7 +72,7 @@ class DatabaseHelper {
     }
 
     public function getNotificationByUserId($userId) {
-        $stmt = $this->db->prepare("SELECT * FROM notification WHERE toUserId = ? ORDER BY notificationTime DESC");
+        $stmt = $this->db->prepare("SELECT * FROM notification WHERE toUserId = ? ORDER BY notificationTime DESC LIMIT 10");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
         $result = $stmt->get_result();
