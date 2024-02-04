@@ -183,6 +183,81 @@ class DatabaseHelper {
         $stmt->bind_param('i', $postId);
         $stmt->execute();
     }
+
+    function getNumberOfPost($userId){
+
+        $stmt = $this->db->prepare("SELECT userId , count(*) as NumeroPost FROM posts WHERE userId = $userId");
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+
+    }
+
+    function getNumberOfFollower($userId){
+
+        $stmt = $this->db->prepare("SELECT b.userId, count(*) as NumeroFollower FROM a follower join b users on a.fromUserId = b.userId  WHERE b.userId = $userId");
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+
+
+    }
+
+    function getNumberOfFollowed($userId){
+
+        //$query = "SELECT count(*) as NumeroFollower FROM a follower join b users on a.fomUserId = b.userId WHERE a.fromUserId = $userId";
+        $stmt = $this->db->prepare("SELECT count(*) as NumeroFollower FROM a follower join b users on a.fomUserId = b.userId WHERE a.fromUserId = $userId");
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+
+    }
+
+    function getNumberOfViewedSeries($userId){
+
+        $stmt = $this->db->prepare("SELECT userId, count(*) as TotShow FROM showsaved WHERE userId = $userId");
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+
+    }
+
+    //num episodi visti
+    function getViewedEpisode($userId){
+        $stmt = $this->db->prepare("SELECT count(*) as episodes FROM a episodesaved WHERE a.userId = $userId");
+          $stmt->bind_param('i', $userId);
+          $stmt->execute();
+          $result = $stmt->get_result();
+
+          return $result->fetch_all(MYSQLI_ASSOC);
+
+    }
+
+    
+    function getShowById($userId) {
+
+        $stmt = $this->db->prepare("SELECT showid FROM showSaved WHERE userid = $userId");
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    function addFollower($userId, $visited){
+        $stmt = $this->db->prepare("INSERT INTO follow (fromUserid, toUserid) VALUES (?, ?)");
+        $stmt->bind_param('ii', $userId, $visited);
+        $stmt->execute();
+
+    }
 }
 
 ?>
