@@ -36,8 +36,39 @@
                 <div class="singleCommentDiv">
                     <ul class="list-unstyled px-3" id="commentList<?php echo $post['postId'];?>">
                     <?php foreach ($comments as $comment):
-                    $commUserName = $db->getUserName($comment['userID'])?>
-                        <li><a href="profile.php?username=<?php echo $commUserName?>"><?php echo $commUserName . ":";?></a> <p><?php echo $comment['comm']; ?></p></li>
+                    $commUserName = $db->getUserName($comment['userId'])?>
+                  <li id="comment<?php echo $comment['commentId']?>"><a href="profile.php?username=<?php echo $commUserName?>"><?php echo $commUserName . ":";?></a> <p><?php echo $comment['comm']; ?></p></li>
+                  <a class="commentAnswerOpen px-2 py-1" data-bs-toggle="collapse" href="#commentAnswer<?php echo $comment['commentId']?>"
+                  role="button" aria-expanded="false" aria-controls="commentAnswer<?php echo $comment['commentId']?>"
+                  >Vedi risposte</a>
+                  <div class="collapse border-bottom" id="commentAnswer<?php echo $comment['commentId']?>">
+                    <div>  
+                      <ul class="list-unstyled px-2" id="replyList<?php echo $comment['commentId']?>">
+                        <?php $commentreply = $db->getCommentReply($comment['commentId']);
+                        foreach ($commentreply as $reply):
+                        $replyUsername = $db->getUserName($reply['userId'])?>
+                          <li id="commentReply<?php echo $reply['commentReplyId']?>"><a href="profile.php?username=<?php echo $replyUsername?>">
+                          <?php echo $replyUsername . ': '?></a>
+                          <p><?php echo $reply['paragraph'] ?></</p>
+                        </li>
+                        <?php endforeach; ?>
+                      </ul>
+                    </div>
+                    <div class="row g-2">
+                      <div class="col-md-10">
+                        <div class="form-floating">
+                          <input type="hidden" name="commentId" value="<?php echo $comment['commentId'] ?>">
+                          <textarea class="form-control" placeholder="Leave a reply here" id="replyTextArea<?php echo $comment['commentId']?>" name="reply" required></textarea>
+                          <label for="replyTextArea<?php echo $comment['commentId'];?>">Reply</label>
+                        </div>
+                      </div>
+                      <div class="col-md-1">
+                        <div class="form-floating">
+                          <button class="btn addReplyBtn" data-comment-id="<?php echo $comment['commentId'] ?>" data-post-id="<?php echo $post['postId']?>" data-creator-id="<?php echo $comment['userId']?>">Add</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                     <?php endforeach; ?>
                     </ul>
                 </div>
@@ -51,7 +82,7 @@
                 </div>
                 <div class="col-md-1">
                   <div class="form-floating">
-                    <button class ="btn addCommentBtn" data-post-id="<?php echo $post['postId'];?>">Add</button>
+                    <button class ="btn addCommentBtn" data-post-id="<?php echo $post['postId'] ?>" data-creator-id="<?php echo $post['userId']?>">Add</button>
                   </div>
                 </div>
               </div>

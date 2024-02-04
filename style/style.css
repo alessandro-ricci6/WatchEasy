@@ -8,11 +8,11 @@ body {
 }
 
 .commentDiv {
-    max-height: 200px;
+    max-height: 300px !important;
 }
 
 .card img {
-    max-width: max-content;
+    max-width: 100%;
 }
 
 .card a {
@@ -22,6 +22,10 @@ body {
 
 .card p {
     font-size: small;
+}
+
+.commentAnswerOpen {
+    font-size:x-small;
 }
 
 .menu a {
