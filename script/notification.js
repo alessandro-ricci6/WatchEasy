@@ -23,8 +23,13 @@ function getNotificationType(type) {
         case 1: return " ha iniziato a seguirti";
         case 2: return " ha messo mi piace al";
         case 3: return " ha commentato il";
-        default: return "Erro";
+        default: return "Error";
     }
+}
+
+function getPostIfNeed(notification) {
+    if(notification.notificationType == 1) return ""
+    else return ` <a class="link-underline link-underline-opacity-0 fs-6" href="post-detail.php?postId=${notification.postId}">tuo post</a>`
 }
 
 function addNotification(notifications, fromUsername) {
@@ -38,10 +43,10 @@ function addNotification(notifications, fromUsername) {
             notificationLi.classList.add("list-group-item-secondary");
         }
         notificationLi.innerHTML = `
-        <a href="profile.php?username=${fromUsername}">${fromUsername}</a>
-        ${getNotificationType(notification.notificationType)}
-        <a href="post-detail.php?postId=${notification.postId}">tuo post</a>
-        <button class="readNotification btn float-end" data-notification-id="${notification.notificationId}"><span class="fa-solid fa-check"></span></button>
+        <a class="link-underline link-underline-opacity-0 fs-6" href="profile.php?username=${fromUsername}">${fromUsername}</a>
+        ${getNotificationType(notification.notificationType)}`
+        + getPostIfNeed(notification) +
+        `<button class="readNotification btn float-end" data-notification-id="${notification.notificationId}"><span class="fa-solid fa-check"></span></button>
       `;
       $(".readNotification").on('click', function() {
         const notificationId = $(this).attr("data-notification-id");
