@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrazione</title>
+    <link rel="stylesheet" type="text/css" href="../style/login_style.css">
+    <script>
+        function login_redirect() {
+            window.location.href = "login.php";
+        }
+
+        function getQueryStringParams() {
+            var params = {};
+            var queryString = window.location.search.substring(1);
+            var pairs = queryString.split("&");
+
+            for (var i = 0; i < pairs.length; i++) {
+                var pair = pairs[i].split("=");
+                params[pair[0]] = decodeURIComponent(pair[1]);
+            }
+
+            return params;
+        }
+
+        function showOutputMessage() {
+            var params = getQueryStringParams();
+            if (params.hasOwnProperty("error")) {
+                if (params.error === "email_exists") {
+                    alert("L'email inserita esiste già. Riprova con un'altra email.");
+                } else if (params.error === "registration_failed") {
+                    alert("Errore durante la registrazione. Riprova più tardi.");
+                }
+            } else if (params.hasOwnProperty("success")) {
+                alert("Registrazione avvenuta con successo! Puoi accedere ora.");
+            }
+        }
+
+        window.onload = showOutputMessage;
+    </script>
+</head>
+<body>
+    <h2>Registrazione</h2>
+    <form action="register.php" method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" name="p" required><br>
+
+        <input type="submit" id="registerButton" value="Registrati">
+    </form>
+    <button id="loginButton" onclick="login_redirect()">Accedi</button>
+</body>
+</html>

@@ -1,0 +1,116 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column; /* Aggiunto per posizionare gli elementi in colonna */
+}
+
+body, form {
+    background-color: aqua;
+}
+
+form {
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    width: 300px;
+    text-align: left;
+    margin-top: 10px; /* Aggiunto per spaziare il form dall'h2 */
+    justify-content: center; /* Aggiunto per centrare verticalmente gli elementi */
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px; /* Aggiunto per spazio tra le label */
+    text-align: left; /* Aggiunto per allineare a sinistra */
+    font-weight: bold; /* Aggiunto per rendere il testo in grassetto */
+}
+
+/* Stili specifici per gli input all'interno del form */
+form input {
+    display: flex;
+    flex-direction: column; /* Modificato per posizionare gli elementi in colonna */
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form input:not(#registerButton) {
+    margin-bottom: 10px; /* Aggiunto per spazio tra gli input */
+    border: 2px solid black; /* Aggiunto bordo nero */
+    padding: 8px; /* Aggiunto padding per separare il testo dal bordo */
+    border-radius: 5px;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 5px;
+}
+
+button {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Aggiunto il seguente stile per spostare il pulsante sotto il form con una piccola distanza */
+button#loginButton {
+    margin-top: 5px;
+}
+
+input#registerButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px; /* Regola la distanza dall'alto */
+    font-size: 15px; /* Imposta la dimensione del carattere desiderata */
+    font-weight: bold; /* Aggiunto per rendere il testo in grassetto */
+}
+
+input#registerButton:hover {
+    background-color: #45a049;
+    color: black;
+}
+
+button#loginButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+    font-size: 15px; /* Imposta la dimensione del carattere desiderata */
+    font-weight: bold; /* Aggiunto per rendere il testo in grassetto */
+}
+
+button#loginButton:hover {
+    background-color: #45a049;
+    color: black;
+}
