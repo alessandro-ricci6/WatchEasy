@@ -10,7 +10,7 @@ class DatabaseHelper {
     }
 
     public function getPostOfFollowing($userId){
-        $stmt = $this->db->prepare("SELECT * FROM post JOIN user ON post.userId = user.userId JOIN follow ON post.userId = follow.toUserId WHERE follow.fromUserId = ? ORDER BY pubTime DESC");
+        $stmt = $this->db->prepare("SELECT * FROM post JOIN users ON post.userId = user.userId JOIN follow ON post.userId = follow.toUserId WHERE follow.fromUserId = ? ORDER BY pubTime DESC");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -29,7 +29,7 @@ class DatabaseHelper {
     }
 
     public function getUserIdByName($username) {
-        $stmt = $this->db->prepare("SELECT userId FROM user WHERE username = ?");
+        $stmt = $this->db->prepare("SELECT userId FROM users WHERE username = ?");
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -47,7 +47,7 @@ class DatabaseHelper {
     }
 
     public function getUserName($userId) {
-        $stmt = $this->db->prepare("SELECT username FROM user WHERE userId = ?");
+        $stmt = $this->db->prepare("SELECT username FROM users WHERE userId = ?");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -74,7 +74,7 @@ class DatabaseHelper {
     }
 
     public function searchUser($query){
-        $stmt = $this->db->prepare("SELECT * FROM user WHERE username LIKE ?");
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE username LIKE ?");
         $stmt->bind_param("s", $query);
         $stmt->execute();
         return $stmt->get_result();

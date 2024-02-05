@@ -22,13 +22,11 @@ CREATE TABLE post (
 	postId INT NOT NULL AUTO_INCREMENT,
 	userId INT NOT NULL,
 	showId INT NOT NULL,
-	seasonId INT,
-	episodeId INT,
 	img VARCHAR(255),
 	paragraph VARCHAR(255) NOT NULL,
 	pubTime DATETIME,
 	PRIMARY KEY (postId),
-	FOREIGN KEY (userId) REFEREnCES users(userId)
+	FOREIGN KEY (userId) REFERENCES users(userId)
 );
 CREATE TABLE notification(
 	notificationId INT NOT NULL AUTO_INCREMENT,
