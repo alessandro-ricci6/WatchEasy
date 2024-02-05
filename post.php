@@ -2,6 +2,7 @@
 
 require_once 'bootstrap.php';
 
+ini_set('display_errors',1);
 
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $jsonData = file_get_contents('php://input');
@@ -39,6 +40,10 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
             ];
             echo json_encode($response);
         }
+    } else if(isset($_POST['action'], $_POST['postId']) && $_POST['action'] == 'delete') {
+        $img = $db->getPostById($_POST['postId'])['postImg'];
+        deleteImage($img);
+        $db->deletePost($_POST['postId']);
     }
 }
 

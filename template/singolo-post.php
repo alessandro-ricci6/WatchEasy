@@ -12,12 +12,7 @@
         data-bs-content="<div class='d-flex justify-content-center'>
         <a class='btn <?php $db->deleteButtonDisable($post['postId']);?> text-danger deleteBtn'>Delete</a></div>">
         <span class="fa-solid fa-ellipsis-vertical"></span></a>
-            <h5 class="card-title"><a href="#"><?php echo $show['name'];
-            if ($post['seasonId'] != null && $post['episodeId'] != null){
-              echo " S: " . $post['seasonId'] . "/E: " . $post['episodeId'];
-            } elseif($post['seasonId'] != null && $post['episodeId'] == null) {
-              echo " S: " . $post['seasonId'];
-            }
+            <h5 class="card-title"><a href="show.php?showId=<?php echo $post['showId'] ?>"><?php echo $show['name'];
             ?></a></h5>
             <h6 class="card-subtitle mb-2 text-body-secondary">
               <a href="profile.php?username=<?php echo $userName; ?>"
@@ -40,7 +35,7 @@
                   <li id="comment<?php echo $comment['commentId']?>"><a href="profile.php?username=<?php echo $commUserName?>"><?php echo $commUserName . ":";?></a> <p><?php echo $comment['comm']; ?></p>
                   <a class="commentReplyOpen px-2 py-1" data-bs-toggle="collapse" href="#commentReplyDiv<?php echo $comment['commentId']?>"
                   role="button" aria-expanded="false" aria-controls="commentReplyDiv<?php echo $comment['commentId']?>"
-                  >Vedi risposte</a>
+                  >See replies</a>
                   <div class="collapse border-bottom" id="commentReplyDiv<?php echo $comment['commentId']?>">
                     <div>  
                       <ul class="list-unstyled px-2" id="replyList<?php echo $comment['commentId']?>">

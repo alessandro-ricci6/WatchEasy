@@ -7,8 +7,8 @@
         <div class="modal-body">
             <div class="row g-2">
                 <div class="col-md pt-2 text-center">
-                    <form action="create-post.php" method="POST" id="createPostForm">
-                    <label for="showSelect">Select show:</label>
+                <form action="create-post.php" method="POST" id="createPostForm">
+                <label for="showSelect">Select show:</label>
                 <select name="showSelect" class="form-select form-select-sm mb-3" aria-label="Large select example" id="showSelect">
                 <label for="startingOption"><option name="startingOption" selected></option></label>
                     <?php $shows = $db->getShowByUser(3);

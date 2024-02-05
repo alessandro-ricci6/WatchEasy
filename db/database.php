@@ -150,14 +150,14 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function createPost($userId, $showId, $seasonId, $episodeId, $img, $comment) {
-        $stmt = $this->db->prepare("INSERT INTO post (userId, showId, seasonId, episodeId, img, paragraph) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("iiiiss", $userId, $showId, $seasonId, $episodeId, $img, $comment);
+    public function createPost($userId, $showId, $img, $comment) {
+        $stmt = $this->db->prepare("INSERT INTO post (userId, showId, postImg, paragraph) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("iiss", $userId, $showId, $img, $comment);
         $stmt->execute();
     }
 
     public function deleteButtonDisable($postId) {
-        $post = $this->getPostById($postId)[0];
+        $post = $this->getPostById($postId);
         if ($post['userId'] == 3){
             echo "";
         } else {
@@ -171,7 +171,20 @@ class DatabaseHelper {
         $stmt->execute();
     }
 
+    private function deleteReplyOfComment($commentId) {
+        $stmt = $this->db->prepare("DELETE FROM commentReply WHERE commentId = ?");
+        $stmt->bind_param('i', $commentId);
+        $stmt->execute();  
+    }
+
     private function deleteCommentsOfPost($postId) {
+        $query = $this->db->prepare("SELECT * FROM comments WHERE postId = ?");
+        $query->bind_param('i', $postId);
+        $query->execute();
+        $result = $query->get_result();
+        foreach ($result->fetch_all(MYSQLI_ASSOC) as $comment) {
+            $this->deleteReplyOfComment($comment['commentId']);
+        }
         $stmt = $this->db->prepare("DELETE FROM comments WHERE postId = ?");
         $stmt->bind_param('i', $postId);
         $stmt->execute();  
