@@ -55,14 +55,14 @@
                       </ul>
                     </div>
                     <div class="row g-2">
-                      <div class="col-md-10">
+                      <div class="col-md-10 col-10">
                         <div class="form-floating">
                           <input type="hidden" name="commentId" value="<?php echo $comment['commentId'] ?>">
                           <textarea class="form-control" placeholder="Leave a reply here" id="replyTextArea<?php echo $comment['commentId']?>" name="reply" required></textarea>
                           <label for="replyTextArea<?php echo $comment['commentId'];?>">Reply</label>
                         </div>
                       </div>
-                      <div class="col-md-1">
+                      <div class="col-md-1 col-1">
                         <div class="form-floating">
                           <button class="btn addReplyBtn" data-comment-id="<?php echo $comment['commentId'] ?>" data-post-id="<?php echo $post['postId']?>" data-creator-id="<?php echo $comment['userId']?>">Add</button>
                         </div>
@@ -74,14 +74,14 @@
                     </ul>
                 </div>
               <div class="row g-2">
-                <div class="col-md-10">
+                <div class="col-md-10 col-10">
                   <div class="form-floating">
                     <input type="hidden" name="postId" value="<?php echo $post['postId'] ?>">
                     <textarea class="form-control" placeholder="Leave a comment here" id="commentTextArea<?php echo $post['postId'];?>" name="comment" required></textarea>
                     <label for="commentTextArea<?php echo $post['postId'];?>">Comments</label>
                   </div>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-1 col-1">
                   <div class="form-floating">
                     <button class ="btn addCommentBtn" data-post-id="<?php echo $post['postId'] ?>" data-creator-id="<?php echo $post['userId']?>">Add</button>
                   </div>
