@@ -1,6 +1,6 @@
 <?php
 
-require '../../bootstrap.php';   
+require_once '../../bootstrap.php'; 
 
 $selectedSeries = $_GET["name"];
 
@@ -47,7 +47,10 @@ if ($data) {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+            <?php
+            $_SESSION['current_page'] = '../../index.php';
+            ?>
+          <a class="nav-link active text-white" aria-current="page" href="../login_check.php">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="#">Feed</a>
@@ -84,7 +87,7 @@ if ($data) {
         <div class="col-md-6">
             <!-- Contenuto della colonna sinistra (Post) -->
             <section id="posts-section" class="posts">
-            <div class="w-100 m-4" style="width: 20rem;">
+            <div class="w-100 p-3" style="width: 15rem;">
                 <?php
                 $templateParams['post'] = $db->getPostOfSeriesById($data["id"]);
                 require '../../template/lista-post.php';

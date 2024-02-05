@@ -9,6 +9,10 @@ class DatabaseHelper {
         }        
     }
 
+    public function getMysqli(){
+        return $this->db;
+    }
+
     public function getPostOfFollowing($userId){
         $stmt = $this->db->prepare("SELECT * FROM post JOIN users ON post.userId = users.userId JOIN follow ON post.userId = follow.toUserId WHERE follow.fromUserId = ? ORDER BY pubTime DESC");
         $stmt->bind_param('i', $userId);

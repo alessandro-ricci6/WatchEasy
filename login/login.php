@@ -30,7 +30,7 @@
 ?>
 
     <h2>Login</h2>
-    <form action="login/process_login.php" method="post" name="login_form"> 
+    <form action="process_login.php" method="post" name="login_form"> 
 
         <label for="email">Email:</label>
         <input type="email" name="email" required><br>
@@ -46,6 +46,8 @@
             echo "Password or Email does not exit, Retry!";
          } else if(isset($_GET['blocked'])) { 
             echo "Too many attempts, you are blocked!";
+         }else if(isset($_GET['notLogged'])) { 
+            echo "you are not logged!";
          }
     ?>
 </body>
