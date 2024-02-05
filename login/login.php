@@ -30,7 +30,7 @@
 ?>
 
     <h2>Login</h2>
-    <form action="process_login.php" method="post" name="login_form"> 
+    <form action="login/process_login.php" method="post" name="login_form"> 
 
         <label for="email">Email:</label>
         <input type="email" name="email" required><br>

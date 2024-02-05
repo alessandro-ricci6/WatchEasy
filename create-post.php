@@ -3,7 +3,7 @@
 require 'bootstrap.php';
 
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['showSelect'], $_POST['comment'])){
-    $userId = 3;
+    $userId = $_SESSION['user_id'];
     $showId = (int) $_POST['showSelect'];
     $fileName = null;
     if(isset($_FILES['uploadImg'])){

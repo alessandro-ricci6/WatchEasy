@@ -24,7 +24,7 @@
                 <button type="button" class="btn btn-dark me-2 position-relative border border-1" data-bs-toggle="modal" data-bs-target="#notificationModal">
                   <span class="fa-solid fa-envelope"></span>
                   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notificationCounter">
-                    <?php echo mysqli_num_rows($db->getActiveNotification(3)); ?>
+                    <?php echo mysqli_num_rows($db->getActiveNotification($_SESSION['user_id'])); ?>
                     <span class="visually-hidden">unread messages</span>
                   </span>
                 </button>

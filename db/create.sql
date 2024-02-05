@@ -42,8 +42,10 @@ CREATE TABLE notification(
 );
 CREATE TABLE likes(
 	likeId INT NOT NULL AUTO_INCREMENT,
+	postId INT NOT NULL,
 	userId INT NOT NULL,
 	PRIMARY KEY (likeId),
+	FOREIGN KEY (postId) REFERENCES post(postId),
 	FOREIGN KEY (userId) REFERENCES users(userId)
 );
 CREATE TABLE follow(

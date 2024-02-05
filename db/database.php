@@ -10,7 +10,7 @@ class DatabaseHelper {
     }
 
     public function getPostOfFollowing($userId){
-        $stmt = $this->db->prepare("SELECT * FROM post JOIN users ON post.userId = user.userId JOIN follow ON post.userId = follow.toUserId WHERE follow.fromUserId = ? ORDER BY pubTime DESC");
+        $stmt = $this->db->prepare("SELECT * FROM post JOIN users ON post.userId = users.userId JOIN follow ON post.userId = follow.toUserId WHERE follow.fromUserId = ? ORDER BY pubTime DESC");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -168,7 +168,7 @@ class DatabaseHelper {
 
     public function deleteButtonDisable($postId) {
         $post = $this->getPostById($postId);
-        if ($post['userId'] == 3){
+        if ($post['userId'] == $_SESSION['user_id']){
             echo "";
         } else {
             echo "disabled";

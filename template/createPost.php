@@ -11,12 +11,12 @@
                 <label for="showSelect">Select show:</label>
                 <select name="showSelect" class="form-select form-select-sm mb-3" aria-label="Large select example" id="showSelect">
                 <label for="startingOption"><option name="startingOption" selected></option></label>
-                    <?php $shows = $db->getShowByUser(3);
+                    <?php $shows = $db->getShowByUser($_SESSION['user_id']);
                     foreach ($shows as $show):?>
                     <option value="<?php echo $show['showId']?>"><?php echo $api->getTvShowById($show['showId'])['name'] ?></option>
                     <?php endforeach; ?>
                 </select>
-                    <label for="uploadImg" class="form-label pt-1">Upload image:<input class="form-control form-control-sm" type="file" id="uploadImg" accept="image/png, image/jpg, image,jpeg" name="uploadImg"></label>
+                    <label for="uploadImg" class="form-label pt-1">Upload image:<input class="form-control form-control-sm" type="file" id="uploadImg" accept="image/png, image/jpg, image/jpeg" name="uploadImg"></label>
                 </div>
                 <label for="comment">Comment:</label>
                 <textarea class="rounded" name="comment" id="comment" cols="30" rows="6" maxlength="255" required></textarea>
