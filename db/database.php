@@ -321,6 +321,16 @@ class DatabaseHelper {
         $stmt->bind_param('iis', $commentId, $userId, $paragraph);
         $stmt->execute();
     }
+
+    public function getPostByShow($userId){
+        $stmt = $this->db->prepare("SELECT * FROM post join showSaved on post.userId = showSaved.userId WHERE userId = $userId");
+        $stmt->bind_param('i', $savedId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+
+    }
 }
 
 ?>
