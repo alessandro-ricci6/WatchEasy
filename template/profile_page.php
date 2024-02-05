@@ -36,10 +36,10 @@
             <?php endforeach; ?>
         </div>
     </section>
-    <article>
       <h1>Post</h1>
+        <div class="d-flex flex-column justify-content-center mx-4 px-3" id="postContainer">
         <?php require 'lista-post.php' ?>
-        </article>
+        </div>
     <footer>
         <form action="#" method="get">
             <input type="button" value="+" id="post" onclick="">

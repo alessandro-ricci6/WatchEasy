@@ -1,5 +1,3 @@
-<main class="float-md-start col-md-7">
-<div class="d-flex flex-column justify-content-center mx-4 px-3" id="postContainer">
 <?php
 foreach ($templateParams['post'] as $post): 
     $show = $api->getTvShowById($post['showId']);
@@ -34,7 +32,7 @@ foreach ($templateParams['post'] as $post):
           echo count($comments); ?> <span class="fa-regular fa-comment"></span>
         </button>
         <div id="comments-collapse<?php echo $post['postId']; ?>" class="collapse">
-          <div class="commentDiv overflow-auto" style="max-height:150px">
+          <div class="commentDiv overflow-auto">
             <ul class="list-unstyled px-3" id="commentList<?php echo $post['postId'];?>">
               <?php foreach ($comments as $comment):
                   $commUserName = $db->getUserName($comment['userId'])?>
@@ -92,7 +90,6 @@ foreach ($templateParams['post'] as $post):
       </div>
     </div>
 <?php endforeach; ?>
-</div>
-    <script src="script/post.js"></script>
-    <script src="script/home.js"></script>
-</main>
+<script src="script/post.js"></script>
+<script src="script/home.js"></script>
+

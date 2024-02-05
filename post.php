@@ -4,6 +4,8 @@ require_once 'bootstrap.php';
 
 ini_set('display_errors',1);
 
+$userId = $_SESSION['user_id'];
+
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $jsonData = file_get_contents('php://input');
     $_POST = json_decode($jsonData, true);
@@ -14,17 +16,17 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         $creatorId = $_POST['creatorId'];
 
         if($action == "like") {
-            $db->userLikePost(3, $postId);
-            $db->addNotification(3, $creatorId, 2, $postId);
+            $db->userLikePost($userId, $postId);
+            $db->addNotification($userId, $creatorId, 2, $postId);
             echo $db->getLikeNumber($postId);
         } else if($action == "unlike") {
-            $db->userUnlikePost(3, $postId);
+            $db->userUnlikePost($userId, $postId);
             echo $db->getLikeNumber($postId);
         } else if($action == "comment" && isset($_POST['commentText'])) {
-            $db->addComment($postId, 3, $_POST['commentText']);
-            $db->addNotification(3, $creatorId, 3, $postId);
+            $db->addComment($postId, $userId, $_POST['commentText']);
+            $db->addNotification($userId, $creatorId, 3, $postId);
             $response = [
-                "username" => $db->getUserName(3),
+                "username" => $db->getUserName($userId),
                 "numComment" => count($db->getComments($postId))
             ];
             echo json_encode($response);
@@ -33,10 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
             $img = $db->getPostById($postId)['img'];
             deleteImage($img);
         } else if($action == "reply" && isset($_POST['replyText'], $_POST['commentId'])){
-            $db->addReply($_POST['commentId'], 3, $_POST['replyText']);
-            $db->addNotification(3, $creatorId, 3, $postId);
+            $db->addReply($_POST['commentId'], $userId, $_POST['replyText']);
+            $db->addNotification($userId, $creatorId, 3, $postId);
             $response = [
-                "username" => $db->getUserName(3)
+                "username" => $db->getUserName($userId)
             ];
             echo json_encode($response);
         }

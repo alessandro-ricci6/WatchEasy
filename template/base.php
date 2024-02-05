@@ -57,30 +57,11 @@
       </div>
     </div>
 
-    <?php if($templateParams['nome']=='lista-post.php'):?>
-    <!-- Aside with User search bar and Add a post button -->
-    <aside class="col-md-3 px-3 pt-1 m-3 float-md-end sticky-md-top d-flex justify-content-center">
-      <div class="text-center">
-        <div class="userDiv border rounded">
-          <label for="searchUser" class="px-2 py-1">Search user:<br><input type="text" name="searchUser" id="searchUser"></label>
-          <div id="searchPopup">
-          </div>
-        </div>
-        <button type="button" class="btn btn-dark my-4" data-bs-toggle="modal" data-bs-target="#addPostModal">Add review</button>
-      </div>
-    </aside>
-    <?php endif; ?>
-
       <?php
       if(isset($templateParams['nome'])){
           require($templateParams['nome']);
       }
       ?>
-
-    <!-- Modal to create post-->
-    <div class="modal" id="addPostModal" tabindex="-1" aria-hidden="true">
-      <?php echo require 'createPost.php' ?>
-    </div>
 
     <!-- Modal opened when press Notification button -->
     <div class="modal fade" id="notificationModal" tabindex="-1" aria-hidden="true">
