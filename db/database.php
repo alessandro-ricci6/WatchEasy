@@ -298,6 +298,16 @@ class DatabaseHelper {
         $stmt->bind_param('iis', $commentId, $userId, $paragraph);
         $stmt->execute();
     }
+
+    public function getPostBySavedId($saveId){
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE showId = $saveId");
+        $stmt->bind_param('i', $savedId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+
+    }
 }
 
 ?>
