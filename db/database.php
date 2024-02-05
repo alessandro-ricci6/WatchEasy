@@ -22,7 +22,7 @@ class DatabaseHelper {
         $stmt = $this->db->prepare("SELECT * FROM post JOIN users ON post.userId = users.userId WHERE post.showId = ? ORDER BY pubTime DESC");
         $stmt->bind_param('i', $showId);
         $stmt->execute();
-        $result = $stmt->get_result();
+        $result = $stmt->get_result(); 
 
         return $result->fetch_all(MYSQLI_ASSOC);
     
