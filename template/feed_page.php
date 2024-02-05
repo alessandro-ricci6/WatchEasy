@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <title>Ricerca serie TV</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-</head>
-<body>
-  <main>
+<main>
     <input type="text" id="search-input" placeholder="Cerca una serie TV">
     <div class="input-group mb-3">
       <button class="btn btn-outline-secondary" type="button" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -17,12 +9,8 @@
       <div>
       <h1>Suggested Post</h1>
       <!--div che contiene i post-->
+      <?php require 'feed.php' ?>
         
     </div>
     </section>
   </main>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="script.js"></script>
-</body>
-</html>

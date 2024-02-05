@@ -312,8 +312,8 @@ class DatabaseHelper {
         $stmt->execute();
     }
 
-    public function getPostBySavedId($saveId){
-        $stmt = $this->db->prepare("SELECT * FROM post WHERE showId = $saveId");
+    public function getPostByShow($userId){
+        $stmt = $this->db->prepare("SELECT * FROM post join showSaved on post.userId = showSaved.userId WHERE userId = $userId");
         $stmt->bind_param('i', $savedId);
         $stmt->execute();
         $result = $stmt->get_result();
