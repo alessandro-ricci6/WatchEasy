@@ -4,9 +4,9 @@ include 'functions.php';
 
 safe_session_start();
 if(login_check($mysqli) == true) {
-    $redirect_page = isset($_SESSION['home_page']) ? $_SESSION['home_page'] : 'login.php';
+    $redirect_page = isset($_SESSION['current_page']) ? $_SESSION['current_page'] : 'login.php';
     
-    unset($_SESSION['home_page']);
+    unset($_SESSION['current_page']);
     
     header("Location: $redirect_page");
     exit();

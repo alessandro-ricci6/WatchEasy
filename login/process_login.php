@@ -8,7 +8,7 @@ if(isset($_POST['email'], $_POST['p'])) {
    $email = $_POST['email'];
    $password = $_POST['p'];
    if(login($email, $password, $mysqli) == true) {
-      $_SESSION['home_page'] = '../index.php';
+      $_SESSION['current_page'] = '../index.php';
       header('Location: login_check.php');
       echo 'Success: You have been logged in!';
    } else {
