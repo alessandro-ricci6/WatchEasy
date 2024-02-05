@@ -1,7 +1,8 @@
 <main class="d-flex flex-column justify-content-center">
     <?php $post = $templateParams['post'];
     $show = $api->getTvShowById($post['showId']);
-    $userName = $db->getUserName($post['userId']) ?>
+    $user = $db->getUserById($post['userId']);
+    $user['username'] = $db->getUserName($post['userId']) ?>
     <div class="card my-3 mx-auto col-md-8">
         <?php if ($post['postImg'] != null):?>
         <img class="card-img-top" src="<?php echo POSTIMGDIR . $post['postImg'] ?>" alt="">
@@ -15,8 +16,8 @@
             <h5 class="card-title"><a href="show.php?showId=<?php echo $post['showId'] ?>"><?php echo $show['name'];
             ?></a></h5>
             <h6 class="card-subtitle mb-2 text-body-secondary">
-              <a href="profile.php?username=<?php echo $userName; ?>"
-                ><span class="fa-solid fa-circle-user"></span><?php echo $userName ?></a>
+              <a href="profile.php?username=<?php echo $user['username']; ?>"
+                ><img src="<?php echo PROFILEPICDIR .  $user['img']?>" class="profilePic"><?php echo $user['username'] ?></a>
             </h6>
             <p class="card-text"><?php echo $post['paragraph']?></p>
             <button class="btn likeBtn" data-post-id="<?php echo $post['postId'] ?>" data-creator-id="<?php echo $post['userId']?>"><span class="likeNumber"><?php echo $db->getLikeNumber($post['postId']); ?> </span><span class="likeIcon <?php $db->getLikedPost(3, $post['postId']) ?>"></span></button>

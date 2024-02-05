@@ -1,7 +1,7 @@
 <?php
 foreach ($templateParams['post'] as $post): 
     $show = $api->getTvShowById($post['showId']);
-    $userName = $db->getUserName($post['userId'])?>
+    $user = $db->getUserById($post['userId']);?>
     <div class="card my-3" id="cardPost<?php echo $post['postId'] ?>">
       <?php if ($post['postImg'] != null):
         ?>
@@ -16,8 +16,8 @@ foreach ($templateParams['post'] as $post):
         <h5 class="card-title"><a href="show.php?showId=<?php echo $post['showId'] ?>"><?php echo $show['name'];
         ?></a></h5>
         <h6 class="card-subtitle mb-2 text-body-secondary">
-          <a href="profile.php?username=<?php echo $userName ?>"
-            ><span class="fa-solid fa-circle-user"></span> <?php echo $userName?></a>
+          <a href="profile.php?username=<?php echo $user['username'] ?>"
+            ><img src="<?php echo PROFILEPICDIR .  $user['img']?>" class="profilePic"> <?php echo $user['username']?></a>
         </h6>
         <p class="card-text"><?php echo $post['paragraph']; ?>
         </p>

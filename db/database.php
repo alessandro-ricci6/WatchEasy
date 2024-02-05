@@ -46,6 +46,15 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC)[0];
     }
 
+    public function getUserById($userId) {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE userId = ?");
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC)[0];
+    }
+
     public function getUserName($userId) {
         $stmt = $this->db->prepare("SELECT username FROM users WHERE userId = ?");
         $stmt->bind_param('i', $userId);
