@@ -12,5 +12,5 @@ if(login_check($mysqli) == true) {
     exit();
 } else {
    echo 'You are not authorized to access this page, please login. <br/>';
-}
+} 
 ?>

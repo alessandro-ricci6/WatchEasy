@@ -19,5 +19,5 @@ if(isset($_POST['email'], $_POST['p'])) {
    var_dump($email);
    echo 'Invalid Request';
 }
-
+ 
 ?>
