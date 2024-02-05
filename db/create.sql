@@ -2,7 +2,7 @@ CREATE TABLE users (
 	userId INT NOT NULL AUTO_INCREMENT,
 	username VARCHAR(30) NOT NULL,
 	pass VARCHAR(255) NOT NULL,
-	img VARCHAR(255) DEFAULT 'deafult.png',
+	img VARCHAR(255) DEFAULT 'default.png',
 	email VARCHAR(50) NOT NULL,
 	PRIMARY KEY (userId)
 );

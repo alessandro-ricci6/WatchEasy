@@ -226,7 +226,7 @@ class DatabaseHelper {
 
     function getNumberOfPost($userId){
 
-        $stmt = $this->db->prepare("SELECT userId , count(*) as NumeroPost FROM post WHERE userId = ?");
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE userId = ?");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
 
