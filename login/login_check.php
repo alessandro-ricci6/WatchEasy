@@ -1,5 +1,5 @@
 <?php
-//require_once '../bootstrap.php';
+include '../bootstrap.php';
 require_once("functions.php");
 
 if(login_check($db->getMysqli()) == true) {
@@ -11,7 +11,7 @@ if(login_check($db->getMysqli()) == true) {
     exit();
 } else {
     echo 'You are not authorized to access this page, please login. <br/>';
-    header("Location: login/login.php?notLogged=you are not logged");
+    header("Location: ./login.php?notLogged=you are not logged");
     exit();
 } 
 ?>

@@ -3,7 +3,7 @@ require_once 'bootstrap.php';
 ini_set('display_errors',1 );
 
 if(!isset($_SESSION['user_id'])) {
-    require_once 'login/login_check.php';
+    header("Location: ./login/login_check.php");
 } else {
     $templateParams['titolo'] = 'WatchEasy - Home';
     $templateParams['nome'] = 'home.php';
