@@ -2,10 +2,10 @@
 
 require_once '../../bootstrap.php'; 
 
-$selectedSeries = $_GET["name"];
+$selectedSeriesId = $_GET["id"];
 
 $tvmazeAPIKey = "atkuTO5oSPWX1qRXHeYaKzyle6DS86o7";
-$tvmazeURL = "https://api.tvmaze.com/singlesearch/shows?q=" . urlencode($selectedSeries);
+$tvmazeURL = "https://api.tvmaze.com/shows/" . $selectedSeriesId;
 
 $response = file_get_contents($tvmazeURL);
 $data = json_decode($response, true);

@@ -9,7 +9,7 @@ CREATE TABLE users (
 CREATE TABLE log_attempts (
   `user_id` INT(11) NOT NULL,
   `time` VARCHAR(30) NOT NULL,
-  FOREIGN KEY (user_id) REFEREnCES users(userId)
+  FOREIGN KEY (user_id) REFERENCES users(userId)
 ) 
 CREATE TABLE showSaved(
 	savedId INT NOT NULL AUTO_INCREMENT,
@@ -22,7 +22,7 @@ CREATE TABLE post (
 	postId INT NOT NULL AUTO_INCREMENT,
 	userId INT NOT NULL,
 	showId INT NOT NULL,
-	img VARCHAR(255),
+	postImg VARCHAR(255),
 	paragraph VARCHAR(255) NOT NULL,
 	pubTime DATETIME,
 	PRIMARY KEY (postId),
