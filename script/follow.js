@@ -1,15 +1,16 @@
-
-    var button = document.getElementById('follow');
-
-    button.addEventListener('click', function() {
-        button.classList.add('clicked');
-
-        button.textContent = 'Followed';
-
-        disableClick(function() {
+    function follow() {
+        
+        var button = document.getElementById('follow');
+        if(button.classList.contains('clicked')){
             button.classList.remove('clicked');
-            button.textContent = 'Follow';
-          
-        });
-    })
+            button.innerText = 'Follow';
+        } else {
+            button.classList.add('clicked');
+            button.innerText = 'Followed';
+        }
+        
+
+        
+    }
+    
     

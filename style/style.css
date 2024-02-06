@@ -91,3 +91,20 @@ div > img {
     background-color: grey;
     color: blue;
 }
+
+div {
+    display: inline;
+    text-align: center;
+    margin-top: 5%;
+    margin-left: 7%;
+}
+
+.search-input{
+    width: 40%;
+    height: 80%;
+}
+
+section > div > h1{
+    margin-top : 1%
+
+}
