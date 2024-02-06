@@ -48,7 +48,7 @@ if ($data) {
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
             <?php
-            $_SESSION['current_page'] = '../../index.php';
+            $_SESSION['current_page'] = '../index.php';
             ?>
           <a class="nav-link active text-white" aria-current="page" href="../login_check.php">Home</a>
         </li>
@@ -70,7 +70,8 @@ if ($data) {
         </li>
       </ul>
       <!--<form action="serie.php?name=Peaky%20Blinders" method="post" class="d-flex" role="search">-->
-        <input class="form-control me-2" type="search" placeholder="Search the episode..." aria-label="Search" id="searchInput" oninput="effettuaRicerca('<?php echo $seasonsURL; ?>');">
+        <input class="form-control me-2" type="search" placeholder="Search the episode..." aria-label="Search" id="searchInput" 
+        oninput="effettuaRicerca('<?php echo $seasonsURL; ?>');">
         <!--<button class="btn btn-outline-success" onclick="effettuaRicerca('<?php //echo $seasonsURL; ?>');">Search</button>
       </form>-->
     </div>
@@ -87,7 +88,7 @@ if ($data) {
         <div class="col-md-6">
             <!-- Contenuto della colonna sinistra (Post) -->
             <section id="posts-section" class="posts">
-            <div class="w-100 p-3" style="width: 15rem;">
+            <div class="w-100 p-4" style="width: 15rem;">
                 <?php
                 $templateParams['post'] = $db->getPostOfSeriesById($data["id"]);
                 require '../../template/lista-post.php';
@@ -123,16 +124,6 @@ if ($data) {
                     <!-- Contenuto degli episodi -->
                     <section id="episodi-section" class="episodi">
                         <!-- Contenuto degli episodi -->
-
-                        <div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
-
                     </section>
                 </div>
             </div>
@@ -308,6 +299,13 @@ if ($data) {
           episodiSection.innerHTML = "";
           var risultatiSection = document.getElementById("risultati-section");
           risultatiSection.innerHTML = "";
+          
+            /*var postDiv = document.createElement("div");
+            postDiv.className = "w-100 p-4";
+            postDiv.style = "width: 15rem;";
+            postDiv.innerHTML = templatePost;
+            postsSection.appendChild(postDiv);*/
+
 // Effettua la richiesta per ottenere le stagioni
 fetch(seasonsURL)
     .then(response => {
