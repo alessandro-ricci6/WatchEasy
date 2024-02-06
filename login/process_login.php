@@ -1,15 +1,16 @@
 <?php
 
-include 'db_connect.php';
-include 'functions.php';
+require_once '../bootstrap.php';
+require_once("functions.php");
 
-safe_session_start();
 if(isset($_POST['email'], $_POST['p'])) {
    $email = $_POST['email'];
    $password = $_POST['p'];
-   if(login($email, $password, $mysqli) == true) {
-      $_SESSION['current_page'] = '../index.php';
-      header('Location: login_check.php');
+   if(login($email, $password, $db->getMysqli()) == true) {
+      
+      $redirect_page = isset($_SESSION['current_page']) ? $_SESSION['current_page'] : '../index.php';
+      unset($_SESSION['current_page']);
+      header("Location: $redirect_page");
       echo 'Success: You have been logged in!';
    } else {
       echo 'porco giuda';

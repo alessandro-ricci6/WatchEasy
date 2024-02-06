@@ -10,7 +10,7 @@ CREATE TABLE log_attempts (
   `user_id` INT(11) NOT NULL,
   `time` VARCHAR(30) NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(userId)
-) 
+);
 CREATE TABLE showSaved(
 	savedId INT NOT NULL AUTO_INCREMENT,
 	showId INT NOT NULL,
@@ -77,5 +77,5 @@ CREATE TABLE commentAnswer (
     paragraph VARCHAR(255) NOT NULL,
     PRIMARY KEY (commentAnswerId),
     FOREIGN KEY (commentId) REFERENCES comments(commentId),
-    FOREIGN KEY (userId) REFERENCES user(userId)
+    FOREIGN KEY (userId) REFERENCES users(userId)
 )

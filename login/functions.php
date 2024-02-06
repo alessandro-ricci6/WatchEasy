@@ -49,7 +49,7 @@ function login($email, $password, $mysqli) {
                     return true;    
 
                 } else {
-                    echo "le password non corrispondono";
+                    echo "le password non corrispondono: $password";
                     $now = time();
                     $mysqli->query("INSERT INTO log_attempts (user_id, time) VALUES ('$user_id', '$now')");
                     return false;
