@@ -4,6 +4,12 @@ require_once '../../bootstrap.php';
 
 $selectedSeriesId = $_GET["id"];
 
+if(!isset($_SESSION['user_id'])) {
+    $_SESSION['current_page'] = "SerieTv/serie.php?id=" . $selectedSeriesId;
+    header("Location: ./../login_check.php");
+    exit();
+}
+
 $tvmazeAPIKey = "atkuTO5oSPWX1qRXHeYaKzyle6DS86o7";
 $tvmazeURL = "https://api.tvmaze.com/shows/" . $selectedSeriesId;
 
@@ -36,7 +42,10 @@ if ($data) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
+
+
 <body style="background-color: aqua;">
+
 
 <nav class="navbar navbar-expand-lg fixed-top bg-dark">
   <div class="container-fluid">
@@ -57,23 +66,10 @@ if ($data) {
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="#">Profile</a>
-        <!--<li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Profile
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>-->
         </li>
       </ul>
-      <!--<form action="serie.php?name=Peaky%20Blinders" method="post" class="d-flex" role="search">-->
         <input class="form-control me-2" type="search" placeholder="Search the episode..." aria-label="Search" id="searchInput" 
         oninput="effettuaRicerca('<?php echo $seasonsURL; ?>');">
-        <!--<button class="btn btn-outline-success" onclick="effettuaRicerca('<?php //echo $seasonsURL; ?>');">Search</button>
-      </form>-->
     </div>
   </div>
 </nav>
@@ -88,14 +84,13 @@ if ($data) {
         <div class="col-md-6">
             <!-- Contenuto della colonna sinistra (Post) -->
             <section id="posts-section" class="posts">
-            <div class="w-100 p-4" style="width: 15rem;">
-                <?php
-                $templateParams['post'] = $db->getPostOfSeriesById($data["id"]);
-                require '../../template/lista-post.php';
-                ?>
+                <div class="w-100 p-4" style="width: 15rem;">
+                    <?php
+                        $templateParams['post'] = $db->getPostOfSeriesById($data["id"]);
+                        require '../../template/lista-post.php';
+                    ?>
                 </div>
-</section>
-
+            </section>
         </div>
         <div class="col-md-6">
             <!-- Contenuto della colonna destra (Stagioni ed Episodi) -->
@@ -104,20 +99,18 @@ if ($data) {
                     <!-- Contenuto delle stagioni -->
                     <section id="seasons-section" class="stagioni">
                         <!-- Contenuto delle stagioni -->
-
                         <?php
-        foreach ($seasonsData as $season) {
-          echo '<div class="card w-100 m-4" style="width: 15rem;">';
-          echo '<img src="' . $season["image"]["medium"] . '" class="card-img-top" alt="Stagione ' . $season["number"] . '">';
-          echo '<div class="card-body" data-stagione-numero="' . $season["number"] . '">';
-          echo '<h5 class="card-title">Stagione: ' . $season["number"] .'</h5>';
-          echo '<p class="card-text">' . $season["summary"] .'</p>';
-          echo '<a class="btn btn-primary" onclick="caricaEpisodi(' . $season["number"] . ', ' . $season["id"] . ')">Guarda</a>';
-          echo '</div>';
-          echo '</div>';
-        }
-    ?>
-
+                            foreach ($seasonsData as $season) {
+                                echo '<div class="card w-100 m-4" style="width: 15rem;">';
+                                echo '<img src="' . $season["image"]["medium"] . '" class="card-img-top" alt="Stagione ' . $season["number"] . '">';
+                                echo '<div class="card-body" data-stagione-numero="' . $season["number"] . '">';
+                                echo '<h5 class="card-title">Stagione: ' . $season["number"] .'</h5>';
+                                echo '<p class="card-text">' . $season["summary"] .'</p>';
+                                echo '<a class="btn btn-primary" onclick="caricaEpisodi(' . $season["number"] . ', ' . $season["id"] . ')">Guarda</a>';
+                                echo '</div>';
+                                echo '</div>';
+                            }
+                        ?>
                     </section>
                 </div>
                 <div class="col-md-6">
@@ -127,17 +120,16 @@ if ($data) {
                     </section>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Contenuto della riga inferiore (Risultati) -->
+                    <section id="risultati-section" class="risultati d-flex flex-wrap">
+                        <!-- Risultati della ricerca saranno caricati qui -->
+                    </section>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <!-- Contenuto della riga inferiore (Risultati) -->
-            <section id="risultati-section" class="risultati d-flex flex-wrap">
-            <!-- Risultati della ricerca saranno caricati qui -->
-            </section>
-
-        </div>
-    </div>
+    </div>  
 </div>
 
 
@@ -201,12 +193,6 @@ if ($data) {
 
 
 
-
-
-
-
-
-
     function effettuaRicerca(seasonsUrl) {
     // Ottieni il valore inserito nella barra di ricerca
     var searchTerm = document.getElementById('searchInput').value;
@@ -216,14 +202,17 @@ if ($data) {
     if (searchTerm.trim() !== "") {
 
         // Effettua la richiesta fetch
-                var postsSection = document.getElementById("posts-section");
-                postsSection.innerHTML = "";
+                
                 var seasonsSection = document.getElementById("seasons-section");
                 seasonsSection.innerHTML = "";
                 var episodiSection = document.getElementById("episodi-section");
                 episodiSection.innerHTML = "";
                 var risultatiSection = document.getElementById("risultati-section");
-                risultatiSection.innerHTML = "";    
+                risultatiSection.innerHTML = "";
+                var postsSection = document.getElementById("posts-section");
+                if(postsSection.clientHeight >= 300){
+                    risultatiSection.style.maxHeight = postsSection.clientHeight + "px";
+                }
 
                     // URL per ottenere le stagioni dello show
                     var seasonsURL = seasonsUrl;
@@ -293,18 +282,11 @@ if ($data) {
           
     } else if((searchTerm.trim() === "") || searchTerm.length === 0){
       var seasonsURL = seasonsUrl;
-          var postsSection = document.getElementById("posts-section");
-          postsSection.innerHTML = "";
+          
           var episodiSection = document.getElementById("episodi-section");
           episodiSection.innerHTML = "";
           var risultatiSection = document.getElementById("risultati-section");
           risultatiSection.innerHTML = "";
-          
-            /*var postDiv = document.createElement("div");
-            postDiv.className = "w-100 p-4";
-            postDiv.style = "width: 15rem;";
-            postDiv.innerHTML = templatePost;
-            postsSection.appendChild(postDiv);*/
 
 // Effettua la richiesta per ottenere le stagioni
 fetch(seasonsURL)
@@ -340,8 +322,6 @@ fetch(seasonsURL)
       })
     }
 }
-
-
 
 
 </script>

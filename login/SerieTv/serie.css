@@ -1,6 +1,8 @@
 .risultati {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    overflow-y: auto;
     gap: 20px; 
 }
 
