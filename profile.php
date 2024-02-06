@@ -8,6 +8,12 @@ if(isset($_GET["username"])){
 
 $userId = $db->getUserIdByName($username);
 
+if($_SESSION['userId']) {
+    $userId = $_SESSION['userId'];
+    $visit = $db->getUserIdByName($username);
+    $templateParams['visit'] = $visit;
+}
+
 $templateParams['titolo'] = 'WatchEasy - Profilo';
 $templateParams['nome'] = 'profile_page.php';
 $templateParams['username'] = $db->getUserName($userId);

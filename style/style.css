@@ -92,11 +92,13 @@ div > img {
     color: blue;
 }
 
-div {
+.feed {
     display: inline;
-    text-align: center;
     margin-top: 5%;
     margin-left: 7%;
+}
+.post{
+    text-align: center;
 }
 
 .search-input{
@@ -107,4 +109,9 @@ div {
 section > div > h1{
     margin-top : 1%
 
+}
+
+.follow {
+    text-align: center;
+    width: 10%;
 }

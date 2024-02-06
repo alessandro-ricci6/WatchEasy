@@ -1,7 +1,7 @@
     <div>
         <img src="download.jpg" alt="foto profilo" >  
         <p><?php echo $templateParams['nome']; ?></p>
-        <button id="follow"> Follow </button>
+        <button  class="follow" id="follow"> Follow </button>
     </div>
     <nav>
       <table id="first">

@@ -251,7 +251,6 @@ class DatabaseHelper {
 
     function getNumberOfFollowed($userId){
 
-        //$query = "SELECT count(*) as NumeroFollower FROM a follower join b users on a.fomUserId = b.userId WHERE a.fromUserId = $userId";
         $stmt = $this->db->prepare("SELECT * FROM follow WHERE fromUserId = ?");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
