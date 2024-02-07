@@ -1,6 +1,6 @@
 <?php
 
-require 'bootstrap.php';
+include 'bootstrap.php';
 
 function isActive($pagename){
     if(basename($_SERVER['PHP_SELF'])==$pagename){
