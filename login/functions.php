@@ -109,6 +109,7 @@ function checkbrute($user_id, $mysqli) {
         return false;
       }
     } else {
+        echo $_SESSION['user_id'];
         echo "non esistono le variabili di sessione";
         return false;
     }
