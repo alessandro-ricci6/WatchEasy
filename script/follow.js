@@ -1,15 +1,47 @@
+    function follow() {
 
-    var button = document.getElementById('follow');
-
-    button.addEventListener('click', function() {
-        button.classList.add('clicked');
-
-        button.textContent = 'Followed';
-
-        disableClick(function() {
-            button.classList.remove('clicked');
-            button.textContent = 'Follow';
-          
+        /*$(document).ready(function() {
+            $("#followButton").click(function() {
+                
+                var visitId = $("#visitId").val();
+        
+                $.ajax({
+                    url: 'addFollower.php',
+                    type: 'POST',
+                    data: {
+                        visit: visitId 
+                    }
+                });
+            });
         });
-    })
+        */
+        
+        var button = document.getElementById('follow');
+        if(button.classList.contains('clicked')){
+            button.classList.remove('clicked');
+            button.innerText = 'Follow';
+        } else {
+            button.classList.add('clicked');
+            button.innerText = 'Followed';
+
+            $(document).ready(function() {
+                $("#followButton").click(function() {
+                    
+                    var visitId = $("#visitId").val();
+            
+                    $.ajax({
+                        url: 'addFollower.php',
+                        type: 'POST',
+                        data: {
+                            visit: visitId 
+                        }
+                    });
+                });
+            }); 
+        }
+        
+
+        
+    }
+    
     

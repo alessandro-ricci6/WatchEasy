@@ -81,3 +81,8 @@ div > img {
     text-justify: auto;
     width: 32%;
 }
+
+.clicked {
+    background-color: grey;
+    color: blue;
+}
