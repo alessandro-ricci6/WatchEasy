@@ -24,7 +24,7 @@
                 <button type="button" class="btn btn-dark me-2 position-relative border border-1" data-bs-toggle="modal" data-bs-target="#notificationModal">
                   <span class="fa-solid fa-envelope"></span>
                   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notificationCounter">
-                    <?php echo mysqli_num_rows($db->getActiveNotification(3)); ?>
+                    <?php echo mysqli_num_rows($db->getActiveNotification($_SESSION['user_id'])); ?>
                     <span class="visually-hidden">unread messages</span>
                   </span>
                 </button>
@@ -45,42 +45,23 @@
           <nav class="menu">
             <ul class="list-unstyled px-3">
               <li class="pt-2"><a <?php isActive("index.php"); ?> href="index.php">Home</a></li>
-              <li class="pt-2"><a <?php isActive("profile.php"); ?> href="profile.php?username=user3">Profilo</a></li>
-              <li class="pt-2"><a <?php isActive("feed.php"); ?> href="feed.php">Feed</a></li>
+              <li class="pt-2"><a <?php isActive("profile.php"); ?> href="profile.php?username=<?php echo $_SESSION['username'] ?>">Profilo</a></li>
+              <li class="pt-2"><a <?php isActive("feed.php"); ?> href="feed.php?username=<?php echo $_SESSION['username']?>">Feed</a></li>
             </ul>
           </nav>
           
         </div>
       </div>
       <div class="bg-dark d-flex justify-content-center">
-        <a class="text-danger link-underline link-underline-opacity-0 bg-dark pb-2" href="#">Log Out</a>
+        <a class="text-danger link-underline link-underline-opacity-0 bg-dark pb-2" href="login/logout.php">Log Out</a>
       </div>
     </div>
-
-    <?php if($templateParams['nome']=='lista-post.php'):?>
-    <!-- Aside with User search bar and Add a post button -->
-    <aside class="col-md-3 px-3 pt-1 m-3 float-md-end sticky-md-top d-flex justify-content-center">
-      <div class="text-center">
-        <div class="userDiv border rounded">
-          <label for="searchUser" class="px-2 py-1">Search user:<br><input type="text" name="searchUser" id="searchUser"></label>
-          <div id="searchPopup">
-          </div>
-        </div>
-        <button type="button" class="btn btn-dark my-4" data-bs-toggle="modal" data-bs-target="#addPostModal">Add review</button>
-      </div>
-    </aside>
-    <?php endif; ?>
 
       <?php
       if(isset($templateParams['nome'])){
           require($templateParams['nome']);
       }
       ?>
-
-    <!-- Modal to create post-->
-    <div class="modal" id="addPostModal" tabindex="-1" aria-hidden="true">
-      <?php echo require 'createPost.php' ?>
-    </div>
 
     <!-- Modal opened when press Notification button -->
     <div class="modal fade" id="notificationModal" tabindex="-1" aria-hidden="true">

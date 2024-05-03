@@ -2,15 +2,15 @@ CREATE TABLE users (
 	userId INT NOT NULL AUTO_INCREMENT,
 	username VARCHAR(30) NOT NULL,
 	pass VARCHAR(255) NOT NULL,
-	img VARCHAR(255) DEFAULT 'deafult.png',
+	img VARCHAR(255) DEFAULT 'default.png',
 	email VARCHAR(50) NOT NULL,
 	PRIMARY KEY (userId)
 );
 CREATE TABLE log_attempts (
   `user_id` INT(11) NOT NULL,
   `time` VARCHAR(30) NOT NULL,
-  FOREIGN KEY (user_id) REFEREnCES users(userId)
-) 
+  FOREIGN KEY (user_id) REFERENCES users(userId)
+);
 CREATE TABLE showSaved(
 	savedId INT NOT NULL AUTO_INCREMENT,
 	showId INT NOT NULL,
@@ -22,13 +22,11 @@ CREATE TABLE post (
 	postId INT NOT NULL AUTO_INCREMENT,
 	userId INT NOT NULL,
 	showId INT NOT NULL,
-	seasonId INT,
-	episodeId INT,
-	img VARCHAR(255),
+	postImg VARCHAR(255),
 	paragraph VARCHAR(255) NOT NULL,
 	pubTime DATETIME,
 	PRIMARY KEY (postId),
-	FOREIGN KEY (userId) REFEREnCES users(userId)
+	FOREIGN KEY (userId) REFERENCES users(userId)
 );
 CREATE TABLE notification(
 	notificationId INT NOT NULL AUTO_INCREMENT,
@@ -44,8 +42,10 @@ CREATE TABLE notification(
 );
 CREATE TABLE likes(
 	likeId INT NOT NULL AUTO_INCREMENT,
+	postId INT NOT NULL,
 	userId INT NOT NULL,
 	PRIMARY KEY (likeId),
+	FOREIGN KEY (postId) REFERENCES post(postId),
 	FOREIGN KEY (userId) REFERENCES users(userId)
 );
 CREATE TABLE follow(
@@ -77,5 +77,5 @@ CREATE TABLE commentAnswer (
     paragraph VARCHAR(255) NOT NULL,
     PRIMARY KEY (commentAnswerId),
     FOREIGN KEY (commentId) REFERENCES comments(commentId),
-    FOREIGN KEY (userId) REFERENCES user(userId)
+    FOREIGN KEY (userId) REFERENCES users(userId)
 )

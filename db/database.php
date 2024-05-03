@@ -9,8 +9,12 @@ class DatabaseHelper {
         }        
     }
 
+    public function getMysqli(){
+        return $this->db;
+    }
+
     public function getPostOfFollowing($userId){
-        $stmt = $this->db->prepare("SELECT * FROM post JOIN user ON post.userId = user.userId JOIN follow ON post.userId = follow.toUserId WHERE follow.fromUserId = ? ORDER BY pubTime DESC");
+        $stmt = $this->db->prepare("SELECT * FROM post JOIN users ON post.userId = users.userId JOIN follow ON post.userId = follow.toUserId WHERE follow.fromUserId = ? ORDER BY pubTime DESC");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -18,8 +22,18 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getPostOfSeriesById($showId){
+        $stmt = $this->db->prepare("SELECT * FROM post JOIN users ON post.userId = users.userId WHERE post.showId = ? ORDER BY pubTime DESC");
+        $stmt->bind_param('i', $showId);
+        $stmt->execute();
+        $result = $stmt->get_result(); 
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    
+    }
+
     public function getUserIdByName($username) {
-        $stmt = $this->db->prepare("SELECT userId FROM user WHERE username = ?");
+        $stmt = $this->db->prepare("SELECT userId FROM users WHERE username = ?");
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -36,8 +50,17 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC)[0];
     }
 
+    public function getUserById($userId) {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE userId = ?");
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC)[0];
+    }
+
     public function getUserName($userId) {
-        $stmt = $this->db->prepare("SELECT username FROM user WHERE userId = ?");
+        $stmt = $this->db->prepare("SELECT username FROM users WHERE userId = ?");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -64,8 +87,8 @@ class DatabaseHelper {
     }
 
     public function searchUser($query){
-        $stmt = $this->db->prepare("SELECT * FROM user WHERE username LIKE ?");
-        $stmt->bind_param("s", $query);
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE username LIKE '%$query%'");
+        //$stmt->bind_param("s", $query);
         $stmt->execute();
         return $stmt->get_result();
     }
@@ -150,15 +173,15 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function createPost($userId, $showId, $seasonId, $episodeId, $img, $comment) {
-        $stmt = $this->db->prepare("INSERT INTO post (userId, showId, seasonId, episodeId, img, paragraph) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("iiiiss", $userId, $showId, $seasonId, $episodeId, $img, $comment);
+    public function createPost($userId, $showId, $img, $comment) {
+        $stmt = $this->db->prepare("INSERT INTO post (userId, showId, postImg, paragraph) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("iiss", $userId, $showId, $img, $comment);
         $stmt->execute();
     }
 
     public function deleteButtonDisable($postId) {
-        $post = $this->getPostById($postId)[0];
-        if ($post['userId'] == 3){
+        $post = $this->getPostById($postId);
+        if ($post['userId'] == $_SESSION['user_id']){
             echo "";
         } else {
             echo "disabled";
@@ -171,7 +194,20 @@ class DatabaseHelper {
         $stmt->execute();
     }
 
+    private function deleteReplyOfComment($commentId) {
+        $stmt = $this->db->prepare("DELETE FROM commentReply WHERE commentId = ?");
+        $stmt->bind_param('i', $commentId);
+        $stmt->execute();  
+    }
+
     private function deleteCommentsOfPost($postId) {
+        $query = $this->db->prepare("SELECT * FROM comments WHERE postId = ?");
+        $query->bind_param('i', $postId);
+        $query->execute();
+        $result = $query->get_result();
+        foreach ($result->fetch_all(MYSQLI_ASSOC) as $comment) {
+            $this->deleteReplyOfComment($comment['commentId']);
+        }
         $stmt = $this->db->prepare("DELETE FROM comments WHERE postId = ?");
         $stmt->bind_param('i', $postId);
         $stmt->execute();  
@@ -194,7 +230,7 @@ class DatabaseHelper {
 
     function getNumberOfPost($userId){
 
-        $stmt = $this->db->prepare("SELECT userId , count(*) as NumeroPost FROM post WHERE userId = ?");
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE userId = ?");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
 
@@ -215,7 +251,6 @@ class DatabaseHelper {
 
     function getNumberOfFollowed($userId){
 
-        //$query = "SELECT count(*) as NumeroFollower FROM a follower join b users on a.fomUserId = b.userId WHERE a.fromUserId = $userId";
         $stmt = $this->db->prepare("SELECT * FROM follow WHERE fromUserId = ?");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
@@ -301,6 +336,16 @@ class DatabaseHelper {
 
     public function getPostBySavedId($saveId){
         $stmt = $this->db->prepare("SELECT * FROM post WHERE showId = $saveId");
+        $stmt->bind_param('i', $savedId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+
+    }
+
+    public function getPostByShow($userId){
+        $stmt = $this->db->prepare("SELECT * FROM post join showSaved on post.userId = showSaved.userId WHERE userId = $userId");
         $stmt->bind_param('i', $savedId);
         $stmt->execute();
         $result = $stmt->get_result();

@@ -3,16 +3,15 @@
 require_once 'bootstrap.php';
 
 if(isset($_POST["query"])) {
-    $output = "";
+    $output = "<ul style='list-style: none'>";
     $result = $db->searchUser($_POST["query"]);
 
-    if(mysqli_num_rows($result) > 0) {
-        while($row = mysqli_fetch_array($result)) {
-            $output .= '<a href="profile.php?username='.$row['username'].'" class="userSearchResult fs-6 text-dark link-underline link-underline-opacity-0">' . $row['username'] . '</a>';   
+    if($result > 0) {
+        foreach($result as $user){
+            $output .= "<li><a href='./profile.php?username=" . $user['username'] . "'>" . $user['username'] . "</a></li>";
         }
-    } else {
-        $output .= '<p>Utente non trovato</p>';
     }
+    $output .= "</ul>";
     echo $output;
 }
 

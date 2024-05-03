@@ -1,6 +1,6 @@
 <?php
 
-require 'bootstrap.php';
+//include 'bootstrap.php';
 
 function isActive($pagename){
     if(basename($_SERVER['PHP_SELF'])==$pagename){
@@ -39,7 +39,7 @@ function uploadImage($image) {
         echo "Dimensioni immagine troppo grande (MAX 500Kb).";
     }
 
-    while (file_exists(POSTIMGDIR . $name . $index . $ext)){
+    while (file_exists(POSTIMGDIR . $name . $index . '.' . $ext)){
         $index += 1;
     }
 
@@ -54,7 +54,12 @@ function uploadImage($image) {
 }
 
 function deleteImage($img){
-    unlink($img);
+    $path = POSTIMGDIR . $img;
+    if (unlink($path)) {
+        echo "L'immagine è stata eliminata correttamente.";
+      } else {
+        echo "Errore: impossibile eliminare l'immagine.";
+      }
 }
 function hideAnswerBtn($commentNumber) {
     if($commentNumber <= 0) {

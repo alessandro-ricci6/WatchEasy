@@ -32,7 +32,7 @@ function getPostIfNeed(notification) {
     else return ` <a class="link-underline link-underline-opacity-0 fs-6" href="post-detail.php?postId=${notification.postId}">tuo post</a>`
 }
 
-function addNotification(notifications, fromUsername) {
+function addNotification(notifications) {
     const notificationList = document.getElementById("notificationList");
     notificationList.innerHTML = "";
     for (const notification of notifications) {
@@ -42,13 +42,16 @@ function addNotification(notifications, fromUsername) {
         if(notification.notificationRead == 1){
             notificationLi.classList.add("list-group-item-secondary");
         }
-        notificationLi.innerHTML = `
-        <a class="link-underline link-underline-opacity-0 fs-6" href="profile.php?username=${fromUsername}">${fromUsername}</a>
+        getUserName(notification["fromUserId"])
+        .then(username => {
+            notificationLi.innerHTML = `
+        <a class="link-underline link-underline-opacity-0 fs-6" href="profile.php?username=${username}">${username}</a>
         ${getNotificationType(notification.notificationType)}`
         + getPostIfNeed(notification) +
         `<button class="readNotification btn float-end" data-notification-id="${notification.notificationId}"><span class="fa-solid fa-check"></span></button>
       `;
       $(".readNotification").on('click', function() {
+        console.log("adsa")
         const notificationId = $(this).attr("data-notification-id");
         let notification = document.getElementById("notification" + notificationId);
         fetch('./notification.php', {
@@ -76,6 +79,7 @@ function addNotification(notifications, fromUsername) {
             notificationCounter.innerHTML = jsonData['notificationCounter'];
         })
       })
+        }).catch(error => {console.error("Error:", error);}); 
         notificationList.appendChild(notificationLi);
     }
 }
@@ -126,14 +130,8 @@ function updateNotification() {
     })
     .then(data => {
         const jsonData = JSON.parse(data);
-        //console.log(jsonData);
         notificationCounter.innerHTML = jsonData["notificationNumber"];
-        let userName = "";
-        //addNotification();
-        getUserName(3)
-        .then(username => {
-            addNotification(jsonData['notification'], username);
-        }).catch(error => {console.error("Error:", error);});
+        addNotification(jsonData["notification"]);
     })
 
     setTimeout(updateNotification, 5000);

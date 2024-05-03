@@ -1,6 +1,6 @@
     function follow() {
 
-        /*$(document).ready(function() {
+        $(document).ready(function() {
             $("#followButton").click(function() {
                 
                 var visitId = $("#visitId").val();
@@ -14,7 +14,6 @@
                 });
             });
         });
-        */
         
         var button = document.getElementById('follow');
         if(button.classList.contains('clicked')){
@@ -38,6 +37,16 @@
                     });
                 });
             }); 
+        }
+        
+
+        
+    }
+    
+            button.innerText = 'Follow';
+        } else {
+            button.classList.add('clicked');
+            button.innerText = 'Followed';
         }
         
 

@@ -2,24 +2,21 @@
 
 require 'bootstrap.php';
 // Check connection
-if ($db->connect_error) {
-    die("Connection failed: " . $db->connect_error);
-}
 
-/*come parametro dovrei passare il id di chi controlla, have to check*/
-$userId = NULL;
-$visited = NULL;
+if($_SESSION['userId']) {
+    $userId = $_SESSION['userId'];
 
+    } else {
+        die("Errore: Utente non autenticato o ID utente non valido.");
+    }
+    
 
-$query = "INSERT INTO follow (fromUserid, toUserid) VALUES (?, ?)";
-$stmt->bind_param('ii', $userId, $visited);
-$stmt->execute();
+    if(isset($_GET['visit']) && !empty($_GET['visit'])) {
+        $followId = $_GET['visit'];
+    
 
-if ($db->query($query) === TRUE) {
-    $last_id = $db->insert_id;
-    echo "Persona aggiunta correttamente con id: " . $last_id;
-} else {
-    echo "Errore: " . $query . "<br>" . $db->error;
-}
+    $query = "INSERT INTO follow (fromUserid, toUserid) VALUES (?, ?)";
+    $stmt->bind_param('ii', $userId, $followId);
+    $stmt->execute();
 
-$db->close();
+    }
