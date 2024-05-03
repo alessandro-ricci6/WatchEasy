@@ -1,6 +1,5 @@
 function searchUser() {
   $('#searchUser').on('keyup', function() {
-    console.log("a");
     let query = $(this).val();
     if(query != '') {
       $.ajax({
@@ -8,6 +7,7 @@ function searchUser() {
         method: "POST",
         data: {query: query},
         success: function(data) {
+          console.log(data)
           $('#searchPopup').html(data);
         }
       });

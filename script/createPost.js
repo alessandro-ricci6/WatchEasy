@@ -4,7 +4,7 @@ function createPost() {
         const formData = new FormData($(this)[0])
         const accType = ["png", "jpg", "jpeg"]
         const ext = formData.get("uploadImg").name.split('.').pop();
-        if (accType.includes(ext)){
+        if (accType.includes(ext) || formData.get("uploadImg").name == ""){
             $.ajax({
                 url: "create-post.php",
                 method: "POST",
