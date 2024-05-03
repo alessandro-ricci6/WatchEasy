@@ -46,14 +46,14 @@
             <ul class="list-unstyled px-3">
               <li class="pt-2"><a <?php isActive("index.php"); ?> href="index.php">Home</a></li>
               <li class="pt-2"><a <?php isActive("profile.php"); ?> href="profile.php?username=<?php echo $_SESSION['username'] ?>">Profilo</a></li>
-              <li class="pt-2"><a <?php isActive("feed.php"); ?> href="feed.php">Feed</a></li>
+              <li class="pt-2"><a <?php isActive("feed.php"); ?> href="feed.php?username=<?php echo $_SESSION['username']?>">Feed</a></li>
             </ul>
           </nav>
           
         </div>
       </div>
       <div class="bg-dark d-flex justify-content-center">
-        <a class="text-danger link-underline link-underline-opacity-0 bg-dark pb-2" href="#">Log Out</a>
+        <a class="text-danger link-underline link-underline-opacity-0 bg-dark pb-2" href="login/logout.php">Log Out</a>
       </div>
     </div>
 

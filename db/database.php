@@ -87,8 +87,8 @@ class DatabaseHelper {
     }
 
     public function searchUser($query){
-        $stmt = $this->db->prepare("SELECT * FROM users WHERE username LIKE ?");
-        $stmt->bind_param("s", $query);
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE username LIKE '%$query%'");
+        //$stmt->bind_param("s", $query);
         $stmt->execute();
         return $stmt->get_result();
     }
