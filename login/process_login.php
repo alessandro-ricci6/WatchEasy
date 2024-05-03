@@ -15,7 +15,7 @@ if(isset($_POST['email'], $_POST['p'])) {
    } else {
       echo 'porco giuda';
       header('Location: ./login.php?error=password or email does not exist');
-   }
+   } 
 } else { 
    var_dump($email);
    echo 'Invalid Request';
