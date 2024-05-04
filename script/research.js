@@ -20,6 +20,33 @@ fetch(episodesURL)
         var episodiSection = document.getElementById("episodi-section");
         episodiSection.innerHTML = "";
         episodiSection.style.maxHeight = seasonsHeight + "px";
+        var seasonsNumber = document.getElementById(stagioneNumero);
+        episodiData.forEach(episodio => {
+            var episodeNumber = document.getElementById("ep." + episodio["number"]);
+            if(episodeNumber){
+                episodeNumber.innerHTML = "";
+                episodeNumber.remove();
+            }
+        });
+
+        if(window.innerWidth <= 500){
+            episodiData.forEach(episodio => {
+                var episodioDiv = document.createElement("div");
+                episodioDiv.id = "ep." + episodio["number"];
+                episodioDiv.className = "card w-100 p-2 d-flex justify-content-center align-items-center";
+                episodioDiv.style = "width: 15rem;";
+                episodioDiv.innerHTML = '<img src="' + episodio["image"]["medium"] + '" class="card-img-top" alt="Episodio ' + episodio["number"] + '">';
+    
+                var episodioDiv2 = document.createElement("div");
+                episodioDiv2.className = "card-body";
+                episodioDiv2.dataset.episodioNumero = episodio["number"];
+                episodioDiv2.innerHTML = '<h5 class="card-title">' + episodio["name"] + '</h5>' + 
+                '<p class="card-text">' + episodio["summary"] + '</p>' + '<a class="btn btn-primary" >Guarda</a>';
+    
+                episodioDiv.appendChild(episodioDiv2);
+                seasonsNumber.appendChild(episodioDiv);
+            });
+        }else {
 
         // Aggiungi gli episodi alla sezione degli episodi
         episodiData.forEach(episodio => {
@@ -37,6 +64,7 @@ fetch(episodesURL)
             episodioDiv.appendChild(episodioDiv2);
             episodiSection.appendChild(episodioDiv);
         });
+        }
     })
     .catch(error => {
         // La richiesta ha restituito un errore
@@ -63,7 +91,7 @@ if (searchTerm.trim() !== "") {
             var risultatiSection = document.getElementById("risultati-section");
             risultatiSection.innerHTML = "";
             var postsSection = document.getElementById("posts-section");
-            if(postsSection.clientHeight >= 300){
+            if(postsSection.clientHeight >= 400){
                 risultatiSection.style.maxHeight = postsSection.clientHeight + "px";
             }
 
