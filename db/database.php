@@ -283,7 +283,7 @@ class DatabaseHelper {
     
     function getShowById($userId) {
 
-        $stmt = $this->db->prepare("SELECT showid FROM showSaved WHERE userid = $userId");
+        $stmt = $this->db->prepare("SELECT showid FROM showSaved WHERE userid = ?");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -335,7 +335,7 @@ class DatabaseHelper {
     }
 
     public function getPostBySavedId($saveId){
-        $stmt = $this->db->prepare("SELECT * FROM post WHERE showId = $saveId");
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE showId = ?");
         $stmt->bind_param('i', $savedId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -344,7 +344,7 @@ class DatabaseHelper {
 
     }
 
-    public function getPostByShow($userId){
+    /*public function getPostByShow($userId){
         $stmt = $this->db->prepare("SELECT * FROM post join showSaved on post.userId = showSaved.userId WHERE userId = $userId");
         $stmt->bind_param('i', $savedId);
         $stmt->execute();
@@ -352,6 +352,16 @@ class DatabaseHelper {
 
         return $result->fetch_all(MYSQLI_ASSOC);
 
+    }
+    */
+    public function getPostNotSaved($userId){
+        $stmt = $this->db->prepare("SELECT p.postId, p.userId,p.content, p.createAt FROM Post p
+            LEFT JOIN Follow f ON p.userId = f.toUserId AND f.fromUserId = ? WHERE f.fromuserId IS NULL");
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 }
 

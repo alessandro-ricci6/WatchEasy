@@ -1,6 +1,7 @@
 <?php
 
 require_once 'bootstrap.php';
+include 'template/profile_page.php';
 
 if(isset($_GET["username"])){
     $username = $_GET["username"];

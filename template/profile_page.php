@@ -1,7 +1,7 @@
     <div>
         <img src="download.jpg" alt="foto profilo" >  
         <p><?php echo $templateParams['nome']; ?></p>
-        <button  class="follow" id="follow"> Follow </button>
+        <button  class="follow" id="follow" onclick="follow()"> Follow </button>
     </div>
     <nav>
       <table id="first">
@@ -42,7 +42,13 @@
         </div>
     <footer>
         <form action="#" method="get">
-            <input type="button" value="+" id="post" onclick="">
+            <input type="button" value="+" id="post" onclick="redirect()">
             <label for="post">Aggiungi Post</label>
         </form>
     </footer>
+
+    <script>
+        function redirect() {
+            windows.location.href="createPost.php"
+        }
+    </script>
