@@ -1,32 +1,27 @@
 function follow() {
     $(document).ready(function() {
-        $("#followButton").click(function() {
-            var visitId = $("#visitId").val();
-            $.ajax({
-                url: 'addFollower.php',
-                type: 'POST',
-                data: {
-                    visit: visitId 
-                },
-                success: function(response) {
-                    // Handle success response here if needed
-                    toggleButton();
-                },
-                error: function(xhr, status, error) {
-                    // Handle error here if needed
-                }
-            });
+    $("#follow").click(function() {
+        
+        var visitId = $("#visitId").val();
+
+        $.ajax({
+            url: 'addFollower.php',
+            type: 'POST',
+            data: {
+                visit: visitId 
+            }
         });
     });
+});
+
+var button = document.getElementById('follow');
+if(button.classList.contains('clicked')){
+    button.classList.remove('clicked');
+    button.innerText = 'Follow';
+} else {
+    button.classList.add('clicked');
+    button.innerText = 'Followed';
+
+}
 }
 
-function toggleButton() {
-    var button = $("#followButton");
-    if(button.hasClass('clicked')){
-        button.removeClass('clicked');
-        button.text('Follow');
-    } else {
-        button.addClass('clicked');
-        button.text('Followed');
-    }
-}
