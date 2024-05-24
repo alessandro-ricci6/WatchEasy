@@ -46,7 +46,7 @@
             <ul class="list-unstyled px-3">
               <li class="pt-2"><a <?php isActive("index.php"); ?> href="index.php">Home</a></li>
               <li class="pt-2"><a <?php isActive("profile.php"); ?> href="profile.php?username=<?php echo $_SESSION['username'] ?>">Profilo</a></li>
-              <li class="pt-2"><a <?php isActive("feed.php"); ?> href="feed.php?username=<?php echo $_SESSION['username']?>">Feed</a></li>
+              <li class="pt-2"><a <?php isActive("feed_page.php"); ?> href="feed_page.php?username=<?php echo $_SESSION['username']?>">Feed</a></li>
             </ul>
           </nav>
           
