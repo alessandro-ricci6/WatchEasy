@@ -3,7 +3,6 @@
 require_once("feed_functions.php");
 require_once 'bootstrap.php';
 $templateParams['titolo'] = 'WatchEasy - Feed';
-require 'template/base.php';
 
 if(isset($_GET["username"])){
     $username = $_GET["username"];
@@ -11,8 +10,10 @@ if(isset($_GET["username"])){
 
 $userId = $db->getUserIdByName($username);
 $showId = $db->getShowById($userId);
+require 'template/base.php';
 
 ?>
+
 <html lang="it">
 <head>
   <meta charset="UTF-8">
@@ -32,7 +33,7 @@ $showId = $db->getShowById($userId);
       <h1>Suggested Post</h1>
       <!--div che contiene i post-->
       <?php
-      $templateParams['post'] = $db->getPostBySavedId($showId);
+      $templateParams['post'] = $db->getPostByUserId($userId);
       require './template/lista-post.php';
       ?>
         
