@@ -1,0 +1,18 @@
+h1 {
+    margin-left: 2rem;
+    padding-bottom: 1px;
+}
+.bio {
+    justify-content: center;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+ tr > th {
+    text-align: center;
+}
+
+.add {
+    width: 4%;
+    margin-left: 1rem;
+}

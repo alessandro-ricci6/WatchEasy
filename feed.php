@@ -26,9 +26,9 @@ $templateParams['post'] = $db->getPostByShow($userId);
 */
 
 function searchShow() {
-    if(isset($_GET['search-input']) && !empty(isset($_GET['search-input']))){
+    if(isset($_GET['search-input']) ){
         $search = $_GET['search-input'];
-        $url = 'https://api.tvmaze.com/search/shows?q=' .$search;
+        $url = 'https://api.tvmaze.com/search/shows?q=' .urlencode($search);
         $response = file_get_contents($url);
         $data = json_decode($response,true);
 
@@ -37,6 +37,9 @@ function searchShow() {
     } else {
         echo "Questa serie non esiste";
     }
+
+    return $url;
+    /*
     
     if($data){
             $seriesTitle = $data["name"];
@@ -47,6 +50,8 @@ function searchShow() {
         echo $url;
 
     }
+    */
+}
     
 
     

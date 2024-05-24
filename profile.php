@@ -32,14 +32,14 @@ require 'template/base.php'
 
 ?>
 <head>
-    <link rel="stylesheet" href="style/style.css" type="text/css">
+    <link rel="stylesheet" href="style/profile_style.css" type="text/css">
 </head>
-
-<div>
+<body>
+    <header class="bio">
         <img src="download.jpg" alt="foto profilo" >  
         <p><?php echo $templateParams['username']; ?></p>
         <button  class="follow" id="follow" onclick="follow()"> Follow </button>
-    </div>
+    </header>
     <nav>
       <table id="first">
             <tr>
@@ -80,10 +80,13 @@ require 'template/base.php'
         </div>
     <footer>
         <form action="#" method="get">
-            <input type="button" value="+" id="post" onclick="redirect()">
+            <input class = "add" type="button" value="+" id="post" onclick="redirect()">
             <label for="post">Aggiungi Post</label>
         </form>
     </footer>
+</body>
+
+    
 
     <script>
         function redirect() {
