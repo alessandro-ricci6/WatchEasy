@@ -27,8 +27,24 @@ function displayResults(shows) {
         
 
         const showURL = document.createElement('a');
-        showURL.href=show.url;
+        //showURL.href=show.url;
         showURL.textContent = show.name;
+        showURL.href='#';
+
+        const showId = show.id;
+        fetch('serie.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'id' +encodeURIComponent(showId)
+        })
+        .then(response=> response.text())
+        .then(data => {
+            console.log(data);
+            window.location.href = 'serie.php?id=' + encodeURIComponent(showId);
+        })
+        .catch(error => console.error('Errore',error));
 
 
         showName.appendChild(showURL);
