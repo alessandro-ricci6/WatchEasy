@@ -10,9 +10,23 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    overflow-y: auto; 
+    overflow-y: auto;
     background-color: blue;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
+}
+
+.card-stagione {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto; /* Scrolling verticale se necessario */
+}
+.card-stagione.collapsed {
+    max-height: 300px; /* Altezza massima della card stagione */
+}
+
+.card-stagione.expanded {
+    max-height: 500px; /* Altezza estesa della card stagione per visualizzare episodi */
 }
 
 .posts {

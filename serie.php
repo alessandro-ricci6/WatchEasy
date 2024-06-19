@@ -39,7 +39,7 @@ if ($data) {
 <script>
     window.addEventListener('resize', function() {
     // Controlla la larghezza della finestra quando viene ridimensionata
-    if(window.innerWidth <= 1300 && window.innerWidth > 1000){
+    /*if(window.innerWidth <= 1300 && window.innerWidth > 1000){
         document.getElementById('bho').style = 'background-color: red';
         document.getElementById('searchInput').style = 'width: 100%';
         var postsSec = document.getElementById('posts-section');
@@ -48,12 +48,11 @@ if ($data) {
         seasonsSec.style = 'margin-left: 0%; margin-right: 0%; width: 100%; justify-content: center;';
         var episodesSec = document.getElementById('episodi-section');
         episodesSec.style = 'margin-left: 0%; margin-right: 0%; width: 100%; justify-content: center;';
+        
         //devo fare un foreach dove per ogni stagione, prendo l'id e la classe diventa class="card w-100 m-2"
 
 
-    }else if (window.innerWidth <= 1000 && window.innerWidth >= 600) {
-        // Esegui qualcosa quando la larghezza è inferiore o uguale a 700px
-        // Ad esempio, cambia lo stile di un elemento HTML
+    }else */if (window.innerWidth <= 1000 && window.innerWidth > 800) {
         document.getElementById('bho').style = 'background-color: green';
         document.getElementById('searchInput').style = 'width: 100%';
         var postsSec = document.getElementById('posts-section');
@@ -63,9 +62,19 @@ if ($data) {
         var sea_ep_Grid = document.getElementById('seasons-episodes-grid');
         sea_ep_Grid.className = '';
         var seasonsSec = document.getElementById('seasons-section');
-        seasonsSec.style = 'margin-left: 0%; margin-right: 0%; width: 70%';
+        seasonsSec.style = 'margin-left: 0%; margin-right: 0%; width: 100%';
         var episodesSec = document.getElementById('episodi-section');
-        episodesSec.style = 'margin-left: 0%; margin-right: 0%; width: 70%';
+        episodesSec.style = 'margin-left: 0%; margin-right: 0%; width: 100%';
+        
+                            var windowHeight = window.innerHeight / 1.4;
+                            var seasonsSection = document.getElementById("seasons-section");
+                            var episodiSection = document.getElementById("episodi-section");
+                            if(seasonsSection.clientHeight <= (windowHeight)){
+                                episodiSection.style.maxHeight = windowHeight + "px";
+                            }else{
+                                episodiSection.style.maxHeight = seasonsSection.clientHeight + "px";
+                            }
+                        
 
     } else if(window.innerWidth <= 800) {
         document.getElementById('bho').style = 'background-color: yellow';
@@ -75,6 +84,14 @@ if ($data) {
         seasonsSec.style = 'margin-left: 0%; margin-right: 0%';
         var episodesSec = document.getElementById('episodi-section');
         episodesSec.style = 'margin-left: 0%; margin-right: 0%';
+        var windowHeight = window.innerHeight / 1.4;
+                            var seasonsSection = document.getElementById("seasons-section");
+                            var episodiSection = document.getElementById("episodi-section");
+                            if(seasonsSection.clientHeight <= (windowHeight)){
+                                episodiSection.style.maxHeight = windowHeight + "px";
+                            }else{
+                                episodiSection.style.maxHeight = seasonsSection.clientHeight + "px";
+                            }
     } else {
         // Se la larghezza è superiore a 700px, ripristina lo stile dell'elemento
         document.getElementById('bho').style = 'background-color: aqua';
@@ -86,6 +103,14 @@ if ($data) {
         sea_ep_Grid.className = 'col-md-6';
         var seasonsSec = document.getElementById('seasons-section');
         seasonsSec.style = '';
+        var windowHeight = window.innerHeight / 1.4;
+                            var seasonsSection = document.getElementById("seasons-section");
+                            var episodiSection = document.getElementById("episodi-section");
+                            if(seasonsSection.clientHeight <= (windowHeight)){
+                                episodiSection.style.maxHeight = windowHeight + "px";
+                            }else{
+                                episodiSection.style.maxHeight = seasonsSection.clientHeight + "px";
+                            }
     }
 });
 
@@ -122,10 +147,10 @@ if ($data) {
           <a class="nav-link active text-white" aria-current="page" href="login/login_check.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">Feed</a>
+          <a class="nav-link text-white"  href="login/login_check.php?page=feed">Feed</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">Profile</a>
+          <a class="nav-link text-white"  href="login/login_check.php?page=profile">Profile</a>
         </li>
       </ul>
 
@@ -162,12 +187,14 @@ if ($data) {
                         <!-- Contenuto delle stagioni -->
                         <?php
                             foreach ($seasonsData as $season) {
-                                echo '<div class="card w-100 m-4" style="width: 15rem;" id="' . $season["number"] .'">';
-                                echo '<img src="' . $season["image"]["medium"] . '" class="card-img-top" alt="Stagione ' . $season["number"] . '">';
+                                echo '<div class="card w-100 m-4 card-stagione" style="width: 15rem;" id="' . $season["number"] .'">';
+                                if($season["image"] != null){
+                                    echo '<img src="' . $season["image"]["medium"] . '" class="card-img-top" alt="Stagione ' . $season["number"] . '">';
+                                }
                                 echo '<div class="card-body" data-stagione-numero="' . $season["number"] . '">';
                                 echo '<h5 class="card-title">Stagione: ' . $season["number"] .'</h5>';
                                 echo '<p class="card-text">' . $season["summary"] .'</p>';
-                                echo '<a class="btn btn-primary" onclick="caricaEpisodi(' . $season["number"] . ', ' . $season["id"] . ')">Guarda</a>';
+                                echo '<a class="btn btn-primary" onclick="caricaEpisodi(' . $season["number"] . ', ' . $season["id"] . ', ' . $selectedSeriesId . ')">Guarda</a>';
                                 echo '</div>';
                                 echo '</div>';
                             }
@@ -178,11 +205,23 @@ if ($data) {
                     <!-- Contenuto degli episodi -->
                     <section id="episodi-section" class="episodi">
                         <!-- Contenuto degli episodi -->
+                        <script>
+                            var windowHeight = window.innerHeight / 1.4;
+                            var seasonsSection = document.getElementById("seasons-section");
+                            var episodiSection = document.getElementById("episodi-section");
+                            if(seasonsSection.clientHeight <= (windowHeight)){
+                                episodiSection.style.maxHeight = windowHeight + "px";
+                            }else{
+                                episodiSection.style.maxHeight = seasonsSection.clientHeight + "px";
+                            }
+                        </script>
                         <?php
                         foreach ($episodesData as $episodes) {
                             echo '<div class="card w-100 m-4" style="width: 15rem;"  >';
-                            echo ' <img src="' . $episodes["image"]["medium"] . '" class="card-img-top" alt="Episodio ' . $episodes["number"] . '"> ';
-                            echo '<div class="card-body" data-episodioNumero="' . $episodes["number"] . '">';
+                            if($episodes["image"] != null){
+                                echo ' <img src="' . $episodes["image"]["medium"] . '" class="card-img-top" alt="Episodio ' . $episodes["number"] . '"> ';
+                            }
+                            echo '<div class="card-body" data-episodio-numero="' . $episodes["number"] . '">';
                             echo '<h5 class="card-title">' . $episodes["name"] . '</h5>
                             <p class="card-text">' . $episodes["summary"] . '</p>' . '<a class="btn btn-primary" >Guarda</a>';
                             echo '</div>';
