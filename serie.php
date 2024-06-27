@@ -27,6 +27,8 @@ if ($data) {
         $episodesURL = "https://api.tvmaze.com/seasons/"  . $season["id"] .  "/episodes";
         $episodesResponse = file_get_contents($episodesURL);
         $episodesData = json_decode($episodesResponse, true);
+        $seasonId = $season["id"];
+        $seasonNumber = $season["number"];
         break;
     }
 
@@ -36,85 +38,7 @@ if ($data) {
 
 ?>
 
-<script>
-    window.addEventListener('resize', function() {
-    // Controlla la larghezza della finestra quando viene ridimensionata
-    /*if(window.innerWidth <= 1300 && window.innerWidth > 1000){
-        document.getElementById('bho').style = 'background-color: red';
-        document.getElementById('searchInput').style = 'width: 100%';
-        var postsSec = document.getElementById('posts-section');
-        postsSec.style = 'margin-left: 0%; margin-right: 0%; gap: 0px;';
-        var seasonsSec = document.getElementById('seasons-section');
-        seasonsSec.style = 'margin-left: 0%; margin-right: 0%; width: 100%; justify-content: center;';
-        var episodesSec = document.getElementById('episodi-section');
-        episodesSec.style = 'margin-left: 0%; margin-right: 0%; width: 100%; justify-content: center;';
-        
-        //devo fare un foreach dove per ogni stagione, prendo l'id e la classe diventa class="card w-100 m-2"
-
-
-    }else */if (window.innerWidth <= 1000 && window.innerWidth > 800) {
-        document.getElementById('bho').style = 'background-color: green';
-        document.getElementById('searchInput').style = 'width: 100%';
-        var postsSec = document.getElementById('posts-section');
-        postsSec.style = 'margin-left: 0%; margin-right: 0%';
-        var postGrid = document.getElementById('post-grid');
-        postGrid.className = 'col-md-12';
-        var sea_ep_Grid = document.getElementById('seasons-episodes-grid');
-        sea_ep_Grid.className = '';
-        var seasonsSec = document.getElementById('seasons-section');
-        seasonsSec.style = 'margin-left: 0%; margin-right: 0%; width: 100%';
-        var episodesSec = document.getElementById('episodi-section');
-        episodesSec.style = 'margin-left: 0%; margin-right: 0%; width: 100%';
-        
-                            var windowHeight = window.innerHeight / 1.4;
-                            var seasonsSection = document.getElementById("seasons-section");
-                            var episodiSection = document.getElementById("episodi-section");
-                            if(seasonsSection.clientHeight <= (windowHeight)){
-                                episodiSection.style.maxHeight = windowHeight + "px";
-                            }else{
-                                episodiSection.style.maxHeight = seasonsSection.clientHeight + "px";
-                            }
-                        
-
-    } else if(window.innerWidth <= 800) {
-        document.getElementById('bho').style = 'background-color: yellow';
-        var postsSec = document.getElementById('posts-section');
-        postsSec.style = 'margin-left: 0%; margin-right: 0%';
-        var seasonsSec = document.getElementById('seasons-section');
-        seasonsSec.style = 'margin-left: 0%; margin-right: 0%';
-        var episodesSec = document.getElementById('episodi-section');
-        episodesSec.style = 'margin-left: 0%; margin-right: 0%';
-        var windowHeight = window.innerHeight / 1.4;
-                            var seasonsSection = document.getElementById("seasons-section");
-                            var episodiSection = document.getElementById("episodi-section");
-                            if(seasonsSection.clientHeight <= (windowHeight)){
-                                episodiSection.style.maxHeight = windowHeight + "px";
-                            }else{
-                                episodiSection.style.maxHeight = seasonsSection.clientHeight + "px";
-                            }
-    } else {
-        // Se la larghezza è superiore a 700px, ripristina lo stile dell'elemento
-        document.getElementById('bho').style = 'background-color: aqua';
-        document.getElementById('searchInput').style = 'width: 100%';
-        document.getElementById('posts-section').style = 'margin-left: 5%; margin-right: 5%';
-        var postGrid = document.getElementById('post-grid');
-        postGrid.className = 'col-md-6';
-        var sea_ep_Grid = document.getElementById('seasons-episodes-grid');
-        sea_ep_Grid.className = 'col-md-6';
-        var seasonsSec = document.getElementById('seasons-section');
-        seasonsSec.style = '';
-        var windowHeight = window.innerHeight / 1.4;
-                            var seasonsSection = document.getElementById("seasons-section");
-                            var episodiSection = document.getElementById("episodi-section");
-                            if(seasonsSection.clientHeight <= (windowHeight)){
-                                episodiSection.style.maxHeight = windowHeight + "px";
-                            }else{
-                                episodiSection.style.maxHeight = seasonsSection.clientHeight + "px";
-                            }
-    }
-});
-
-    </script>
+<!-- INIZIO HTML + JS -->
 
 <!DOCTYPE html>
 <html lang="it">
@@ -129,10 +53,130 @@ if ($data) {
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="./script/research.js"></script>
 </head>
+<?php
+    echo '<script>';
+    echo 'saveSeasonNumber(' . $seasonNumber . ');';
+    echo 'saveSeasonId(' . $seasonId . ');';
+    echo 'saveSelectedSeries(' . $selectedSeriesId . ');';
+    echo '</script>';
+?>
+
+<script>
+    let screenTotal = screen.width;
+    let screenTotalHeight =screen.height;
+    let currentLayout = "";
+
+    function redimensionPage() {
+    if (window.innerWidth <= (screenTotal / 2) && window.innerWidth > 500) {
+        if(currentLayout != "half-screen"){
+        document.getElementById('bho').style = 'background-color: green';
+        var postGrid = document.getElementById('post-grid');
+        postGrid.className = 'col-md-12';
+        var sea_ep_Grid = document.getElementById('seasons-episodes-grid');
+        sea_ep_Grid.className = 'col-md-12';
+        var sea_Grid = document.getElementById('seasons-grid');
+        sea_Grid.className = 'col-md-6';
+        var ep_Grid = document.getElementById('episodes-grid');
+        ep_Grid.className = 'col-md-6';
+        sea_Grid.style.flex = '1 1 50%';
+        ep_Grid.style.flex = '1 1 50%';
+        sea_Grid.style.maxWidth = '50%';
+        ep_Grid.style.maxWidth = '50%';
+        var seasonsSec = document.getElementById('seasons-section');
+        var episodesSec = document.getElementById('episodi-section');
+        var postSection = document.getElementById("posts-section");
+
+        var windowHeight = screenTotalHeight / 1.4;
+        if(seasonsSec.offsetHeight <= (windowHeight)){
+            episodesSec.style.maxHeight = windowHeight + "px";
+            postSection.style.maxHeight = windowHeight + "px";
+        }else{
+            episodesSec.style.maxHeight = seasonsSec.offsetHeight + "px";
+            postSection.style.maxHeight = seasonsSec.offsetHeight + "px";
+        }
+
+        console.log("seasonNumber", getSeasonNumber());
+        console.log("seasonId", getSeasonId());
+        console.log("season series id", getSelectedSeries());
+        if((getSeasonNumber() && getSeasonId()) != 0){
+            caricaEpisodi(getSeasonNumber(),getSeasonId(),getSelectedSeries());
+        }
+
+        currentLayout = "half-screen";
+    }
+    } else if(window.innerWidth <= 500){
+        if(currentLayout != "small-screen"){
+        document.getElementById('bho').style = 'background-color: red';
+        var postGrid = document.getElementById('post-grid');
+        postGrid.className = 'col-md-6';
+        var sea_ep_Grid = document.getElementById('seasons-episodes-grid');
+        sea_ep_Grid.className = 'col-md-6';
+        var sea_Grid = document.getElementById('seasons-grid');
+        sea_Grid.className = '';
+        var ep_Grid = document.getElementById('episodes-grid');
+        ep_Grid.className = '';
+        sea_Grid.style = '';
+        ep_Grid.style = '';
+        var seasonsSec = document.getElementById('seasons-section');
+        var episodesSec = document.getElementById('episodi-section');
+        var postSection = document.getElementById("posts-section");
+
+        var windowHeight = screenTotalHeight / 1.4;
+        if(seasonsSec.offsetHeight <= (windowHeight)){
+            episodesSec.style.maxHeight = windowHeight + "px";
+            postSection.style.maxHeight = windowHeight + "px";
+            console.log("entrato 1", postSection.offsetHeight);
+        }else{
+            episodesSec.style.maxHeight = seasonsSec.offsetHeight + "px";
+            postSection.style.maxHeight = windowHeight + "px";
+            console.log("entrato 2", postSection.offsetHeight);
+        }
+
+        console.log("seasonNumber", getSeasonNumber());
+        console.log("seasonId", getSeasonId());
+        console.log("season series id", getSelectedSeries());
+        if((getSeasonNumber() && getSeasonId()) != 0){
+            caricaEpisodi(getSeasonNumber(),getSeasonId(),getSelectedSeries());
+        }
+
+        currentLayout = "small-screen";
+        }
+    } else{
+        //default
+        if(currentLayout != "default-screen"){
+        document.getElementById('bho').style = 'background-color: aqua';
+        var postGrid = document.getElementById('post-grid');
+        postGrid.className = 'col-md-6';
+        var sea_ep_Grid = document.getElementById('seasons-episodes-grid');
+        sea_ep_Grid.className = 'col-md-6';
+        var sea_Grid = document.getElementById('seasons-grid');
+        sea_Grid.className = 'col-md-6';
+        var ep_Grid = document.getElementById('episodes-grid');
+        ep_Grid.className = 'col-md-6';
+        sea_Grid.style = 'background-color: pink';
+        ep_Grid.style = 'background-color: lime';
+        var seasonsSec = document.getElementById('seasons-section');
+        var episodesSec = document.getElementById('episodi-section');
+        var postSection = document.getElementById("posts-section");
+
+        var windowHeight = screenTotalHeight / 1.4;
+        if(seasonsSec.offsetHeight <= (windowHeight)){
+            episodesSec.style.maxHeight = windowHeight + "px";
+            postSection.style.maxHeight = windowHeight + "px";
+        }else{
+            episodesSec.style.maxHeight = seasonsSec.offsetHeight + "px";
+            postSection.style.maxHeight = seasonsSec.offsetHeight + "px";
+        }
+
+        currentLayout = "default-screen";
+        }
+    }
+    }
+    </script>
 
 <body style="background-color: aqua;" id="bho">
 
-<nav class="navbar navbar-expand-lg fixed-top bg-dark">
+<nav id="navbarUp" class="navbar navbar-expand-lg fixed-top bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand text-white"><?php echo $seriesTitle; ?></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -165,11 +209,19 @@ if ($data) {
         oninput="effettuaRicerca('<?php echo $seasonsURL; ?>');">
 <p style ="font-weight: bold;"><?php echo $seriesSummary; ?></p>
 
+<script>
+    var navbar = document.getElementById("navbarUp");
+    var searchbar = document.getElementById("searchInput");
+    searchbar.style.position = 'sticky';
+    searchbar.style.top = navbar.offsetHeight + "px";
+    searchbar.style.zIndex = '1';
+</script>
+
 <div class="container-fluid">
     <div class="row" id="rows">
         <div class="col-md-6" id="post-grid" style="background-color: purple;">
             <!-- Contenuto della colonna sinistra (Post) -->
-            <section id="posts-section" class="posts" style = "width: 100%; justify-content: center;">
+            <section id="posts-section" class="posts" style = "width: 100%;">
                 <div class="w-100 p-4" style="width: 15rem;">
                     <?php
                         $templateParams['post'] = $db->getPostOfSeriesById($data["id"]);
@@ -206,13 +258,18 @@ if ($data) {
                     <section id="episodi-section" class="episodi">
                         <!-- Contenuto degli episodi -->
                         <script>
-                            var windowHeight = window.innerHeight / 1.4;
+                            var windowHeight = screenTotalHeight / 1.4;
                             var seasonsSection = document.getElementById("seasons-section");
                             var episodiSection = document.getElementById("episodi-section");
+                            var postSection = document.getElementById("posts-section");
                             if(seasonsSection.clientHeight <= (windowHeight)){
+                                episodiSection.innerHTML = "";
                                 episodiSection.style.maxHeight = windowHeight + "px";
+                                postSection.style.maxHeight = windowHeight + "px";
                             }else{
+                                episodiSection.innerHTML = "";
                                 episodiSection.style.maxHeight = seasonsSection.clientHeight + "px";
+                                postSection.style.maxHeight = seasonsSection.clientHeight + "px";
                             }
                         </script>
                         <?php
@@ -242,6 +299,11 @@ if ($data) {
         </div>
     </div>  
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', redimensionPage);
+    window.addEventListener('resize', redimensionPage);
+</script>
 
 </body>
 </html>
