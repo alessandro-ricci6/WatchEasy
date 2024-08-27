@@ -286,7 +286,7 @@ class DatabaseHelper {
     
     function getShowById($userId) {
 
-        $stmt = $this->db->prepare("SELECT showid FROM showSaved WHERE userid = ?");
+        $stmt = $this->db->prepare("SELECT showId FROM showSaved WHERE userId = ?");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -295,10 +295,24 @@ class DatabaseHelper {
     }
 
     function addFollower($userId, $visited){
-        $stmt = $this->db->prepare("INSERT INTO follow (fromUserid, toUserid) VALUES (?, ?)");
+        $stmt = $this->db->prepare("INSERT INTO follow (fromUserId, toUserId) VALUES (?, ?)");
         $stmt->bind_param('ii', $userId, $visited);
         $stmt->execute();
 
+    }
+    function getFollower($userId,$visited){
+        $stmt = $this->db->prepare("SELECT * FROM follow WHERE fromUserId = ? AND toUserId = ?");
+        $stmt->bind_param('ii', $userId, $visited);
+        $stmt->execute();
+
+        return mysqli_num_rows($stmt->get_result());
+
+    }
+
+    function removeFollower($userId,$visited){
+        $stmt = $this->db->prepare("DELETE FROM follow WHERE fromUserId = ? AND toUserId = ?");
+        $stmt->bind_param('ii', $userId, $visited);
+        $stmt->execute();
     }
 
     public function addNotification($fromUserId, $toUserId, $type, $postId) {

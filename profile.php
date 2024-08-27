@@ -6,32 +6,24 @@ require_once 'bootstrap.php';
 if(isset($_GET["username"])){
     $username = $_GET["username"];
 }
+$userId = $_SESSION["user_id"];
 
-$userId = $db->getUserIdByName($username);
 
-/*if($_SESSION['user_id']) {
-    $userId = $_SESSION['user_id'];
-    $visit = $db->getUserIdByName($username);
-   
-} else {
-   
-
-}
-    */
     if(!$_SESSION['user_id']) {
-        $visit = $db->getUserIdByName($username);
+       /* $visit = $db->getUserIdByName($username);
         $userId = $visit;
+        */ 
     }
 
-$templateParams['visit'] = $visit;
+//$templateParams['visit'] = $visit;
 $templateParams['titolo'] = 'WatchEasy - Profilo';
-$templateParams['username'] = $db->getUserName($userId);
-$templateParams['post'] = $db->getPostByUserId($userId);
-$templateParams['numpost'] = $db->getNumberOfPost($userId);
-$templateParams['follower'] = $db->getNumberOfFollower($userId);
-$templateParams['followed'] = $db->getNumberOfFollowed($userId);
-$templateParams['show'] = $db->getShowByUserId($userId);
-$templateParams['totepisode'] = $db->getViewedEpisodeNumber($userId);
+$templateParams['username'] = $db->getUserName($username);
+$templateParams['post'] = $db->getPostByUserId($username);
+$templateParams['numpost'] = $db->getNumberOfPost($username);
+$templateParams['follower'] = $db->getNumberOfFollower($username);
+$templateParams['followed'] = $db->getNumberOfFollowed($username);
+$templateParams['show'] = $db->getShowByUserId($username);
+$templateParams['totepisode'] = $db->getViewedEpisodeNumber($username);
 
 require 'template/base.php'
 
@@ -46,7 +38,7 @@ require 'template/base.php'
     <header class="bio">
         <img src="download.jpg" alt="profile" >  
         <p><?php echo $templateParams['username']; ?></p>
-        <button  class="follow" id="follow"> Follow </button>
+        <button  class="follow" id="follow" > Follow </button>
     </header>
     <nav>
       <table id="first">
@@ -94,5 +86,67 @@ require 'template/base.php'
     </footer>
 </body>
 
-<script src ="script/follow.js" ></script>
 
+<script>
+    document.getElementById('follow').addEventListener("click",function(){
+        
+        if(document.getElementById('follow').classList.contains('clicked')){
+            document.getElementById('follow').classList.remove('clicked');
+            document.getElementById('follow').innerText = 'Follow';
+            <?php
+                $db->removeFollower($userId,$username);
+            ?>
+        } else {
+            document.getElementById('follow').classList.add('clicked');
+            document.getElementById('follow').innerText = 'Followed';
+            <?php
+                $db->addFollower($userId,$username);
+                $db->addFollowNotification($userId,$username);
+            ?>
+        
+        }
+    });
+</script>
+
+<?php
+if($_SESSION['user_id']) {
+    $userId = $_SESSION['user_id'];
+
+    } else {
+        die("Errore: Utente non autenticato o ID utente non valido.");
+    }
+    
+
+   
+
+    if(isset($_GET['username']) && !empty($_GET['username'])) {
+        $followId = $_GET['username'];
+        $result = $db->getFollower($userId,$followId);
+
+        if($result!= 0){
+            ?>
+            <script>
+                document.getElementById('follow').classList.remove('clicked');
+                document.getElementById('follow').classList.add('clicked');
+                document.getElementById('follow').innerText = 'Followed';
+                
+            </script>
+            <?php
+        } else {
+            ?>
+            <script>
+                document.getElementById('follow').classList.remove('clicked');
+                document.getElementById('follow').innerText = 'Follow';
+
+            </script>
+            <?php
+            
+        }
+        
+
+    }
+    
+
+
+
+    ?>

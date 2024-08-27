@@ -41,7 +41,7 @@ function displayResults(shows) {
         showURL.href='#';
         showURL.addEventListener('click',function(){
             const showId = show.id;
-            fetch('serie.php', {
+            fetch('show.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -51,7 +51,7 @@ function displayResults(shows) {
             .then(response=> response.text())
             .then(data => {
             console.log(data);
-            window.location.href = 'serie.php?id=' + encodeURIComponent(showId);
+            window.location.href = 'show.php?showId=' + encodeURIComponent(showId);
             })
             .catch(error => console.error('Errore',error));
 
