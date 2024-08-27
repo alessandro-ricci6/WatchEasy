@@ -41,7 +41,15 @@
 </head>
 <body>
     <h2>Registrazione</h2>
-    <form action="register.php" method="post">
+    <form action="register.php" method="post" enctype="multipart/form-data">
+        <div class="image-upload">
+            <label for="profilePic">
+                <div id="preview"></div>
+                <span>+</span>
+            </label>
+            <input type="file" id="profilePic" name="profilePic" accept="image/*" style="display: none;" onchange="previewImage(event)">
+        </div>
+
         <label for="username">Username:</label>
         <input type="text" name="username" required><br>
 
@@ -54,5 +62,32 @@
         <input type="submit" id="registerButton" value="Registrati">
     </form>
     <button id="loginButton" onclick="login_redirect()">Accedi</button>
+
+    <script>
+        function previewImage(event) {
+            var preview = document.getElementById('preview');
+            var label = document.querySelector('.image-upload label');
+            var plusSign = label.querySelector('span');
+            if (event.target.files.length > 0) {
+                preview.innerHTML = '';
+                var img = document.createElement('img');
+                img.src = URL.createObjectURL(event.target.files[0]);
+                preview.appendChild(img);
+                preview.style.display = 'block';
+                plusSign.style.display = 'none';
+            } else {
+                preview.innerHTML = '';
+                preview.style.display = 'none';
+                plusSign.style.display = 'block';
+                label.style.backgroundColor = 'transparent';
+            }
+        }
+
+        function login_redirect() {
+            window.location.href = 'login.php';
+        }
+    </script>
+
+
 </body>
 </html>

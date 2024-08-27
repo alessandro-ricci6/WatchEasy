@@ -7,7 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    flex-direction: column; /* Aggiunto per posizionare gli elementi in colonna */
+    flex-direction: column;
 }
 
 body, form {
@@ -20,30 +20,29 @@ form {
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
     width: 300px;
     text-align: left;
-    margin-top: 10px; /* Aggiunto per spaziare il form dall'h2 */
-    justify-content: center; /* Aggiunto per centrare verticalmente gli elementi */
+    margin-top: 10px;
+    justify-content: center;
 }
 
 form label {
     display: block;
-    margin-bottom: 5px; /* Aggiunto per spazio tra le label */
-    text-align: left; /* Aggiunto per allineare a sinistra */
-    font-weight: bold; /* Aggiunto per rendere il testo in grassetto */
+    margin-bottom: 5px;
+    text-align: left;
+    font-weight: bold;
 }
 
-/* Stili specifici per gli input all'interno del form */
 form input {
     display: flex;
-    flex-direction: column; /* Modificato per posizionare gli elementi in colonna */
+    flex-direction: column;
     align-items: center;
     width: 100%;
     box-sizing: border-box;
 }
 
 form input:not(#registerButton) {
-    margin-bottom: 10px; /* Aggiunto per spazio tra gli input */
-    border: 2px solid black; /* Aggiunto bordo nero */
-    padding: 8px; /* Aggiunto padding per separare il testo dal bordo */
+    margin-bottom: 10px;
+    border: 2px solid black;
+    padding: 8px;
     border-radius: 5px;
 }
 
@@ -74,7 +73,6 @@ button:hover {
     background-color: #45a049;
 }
 
-/* Aggiunto il seguente stile per spostare il pulsante sotto il form con una piccola distanza */
 button#loginButton {
     margin-top: 5px;
 }
@@ -87,9 +85,9 @@ input#registerButton {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 5px; /* Regola la distanza dall'alto */
-    font-size: 15px; /* Imposta la dimensione del carattere desiderata */
-    font-weight: bold; /* Aggiunto per rendere il testo in grassetto */
+    margin-top: 5px;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 input#registerButton:hover {
@@ -106,11 +104,62 @@ button#loginButton {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 5px;
-    font-size: 15px; /* Imposta la dimensione del carattere desiderata */
-    font-weight: bold; /* Aggiunto per rendere il testo in grassetto */
+    font-size: 15px;
+    font-weight: bold;
 }
 
 button#loginButton:hover {
     background-color: #45a049;
     color: black;
+}
+
+.image-upload {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.image-upload label {
+    width: 100px;
+    height: 100px;
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    background-color: transparent;
+}
+
+#preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 5px;
+    display: none;
+    background-color: white;
+}
+
+#preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.image-upload label span {
+    font-size: 40px;
+    color: #ccc;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.image-upload.label.img-uploaded span {
+    display: none;
 }
