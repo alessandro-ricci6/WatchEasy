@@ -12,11 +12,11 @@ $userId = $db->getUserIdByName($username);
 if($_SESSION['user_id']) {
     $userId = $_SESSION['user_id'];
     $visit = $db->getUserIdByName($username);
+    //$visit = $userId;
     $templateParams['visit'] = $visit;
 }
 
 $templateParams['titolo'] = 'WatchEasy - Profilo';
-//$templateParams['nome'] = 'profile_page.php';
 $templateParams['username'] = $db->getUserName($userId);
 $templateParams['post'] = $db->getPostByUserId($userId);
 $templateParams['numpost'] = $db->getNumberOfPost($userId);
@@ -36,9 +36,9 @@ require 'template/base.php'
 </head>
 <body>
     <header class="bio">
-        <img src="download.jpg" alt="foto profilo" >  
+        <img src="download.jpg" alt="profile" >  
         <p><?php echo $templateParams['username']; ?></p>
-        <button  class="follow" id="follow" onclick="follow()"> Follow </button>
+        <button  class="follow" id="follow"> Follow </button>
     </header>
     <nav>
       <table id="first">
@@ -80,18 +80,9 @@ require 'template/base.php'
         </div>
     <footer>
         <form action="#" method="get">
-            <input class = "add" type="button" value="+" id="post" onclick="redirect()">
+            <input class = "add" type="button" value="+" id="post" >
             <label for="post">Aggiungi Post</label>
         </form>
     </footer>
 </body>
-
-    
-
-    <script>
-        function redirect() {
-            windows.location.href="createPost.php"
-        }
-    </script>
-    <script src="script/follow.js"></script>
 

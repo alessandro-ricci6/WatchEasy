@@ -14,9 +14,9 @@ if($_SESSION['userId']) {
     if(isset($_GET['visit']) && !empty($_GET['visit'])) {
         $followId = $_GET['visit'];
     
-
-    $query = "INSERT INTO follow (fromUserid, toUserid) VALUES (?, ?)";
-    $stmt->bind_param('ii', $userId, $followId);
-    $stmt->execute();
+    $db->addFollower($userId,$followId);
+    $db->addFollowNotification($userId,$followId);
 
     }
+    
+   

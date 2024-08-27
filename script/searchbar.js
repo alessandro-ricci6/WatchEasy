@@ -1,3 +1,13 @@
+window.onload = () => {
+    const searchElement = document.getElementById('search-input');
+    document.getElementById('button').addEventListener('click', function(event) {
+        const query = document.getElementById('search-input').value;
+        if (query) {
+            searchShows(query);
+        }
+});
+  
+}
 
 function searchShows(query) {
     fetch(`https://api.tvmaze.com/search/shows?q=${query}`)
@@ -27,40 +37,34 @@ function displayResults(shows) {
         
 
         const showURL = document.createElement('a');
-        //showURL.href=show.url;
         showURL.textContent = show.name;
         showURL.href='#';
-
-        const showId = show.id;
-        fetch('serie.php', {
-            method: 'POST',
-            headers: {
+        showURL.addEventListener('click',function(){
+            const showId = show.id;
+            fetch('serie.php', {
+                method: 'POST',
+                headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: 'id' +encodeURIComponent(showId)
-        })
-        .then(response=> response.text())
-        .then(data => {
+            })
+            .then(response=> response.text())
+            .then(data => {
             console.log(data);
             window.location.href = 'serie.php?id=' + encodeURIComponent(showId);
-        })
-        .catch(error => console.error('Errore',error));
+            })
+            .catch(error => console.error('Errore',error));
 
 
+        });
+
+        
         showName.appendChild(showURL);
         showElement.appendChild(showName);
 
         resultsContainer.appendChild(showElement);
     });
 } 
-window.onload = () => {
-    const searchElement = document.getElementById('search-input');
-    document.getElementById('button').addEventListener('click', function(event) {
-        const query = document.getElementById('search-input').value;
-        if (query) {
-            searchShows(query);
-        }
-});
-  
-}
+
+
 
