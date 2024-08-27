@@ -24,6 +24,10 @@ if ($showId != 0) {
         $templateParams['season' . $season['number']] = $api->getNumberOfEpisodes($season['id']);
     }
 
+    echo '<script type="text/javascript">';
+    echo 'const savedEpisodes = ' . json_encode(array_column($templateParams['epSaved'], 'episode_id')) . ';';
+    echo '</script>';
+
     require 'template/base.php';
 }
 

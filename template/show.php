@@ -1,4 +1,27 @@
 <link rel="stylesheet" href="style/show.css">
+
+<?php
+
+echo '<script type="text/javascript">';
+echo 'const episodes = [];';
+
+foreach ($templateParams['seasonNumber'] as $season) {
+    foreach ($templateParams['season' . $season['number']] as $episode) {
+        echo 'episodes.push({';
+        echo 'name: "' . addslashes($episode['name']) . '",';
+        echo 'image: "' . (isset($episode['image']['medium']) ? addslashes($episode['image']['medium']) : '') . '",';
+        echo 'summary: "' . (isset($episode['summary']) ? addslashes($episode['summary']) : '') . '"';
+        echo '});';
+    }
+}
+
+echo '</script>';
+?>
+
+<?php $seasonsURL = "https://api.tvmaze.com/shows/" . $templateParams['showId'] . "/seasons"; ?>
+<input class="form-control me-2" type="search" placeholder="Search the episode..." aria-label="Search" 
+        style="position: fixed-top; padding: 10px; border: 2px solid black;"
+        oninput="effettuaRicerca(event);">
 <main>
   <div class="topDiv">
     <h1><?php echo $templateParams['showName'] ?></h1>
@@ -34,7 +57,14 @@
                     <li>
                       <div class="epCard">
                         <h4><?php echo $episode['name'] ?></h4>
-                        <p><?php echo $episode['summary'] ?></p>
+                        <h5><?php if($episode["image"] != null){
+                                    echo ' <img src="' . $episode["image"]["medium"] . '" class="card-img-top" style="max-height: 300px; max-width:300px" alt="Episodio ' . $episode["number"] . '"> '; 
+                                  }     
+                        ?></h5>
+                        <p><?php if($episode["summary"] != null){
+                                    echo $episode['summary'];
+                                  }
+                        ?></p>
                         <?php if (!isSaved($episode['id'], $templateParams['epSaved'])): ?>
                           <button type="button" class="btn btn-dark saveEpBtn" data-ep-id="<?php echo $episode['id'] ?>">
                             Save episode
