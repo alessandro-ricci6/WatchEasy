@@ -2,6 +2,7 @@ window.onload = () => {
     const button = document.getElementById('follow');
     button.addEventListener('click', function(event){
         var visitId = $("#visitId").val();
+        //var visitId = document.getElementById('visit').
 
         $.ajax({
             url: 'addFollower.php',

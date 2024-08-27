@@ -11,8 +11,8 @@ if($_SESSION['userId']) {
     }
     
 
-    if(isset($_GET['visit']) && !empty($_GET['visit'])) {
-        $followId = $_GET['visit'];
+    if(isset($_POST['visit']) && !empty($_POST['visit'])) {
+        $followId = $_POST['visit'];
     
     $db->addFollower($userId,$followId);
     $db->addFollowNotification($userId,$followId);

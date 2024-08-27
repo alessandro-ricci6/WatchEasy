@@ -9,13 +9,21 @@ if(isset($_GET["username"])){
 
 $userId = $db->getUserIdByName($username);
 
-if($_SESSION['user_id']) {
+/*if($_SESSION['user_id']) {
     $userId = $_SESSION['user_id'];
     $visit = $db->getUserIdByName($username);
-    //$visit = $userId;
-    $templateParams['visit'] = $visit;
-}
+   
+} else {
+   
 
+}
+    */
+    if(!$_SESSION['user_id']) {
+        $visit = $db->getUserIdByName($username);
+        $userId = $visit;
+    }
+
+$templateParams['visit'] = $visit;
 $templateParams['titolo'] = 'WatchEasy - Profilo';
 $templateParams['username'] = $db->getUserName($userId);
 $templateParams['post'] = $db->getPostByUserId($userId);
@@ -85,4 +93,6 @@ require 'template/base.php'
         </form>
     </footer>
 </body>
+
+<script src ="script/follow.js" ></script>
 
