@@ -34,7 +34,7 @@ CREATE TABLE notification(
 	toUserId INT NOT NULL,
 	postId INT,
 	notificationType INT NOT NULL,
-	notificationRead tinyint NOT NULL,
+	notificationRead tinyint NOT NULL DEFAULT 0,
 	PRIMARY KEY (notificationId),
 	FOREIGN KEY (fromUserId) REFERENCES users(userId),
 	FOREIGN KEY (toUserId) REFERENCES users(userId),
@@ -67,7 +67,7 @@ CREATE TABLE comments(
 );
 CREATE TABLE episodeSaved(
 	userId INT NOT NULL,
-	epsodeId INT NOT NULL,
+	episodeId INT NOT NULL,
 	FOREIGN KEY (userId) REFERENCES users(userId)
 );
 CREATE TABLE commentAnswer (
