@@ -6,9 +6,6 @@
     <title>Registrazione</title>
     <link rel="stylesheet" type="text/css" href="../style/login_style.css">
     <script>
-        function login_redirect() {
-            window.location.href = "login.php";
-        }
 
         function getQueryStringParams() {
             var params = {};
@@ -61,7 +58,7 @@
 
         <input type="submit" id="registerButton" value="Registrati">
     </form>
-    <button id="loginButton" onclick="login_redirect()">Accedi</button>
+    <button id="loginButton">Accedi</button>
 
     <script>
         function previewImage(event) {
@@ -83,9 +80,10 @@
             }
         }
 
-        function login_redirect() {
-            window.location.href = 'login.php';
-        }
+            document.getElementById("loginButton").addEventListener("click", function() {
+                window.location.href = 'login.php';
+            });
+
     </script>
 
 

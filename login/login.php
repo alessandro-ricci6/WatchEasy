@@ -38,9 +38,9 @@
         <label for="password">Password:</label>
         <input type="password" name="p" id="password" required><br>
 
-        <button onclick="hiddenpassword(this.form, this.form.password);">Login</button>
+        <button id="loginButton2">Login</button>
     </form>
-    <button onclick="register_redirect()">Registrati</button><br>
+    <button id="loginButton3">Registrati</button><br>
     <?php
         if(isset($_GET['error'])) { 
             echo "Password or Email does not exit, Retry!";
@@ -50,5 +50,15 @@
             echo "you are not logged!";
          }
     ?>
+
+    <script>
+        document.getElementById("loginButton2").addEventListener("click", function(event) {
+            hiddenpassword(this.form, this.form.password);
+        });
+        document.getElementById("loginButton3").addEventListener("click", function(event) {
+            register_redirect();
+        });
+    </script>
+
 </body>
 </html>
