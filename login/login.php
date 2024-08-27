@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="../style/login_style2.css">
     <script>
         function register_redirect() {
             window.location.href = "register.html";
@@ -38,7 +39,7 @@
         <label for="password">Password:</label>
         <input type="password" name="p" id="password" required><br>
 
-        <button id="loginButton2">Login</button>
+        <button id="loginButton2">Accedi</button>
     </form>
     <button id="loginButton3">Registrati</button><br>
     <?php
