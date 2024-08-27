@@ -3,10 +3,25 @@
 require_once 'bootstrap.php';
 //include 'template/profile_page.php';
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['action']) && isset($_POST['userId']) && isset($_POST['followId'])) {
+        $userId = $_SESSION['user_id'];
+        $followId = $_POST['followId'];
+
+        if ($_POST['action'] == 'remove') {
+            $db->removeFollower($userId, $followId);
+        } elseif ($_POST['action'] == 'add') {
+            $db->addFollower($userId, $followId);
+            $db->addFollowNotification($userId, $followId);
+        }
+        exit;
+    }
+}
+
 if(isset($_GET["username"])){
     $username = $_GET["username"];
 }
-$userId = $_SESSION["user_id"];
+$userId = $_SESSION['user_id'];
 
 
     if(!$_SESSION['user_id']) {
@@ -88,35 +103,29 @@ require 'template/base.php'
 
 
 <script>
-    document.getElementById('follow').addEventListener("click",function(){
-        
-        if(document.getElementById('follow').classList.contains('clicked')){
-            document.getElementById('follow').classList.remove('clicked');
-            document.getElementById('follow').innerText = 'Follow';
-            <?php
-                $db->removeFollower($userId,$username);
-            ?>
-        } else {
-            document.getElementById('follow').classList.add('clicked');
-            document.getElementById('follow').innerText = 'Followed';
-            <?php
-                $db->addFollower($userId,$username);
-                $db->addFollowNotification($userId,$username);
-            ?>
-        
-        }
+    document.getElementById('follow').addEventListener("click", function() {
+        var button = this;
+        var action = button.classList.contains('clicked') ? 'remove' : 'add';
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                if(action === 'remove') {
+                    button.classList.remove('clicked');
+                    button.innerText = 'Follow';
+                } else {
+                    button.classList.add('clicked');
+                    button.innerText = 'Followed';
+                }
+            }
+        };
+        xhr.send("action=" + action + "&userId=" + <?php echo json_encode($userId); ?> + "&followId=" + <?php echo json_encode($username); ?>);
     });
 </script>
 
 <?php
-if($_SESSION['user_id']) {
-    $userId = $_SESSION['user_id'];
-
-    } else {
-        die("Errore: Utente non autenticato o ID utente non valido.");
-    }
-    
-
    
 
     if(isset($_GET['username']) && !empty($_GET['username'])) {
@@ -126,7 +135,6 @@ if($_SESSION['user_id']) {
         if($result!= 0){
             ?>
             <script>
-                document.getElementById('follow').classList.remove('clicked');
                 document.getElementById('follow').classList.add('clicked');
                 document.getElementById('follow').innerText = 'Followed';
                 
@@ -146,7 +154,5 @@ if($_SESSION['user_id']) {
 
     }
     
-
-
 
     ?>
