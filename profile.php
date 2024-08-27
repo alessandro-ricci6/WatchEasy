@@ -39,6 +39,7 @@ $templateParams['follower'] = $db->getNumberOfFollower($username);
 $templateParams['followed'] = $db->getNumberOfFollowed($username);
 $templateParams['show'] = $db->getShowByUserId($username);
 $templateParams['totepisode'] = $db->getViewedEpisodeNumber($username);
+$templateParams['img'] = $db->getImage($username);
 
 require 'template/base.php'
 
@@ -51,7 +52,7 @@ require 'template/base.php'
 </head>
 <body>
     <header class="bio">
-        <img src="download.jpg" alt="profile" >  
+        <img src="<?php echo $templateParams['img'] ?>" alt="profile" >  
         <p><?php echo $templateParams['username']; ?></p>
         <button  class="follow" id="follow" > Follow </button>
     </header>
@@ -93,12 +94,6 @@ require 'template/base.php'
         <?php 
         require 'template/lista-post.php' ?>
         </div>
-    <footer>
-        <form action="#" method="get">
-            <input class = "add" type="button" value="+" id="post" >
-            <label for="post">Aggiungi Post</label>
-        </form>
-    </footer>
 </body>
 
 

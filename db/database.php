@@ -361,16 +361,16 @@ class DatabaseHelper {
 
     }
 
-    /*public function getPostByShow($userId){
-        $stmt = $this->db->prepare("SELECT * FROM post join showSaved on post.userId = showSaved.userId WHERE userId = $userId");
-        $stmt->bind_param('i', $savedId);
+    public function getPostByShow($userId){
+        $stmt = $this->db->prepare("SELECT postId FROM post p JOIN showSaved s on p.userId = s.userId WHERE s.userId = ?");
+        $stmt->bind_param('i', $userId);
         $stmt->execute();
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
 
     }
-    */
+    
     public function getPostNotSaved($userId){
         $stmt = $this->db->prepare("SELECT p.postId, p.userId,p.content, p.createAt FROM Post p
             LEFT JOIN Follow f ON p.userId = f.toUserId AND f.fromUserId = ? WHERE f.fromuserId IS NULL");
@@ -408,6 +408,15 @@ class DatabaseHelper {
         $stmt->bind_param('ii', $userId, $epId);
         $stmt->execute();
     }
+    public function getImage($userId){
+        $stmt = $this->db->prepare("SELECT img FROM users WHERE userId = ?");
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+    return $result->fetch_all(MYSQLI_ASSOC);
+
+    }
 
     public function getSavedEpisode($userId)
     {
@@ -423,6 +432,7 @@ class DatabaseHelper {
 
         return $episodes ?? [];
     }
+
 }
 
 ?>
