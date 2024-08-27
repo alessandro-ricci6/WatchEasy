@@ -1,0 +1,52 @@
+.showImg {
+    max-height: 300px;
+  }
+  
+  .topDiv {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .botDiv {
+    display: flex;
+  }
+  
+  .summDiv {
+    width: 50%;
+    margin: 10px;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .seasDiv {
+    width: 50%;
+    margin: 10px;
+  }
+  
+  .epCard {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    margin: 5px auto;
+  }
+  
+  /* Media query per dispositivi mobili */
+  @media (max-width: 768px) {
+    .botDiv {
+      flex-direction: column; /* Cambia la disposizione in verticale sui dispositivi mobili */
+      display: flex;
+      justify-content: center;
+      margin: 10px;
+    }
+  
+    .summDiv,
+    .seasDiv {
+      width: 100%;
+      padding: 10px;
+    }
+  }
+  

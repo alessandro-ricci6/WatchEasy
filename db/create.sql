@@ -24,7 +24,7 @@ CREATE TABLE post (
 	showId INT NOT NULL,
 	postImg VARCHAR(255),
 	paragraph VARCHAR(255) NOT NULL,
-	pubTime DATETIME,
+	pubTime DATETIME DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (postId),
 	FOREIGN KEY (userId) REFERENCES users(userId)
 );
@@ -35,6 +35,7 @@ CREATE TABLE notification(
 	postId INT,
 	notificationType INT NOT NULL,
 	notificationRead tinyint NOT NULL DEFAULT 0,
+	notificationTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (notificationId),
 	FOREIGN KEY (fromUserId) REFERENCES users(userId),
 	FOREIGN KEY (toUserId) REFERENCES users(userId),

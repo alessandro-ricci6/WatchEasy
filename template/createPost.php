@@ -11,7 +11,7 @@
                 <label for="showSelect">Select show:</label>
                 <select name="showSelect" class="form-select form-select-sm mb-3" aria-label="Large select example" id="showSelect">
                 <label for="startingOption"><option name="startingOption" selected></option></label>
-                    <?php $shows = $db->getShowByUser($_SESSION['user_id']);
+                    <?php $shows = $db->getShowByUserId($_SESSION['user_id']);
                     foreach ($shows as $show):?>
                     <option value="<?php echo $show['showId']?>"><?php echo $api->getTvShowById($show['showId'])['name'] ?></option>
                     <?php endforeach; ?>

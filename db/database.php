@@ -165,12 +165,15 @@ class DatabaseHelper {
     }
 
     public function getShowByUser($userId) {
-        $stmt = $this->db->prepare("SELECT * FROM showSaved WHERE userId = ?");
+        $stmt = $this->db->prepare("SELECT showId FROM showSaved WHERE userId = ?");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
         $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
+        while ($row = $result->fetch_assoc()) {
+            $shows[] = $row['showId'];
+        }
+        $result->free();
+        return $shows ?? [];
     }
 
     public function createPost($userId, $showId, $img, $comment) {
@@ -362,6 +365,49 @@ class DatabaseHelper {
         $result = $stmt->get_result();
         
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function saveShow($showId, $userId)
+    {
+        $stmt = $this->db->prepare("INSERT INTO showSaved (userId, showId) VALUES (?, ?)");
+        $stmt->bind_param('ii', $userId, $showId);
+        $stmt->execute();
+    }
+
+    public function deleteShow($showId, $userId)
+    {
+        $stmt = $this->db->prepare("DELETE FROM showSaved WHERE userId = ? AND showId = ?");
+        $stmt->bind_param('ii', $userId, $showId);
+        $stmt->execute();
+    }
+
+    public function saveEpisode($epId, $userId)
+    {
+        $stmt = $this->db->prepare("INSERT INTO episodeSaved (userId, episodeId) VALUES (?, ?)");
+        $stmt->bind_param('ii', $userId, $epId);
+        $stmt->execute();
+    }
+
+    public function deleteEpisode($epId, $userId)
+    {
+        $stmt = $this->db->prepare("DELETE FROM episodeSaved WHERE userId = ? AND episodeId = ?");
+        $stmt->bind_param('ii', $userId, $epId);
+        $stmt->execute();
+    }
+
+    public function getSavedEpisode($userId)
+    {
+        $stmt = $this->db->prepare("SELECT episodeId FROM episodeSaved WHERE userId = ?");
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $episodes = [];
+        while ($row = $result->fetch_assoc()) {
+            $episodes[] = $row['episodeId'];
+        }
+        $result->free();
+
+        return $episodes ?? [];
     }
 }
 

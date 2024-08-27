@@ -69,4 +69,11 @@ function hideAnswerBtn($commentNumber) {
     }
 }
 
+function isSaved($id, $idList){
+    if(in_array($id, $idList)){
+        return true;
+    } else {
+        return false;
+    }
+}
 ?>
