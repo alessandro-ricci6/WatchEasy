@@ -7,12 +7,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['action']) && isset($_POST['userId']) && isset($_POST['followId'])) {
         $userId = $_SESSION['user_id'];
         $followId = $_POST['followId'];
+        $visitedUser = $db->getUserIdByName($followId);
 
         if ($_POST['action'] == 'remove') {
-            $db->removeFollower($userId, $followId);
+            $db->removeFollower($userId, $visitedUser);
         } elseif ($_POST['action'] == 'add') {
-            $db->addFollower($userId, $followId);
-            $db->addFollowNotification($userId, $followId);
+            $db->addFollower($userId, $visitedUser);
+            $db->addFollowNotification($userId, $visitedUser);
         }
         exit;
     }
@@ -21,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 if(isset($_GET["username"])){
     $username = $_GET["username"];
 }
+$visitedUser = $db->getUserIdByName($username);
 $userId = $_SESSION['user_id'];
 
 
@@ -32,14 +34,14 @@ $userId = $_SESSION['user_id'];
 
 //$templateParams['visit'] = $visit;
 $templateParams['titolo'] = 'WatchEasy - Profilo';
-$templateParams['username'] = $db->getUserName($username);
-$templateParams['post'] = $db->getPostByUserId($username);
-$templateParams['numpost'] = $db->getNumberOfPost($username);
-$templateParams['follower'] = $db->getNumberOfFollower($username);
-$templateParams['followed'] = $db->getNumberOfFollowed($username);
-$templateParams['show'] = $db->getShowByUserId($username);
-$templateParams['totepisode'] = $db->getViewedEpisodeNumber($username);
-$templateParams['img'] = $db->getImage($username);
+$templateParams['username'] = $db->getUserName($visitedUser);
+$templateParams['post'] = $db->getPostByUserId($visitedUser);
+$templateParams['numpost'] = $db->getNumberOfPost($visitedUser);
+$templateParams['follower'] = $db->getNumberOfFollower($visitedUser);
+$templateParams['followed'] = $db->getNumberOfFollowed($visitedUser);
+$templateParams['show'] = $db->getShowByUserId($visitedUser);
+$templateParams['totepisode'] = $db->getViewedEpisodeNumber($visitedUser);
+$templateParams['img'] = $db->getImage($visitedUser);
 
 require 'template/base.php'
 
@@ -125,7 +127,7 @@ require 'template/base.php'
 
     if(isset($_GET['username']) && !empty($_GET['username'])) {
         $followId = $_GET['username'];
-        $result = $db->getFollower($userId,$followId);
+        $result = $db->getFollower($userId,$visitedUser);
 
         if($result!= 0){
             ?>
