@@ -362,7 +362,7 @@ class DatabaseHelper {
     }
 
     public function getPostByShow($userId){
-        $stmt = $this->db->prepare("SELECT postId FROM post p JOIN showSaved s on p.userId = s.userId WHERE s.userId = ?");
+        $stmt = $this->db->prepare("SELECT * FROM post p JOIN showSaved s on p.userId = s.userId WHERE s.userId = ?");
         $stmt->bind_param('i', $userId);
         $stmt->execute();
         $result = $stmt->get_result();
