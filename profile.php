@@ -23,14 +23,6 @@ if(isset($_GET["username"])){
 }
 $userId = $_SESSION['user_id'];
 
-
-    if(!$_SESSION['user_id']) {
-       /* $visit = $db->getUserIdByName($username);
-        $userId = $visit;
-        */ 
-    }
-
-//$templateParams['visit'] = $visit;
 $templateParams['titolo'] = 'WatchEasy - Profilo';
 $templateParams['username'] = $db->getUserName($username);
 $templateParams['post'] = $db->getPostByUserId($username);
